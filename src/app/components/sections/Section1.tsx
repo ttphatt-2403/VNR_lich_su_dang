@@ -24,6 +24,7 @@ import { MagazinePage } from "@/app/components/ui/MagazinePage";
 function RibbonHeader({ label }: { label: string }) {
   return (
     <div
+      className="ribbon-box"
       style={{
         background: C.red,
         color: "#fff",
@@ -41,7 +42,7 @@ function RibbonHeader({ label }: { label: string }) {
         borderLeft: `3px solid ${C.accent}`,
       }}
     >
-      <span style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
+      <span className="shimmer-star" style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
       {label}
     </div>
   );
@@ -64,18 +65,18 @@ export function Section1() {
       <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1px 0.9fr", gap: 0, marginBottom: 32 }}>
         {/* Left column */}
         <div style={{ paddingRight: 24 }}>
-          <Reveal>
+          <Reveal effect="fade-left">
             <RibbonHeader label="Các cột mốc lịch sử" />
           </Reveal>
           {P1_MILESTONES.map((m, i) => (
-            <Reveal key={i} delay={i * 60}>
+            <Reveal key={i} delay={i * 60} effect="fade-left">
               <TimelineEntry date={m.date} title={m.title} body={m.body}/>
             </Reveal>
           ))}
 
           <DottedRule my={20}/>
 
-          <Reveal>
+          <Reveal effect="fade-left">
             <MagazinePullQuote
               text="Chiến thắng Điện Biên Phủ — lừng lẫy năm châu, chấn động địa cầu — là đỉnh cao của nghệ thuật quân sự Việt Nam."
               attribution="Nhận định báo chí quốc tế, 1954"
@@ -88,7 +89,7 @@ export function Section1() {
 
         {/* Right column */}
         <div style={{ paddingLeft: 24, display: "flex", flexDirection: "column", gap: 24, justifyContent: "center" }}>
-          <Reveal>
+          <Reveal effect="rotate-in">
             <Polaroid
               src={imgDaihoi2ToanCanh}
               alt="Toàn cảnh Đại hội II"
@@ -97,7 +98,7 @@ export function Section1() {
               darkCaption
             />
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal delay={120} effect="rotate-in">
             <Polaroid
               src={imgDaihoi2PhatBieu}
               alt="Phát biểu tại Đại hội II"
@@ -114,7 +115,7 @@ export function Section1() {
       {/* Điện Biên Phủ + Giơ-ne-vơ */}
       <div style={{ display: "grid", gridTemplateColumns: "0.9fr 1px 1.1fr", gap: 0, marginBottom: 32 }}>
         <div style={{ paddingRight: 24, display: "flex", flexDirection: "column", gap: 24, justifyContent: "center" }}>
-          <Reveal>
+          <Reveal effect="rotate-in">
             <Polaroid
               src={imgDBP_CamCo}
               alt="Cắm cờ Điện Biên Phủ"
@@ -124,7 +125,7 @@ export function Section1() {
               height={170}
             />
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal delay={120} effect="rotate-in">
             <Polaroid
               src={imgGVR_KyKet}
               alt="Ký kết Hiệp định Giơ-ne-vơ"
@@ -139,22 +140,24 @@ export function Section1() {
         <DottedRule vertical/>
 
         <div style={{ paddingLeft: 24 }}>
-          <Reveal>
+          <Reveal effect="fade-right">
             <RibbonHeader label="Ý nghĩa lịch sử &amp; Kinh nghiệm" />
           </Reveal>
-          <Reveal>
-            <h3 style={{ fontFamily: C.serif, fontSize: 18, fontWeight: 700, color: C.dark, marginBottom: 12 }}>Ba ý nghĩa lịch sử lớn</h3>
+          <Reveal effect="fade-right">
+            <h3 style={{ fontFamily: C.serif, fontSize: 21, fontWeight: 800, color: C.dark, marginBottom: 14 }}>Ba ý nghĩa lịch sử lớn</h3>
             {P1_SIGNIFICANCE.map((sig, i) => (
-              <div key={i} style={{ display: "flex", gap: 12, marginBottom: 12 }}>
-                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 28, color: C.accent, opacity: 0.3, lineHeight: 1, flexShrink: 0, userSelect: "none" }}>{i + 1}</span>
-                <p style={{ fontFamily: C.body, fontSize: 15, lineHeight: 1.6, color: C.dark, opacity: 0.85, paddingTop: 2 }}>{sig}</p>
-              </div>
+              <Reveal key={i} delay={i * 60} effect="fade-left">
+                <div className="sig-row" style={{ display: "flex", gap: 12, marginBottom: 12 }}>
+                  <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 30, color: C.accent, opacity: 0.45, lineHeight: 1, flexShrink: 0, userSelect: "none", transition: "all 0.3s ease" }}>{i + 1}</span>
+                  <p style={{ fontFamily: C.body, fontSize: 17.5, lineHeight: 1.65, color: C.dark, opacity: 0.96, paddingTop: 2 }}>{sig}</p>
+                </div>
+              </Reveal>
             ))}
           </Reveal>
           <DottedRule my={16}/>
-          <Reveal delay={60}>
-            <h3 style={{ fontFamily: C.serif, fontSize: 17, fontWeight: 700, color: C.dark, marginBottom: 4 }}>Năm kinh nghiệm lãnh đạo</h3>
-            {P1_LESSONS.map((l, i) => <Reveal key={i} delay={i * 40}><LessonRow num={l.num} title={l.title} desc={l.desc}/></Reveal>)}
+          <Reveal delay={60} effect="fade-right">
+            <h3 style={{ fontFamily: C.serif, fontSize: 20, fontWeight: 800, color: C.dark, marginBottom: 8 }}>Năm kinh nghiệm lãnh đạo</h3>
+            {P1_LESSONS.map((l, i) => <Reveal key={i} delay={i * 40} effect="fade-right"><LessonRow num={l.num} title={l.title} desc={l.desc}/></Reveal>)}
           </Reveal>
         </div>
       </div>
@@ -162,7 +165,7 @@ export function Section1() {
       <DottedRule my={24}/>
 
       {/* DBP polaroid trio */}
-      <Reveal>
+      <Reveal effect="scale-up" duration={900}>
         <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1.1fr 1fr", gap: 20, alignItems: "center" }}>
           <Polaroid src={imgDBP_HopBan} alt="Bộ Chỉ huy họp bàn" caption='Bộ Chỉ huy họp bàn với phương châm "đánh chắc, tiến chắc"' rotate={-1.2} darkCaption={false} height={150}/>
           <Polaroid src={imgGVR_HoiNghi} alt="Hội nghị Giơ-ne-vơ" caption="Toàn cảnh Hội nghị Giơ-ne-vơ 1954" rotate={0.8} darkCaption={false} height={150}/>

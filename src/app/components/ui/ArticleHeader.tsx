@@ -6,7 +6,7 @@ export function ArticleHeader({ category, headline, sub, intro, period }: {
   return (
     <div style={{ marginBottom: 40 }}>
       {/* Kicker */}
-      <p style={{ fontFamily: C.sans, fontSize: 10, fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.brown, marginBottom: 10, opacity: 0.7 }}>
+      <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 700, letterSpacing: "0.28em", textTransform: "uppercase", color: C.brown, marginBottom: 10, opacity: 0.9 }}>
         {category}
       </p>
       {/* Giant headline */}
@@ -16,16 +16,16 @@ export function ArticleHeader({ category, headline, sub, intro, period }: {
         letterSpacing: "-0.035em", marginBottom: 6,
         textTransform: "uppercase",
       }}>{headline}</h2>
-      {sub && <h3 style={{ fontFamily: C.serif, fontSize: "clamp(18px,2.5vw,28px)", fontWeight: 400, color: C.brown, lineHeight: 1.2, letterSpacing: "-0.01em", marginBottom: 16 }}>{sub}</h3>}
+      {sub && <h3 style={{ fontFamily: C.serif, fontSize: "clamp(22px,3vw,34px)", fontWeight: 600, color: C.brown, lineHeight: 1.25, letterSpacing: "-0.01em", marginBottom: 16 }}>{sub}</h3>}
       <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 20 }}>
         <div style={{ height: 3, width: 48, background: C.red }}/>
-        <span style={{ fontFamily: C.sans, fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: C.accent }}>{period}</span>
+        <span style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: C.accent }}>{period}</span>
         <div style={{ flex: 1, height: 1, background: C.border }}/>
       </div>
       {/* Lead text with drop-cap effect */}
       <p style={{
-        fontFamily: C.body, fontSize: 17.5, lineHeight: 1.88, color: C.dark, opacity: 0.8,
-        maxWidth: 660,
+        fontFamily: C.body, fontSize: 19.5, lineHeight: 1.85, color: C.dark, opacity: 0.96,
+        maxWidth: 680,
       }}>{intro}</p>
     </div>
   );

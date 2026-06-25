@@ -1,5 +1,6 @@
 import React from "react";
 import { C } from "@/tokens";
+import { Reveal } from "./Reveal";
 
 interface MagazinePageProps {
   id?: string;
@@ -9,59 +10,60 @@ interface MagazinePageProps {
 
 export function MagazinePage({ id, pageNum, children }: MagazinePageProps) {
   return (
-    <article
-      id={id}
-      style={{
-        width: "100%",
-        maxWidth: 960,
-        margin: "64px auto",
-        background: C.bg, // Cream paper color
-        color: C.dark,
-        boxShadow: "0 20px 40px rgba(40, 30, 20, 0.15), 0 5px 15px rgba(0, 0, 0, 0.08)",
-        border: `1px solid rgba(122, 26, 28, 0.15)`,
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        // Smooth fade-in animation
-        animation: "fadeUp 0.8s ease-out both",
-      }}
-    >
-      {/* Inner double border margin */}
-      <div
+    <Reveal effect="scale-up" duration={950}>
+      <article
+        id={id}
+        className="magazine-page-shadow section-container"
         style={{
-          margin: "16px",
-          padding: "24px 28px",
-          border: `1px solid rgba(122, 26, 28, 0.25)`,
-          outline: `3px double rgba(122, 26, 28, 0.25)`,
-          outlineOffset: "-6px",
-          flex: 1,
+          width: "100%",
+          maxWidth: 960,
+          margin: "64px auto",
+          background: C.bg, // Cream paper color
+          color: C.dark,
+          border: `1.5px solid rgba(122, 26, 28, 0.18)`,
+          position: "relative",
           display: "flex",
           flexDirection: "column",
+          transition: "box-shadow 0.4s ease, transform 0.4s ease",
         }}
       >
-        {/* Page Content */}
-        <div style={{ flex: 1 }}>{children}</div>
-
-        {/* Bottom Page Footer */}
+        {/* Inner double border margin */}
         <div
           style={{
+            margin: "16px",
+            padding: "24px 28px",
+            border: `1px solid rgba(122, 26, 28, 0.25)`,
+            outline: `3px double rgba(122, 26, 28, 0.25)`,
+            outlineOffset: "-6px",
+            flex: 1,
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            paddingTop: 8,
-            borderTop: `1.5px solid ${C.red}`,
-            marginTop: 32,
-            fontFamily: C.sans,
-            fontSize: 10.5,
-            fontWeight: 700,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "rgba(122, 26, 28, 0.7)",
+            flexDirection: "column",
           }}
         >
-          <span>Trang {pageNum}</span>
+          {/* Page Content */}
+          <div style={{ flex: 1 }}>{children}</div>
+
+          {/* Bottom Page Footer */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingTop: 8,
+              borderTop: `1.5px solid ${C.red}`,
+              marginTop: 32,
+              fontFamily: C.sans,
+              fontSize: 12,
+              fontWeight: 800,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: C.red,
+            }}
+          >
+            <span>Trang {pageNum}</span>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Reveal>
   );
 }

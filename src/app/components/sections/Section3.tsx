@@ -28,7 +28,7 @@ function RibbonHeader({ label }: { label: string }) {
         borderLeft: `3px solid ${C.accent}`,
       }}
     >
-      <span style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
+      <span className="shimmer-star" style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
       {label}
     </div>
   );
@@ -52,7 +52,7 @@ export function Section3() {
 
         {/* Column 1 - Foreign Policy */}
         <div style={{ paddingRight: 24 }}>
-          <Reveal>
+          <Reveal effect="fade-left">
             <RibbonHeader label={P3_APPLICATIONS[0].domain} />
             <h3 style={{ fontFamily: C.serif, fontSize: 20, fontWeight: 700, color: C.red, marginBottom: 16, lineHeight: 1.25 }}>
               {P3_APPLICATIONS[0].headline}
@@ -79,7 +79,7 @@ export function Section3() {
 
         {/* Column 2 - Infrastructure */}
         <div style={{ paddingLeft: 24 }}>
-          <Reveal delay={80}>
+          <Reveal delay={120} effect="fade-right">
             <RibbonHeader label={P3_APPLICATIONS[1].domain} />
             <h3 style={{ fontFamily: C.serif, fontSize: 20, fontWeight: 700, color: C.red, marginBottom: 16, lineHeight: 1.25 }}>
               {P3_APPLICATIONS[1].headline}
@@ -106,7 +106,7 @@ export function Section3() {
       <DottedRule my={24}/>
 
       {/* References Footer Box */}
-      <Reveal>
+      <Reveal effect="scale-up">
         <div style={{ background: C.bg2, padding: "18px 24px", border: `1.5px solid rgba(122,26,28,0.18)` }}>
           <p style={{ fontFamily: C.sans, fontSize: 9.5, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: C.red, marginBottom: 12 }}>
             Danh mục tài liệu tham khảo chính thức

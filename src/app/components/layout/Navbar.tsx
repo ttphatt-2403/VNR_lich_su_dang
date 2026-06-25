@@ -14,16 +14,17 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue }: NavbarPro
     <>
       <header style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-        background: scrolled ? "rgba(245,230,200,0.97)" : "rgba(245,230,200,0.95)",
+        background: scrolled ? "rgba(245,230,200,0.98)" : "rgba(245,230,200,0.95)",
         backdropFilter: "blur(12px)",
         borderBottom: `2px solid ${C.dark}`,
+        boxShadow: scrolled ? "0 4px 20px rgba(62,47,28,0.18)" : "none",
         transition: C.tr,
       }}>
         {/* Main nav row */}
         <div style={{ padding: "0 6%", height: 52, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           {/* Logo */}
           <a href="#" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
-            <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <svg className="shimmer-star" width="22" height="22" viewBox="0 0 32 32" fill="none">
               <polygon points="16,2 18.8,10.5 28,10.5 20.8,16 23.4,24.5 16,19.5 8.6,24.5 11.2,16 4,10.5 13.2,10.5" fill={C.accent}/>
             </svg>
             <span style={{ fontFamily: C.serif, fontWeight: 800, fontSize: 17, color: C.dark, letterSpacing: "-0.01em" }}>Lịch sử Đảng</span>
@@ -31,15 +32,12 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue }: NavbarPro
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-0">
             {CHAPTERS.map(ch => (
-              <a key={ch.id} href={`#${ch.id}`} style={{
+              <a key={ch.id} href={`#${ch.id}`} className="nav-link" style={{
                 textDecoration: "none", fontFamily: C.sans, fontSize: 12.5,
-                color: C.dark, opacity: 0.7, padding: "8px 16px",
+                color: C.dark, opacity: 0.85, padding: "8px 16px",
                 borderRight: `1px dotted ${C.border}`,
-                transition: C.tr, display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
-              }}
-                onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "1"; (e.currentTarget as HTMLAnchorElement).style.color = C.brown; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = "0.7"; (e.currentTarget as HTMLAnchorElement).style.color = C.dark; }}
-              >
+                display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
+              }}>
                 <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 11, color: C.accent }}>{ch.roman}.</span>
                 {ch.label}
               </a>

@@ -28,12 +28,14 @@ export function Polaroid({
         flexDirection: "column",
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.transform = `rotate(0deg) scale(1.02)`;
-        e.currentTarget.style.zIndex = "10";
+        e.currentTarget.style.transform = `rotate(0deg) scale(1.06) translateY(-8px)`;
+        e.currentTarget.style.zIndex = "25";
+        e.currentTarget.style.boxShadow = "0 20px 45px rgba(122,26,28,0.25), 0 0 20px rgba(212,163,69,0.45)";
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.transform = `rotate(${rotate}deg) scale(1)`;
+        e.currentTarget.style.transform = `rotate(${rotate}deg) scale(1) translateY(0px)`;
         e.currentTarget.style.zIndex = "1";
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
       {darkCaption ? (
@@ -65,8 +67,8 @@ export function Polaroid({
               padding: "8px 12px",
               marginTop: 6,
               fontFamily: C.body,
-              fontSize: 13.5,
-              fontWeight: 500,
+              fontSize: 15.5,
+              fontWeight: 600,
               textAlign: "center",
               lineHeight: 1.4,
               border: `1px solid ${C.accent}`,
@@ -101,9 +103,10 @@ export function Polaroid({
           <figcaption
             style={{
               fontFamily: C.body,
-              fontSize: 13,
+              fontSize: 15,
               fontStyle: "italic",
-              color: C.muted,
+              color: C.brown,
+              fontWeight: 600,
               textAlign: "center",
               marginTop: 10,
               lineHeight: 1.5,

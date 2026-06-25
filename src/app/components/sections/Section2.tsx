@@ -58,7 +58,7 @@ function RibbonHeader({ label }: { label: string }) {
         borderLeft: `3px solid ${C.accent}`,
       }}
     >
-      <span style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
+      <span className="shimmer-star" style={{ color: C.accent, marginRight: 8, fontSize: 13 }}>★</span>
       {label}
     </div>
   );
@@ -72,57 +72,59 @@ export function Section2() {
           ───────────────────────────────────────────────────────────────────────────── */}
       <MagazinePage id="phan-2" pageNum={23}>
         {/* Top Header Block */}
-        <div style={{ marginBottom: 28, position: "relative" }}>
-          <div
-            style={{
-              background: C.red,
-              color: "#fff",
-              display: "inline-block",
-              padding: "4px 10px",
-              fontFamily: C.sans,
-              fontSize: 14,
-              fontWeight: 800,
-              marginBottom: 12,
-            }}
-          >
-            1.1.
+        <Reveal effect="fade-up">
+          <div style={{ marginBottom: 28, position: "relative" }}>
+            <div
+              style={{
+                background: C.red,
+                color: "#fff",
+                display: "inline-block",
+                padding: "4px 10px",
+                fontFamily: C.sans,
+                fontSize: 14,
+                fontWeight: 800,
+                marginBottom: 12,
+              }}
+            >
+              1.1.
+            </div>
+            <h2
+              style={{
+                fontFamily: C.serif,
+                fontSize: "clamp(32px, 4.5vw, 48px)",
+                fontWeight: 900,
+                color: C.red,
+                lineHeight: 1.05,
+                letterSpacing: "-0.02em",
+                textTransform: "uppercase",
+                margin: "0 0 16px 0",
+              }}
+            >
+              CÁCH MẠNG HAI MIỀN <br />
+              GIAI ĐOẠN 1954 - 1960
+            </h2>
+            <p
+              style={{
+                fontFamily: C.body,
+                fontSize: 16.5,
+                lineHeight: 1.7,
+                color: C.dark,
+                opacity: 0.9,
+                margin: 0,
+                maxWidth: 620,
+              }}
+            >
+              Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau:{" "}
+              <strong>miền Bắc hoàn toàn giải phóng</strong>, <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
+            </p>
           </div>
-          <h2
-            style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(32px, 4.5vw, 48px)",
-              fontWeight: 900,
-              color: C.red,
-              lineHeight: 1.05,
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              margin: "0 0 16px 0",
-            }}
-          >
-            CÁCH MẠNG HAI MIỀN <br />
-            GIAI ĐOẠN 1954 - 1960
-          </h2>
-          <p
-            style={{
-              fontFamily: C.body,
-              fontSize: 16.5,
-              lineHeight: 1.7,
-              color: C.dark,
-              opacity: 0.9,
-              margin: 0,
-              maxWidth: 620,
-            }}
-          >
-            Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau:{" "}
-            <strong>miền Bắc hoàn toàn giải phóng</strong>, <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
-          </p>
-        </div>
+        </Reveal>
 
-        {/* Main Grid: left column (Tại miền Bắc) | right column (Vĩ tuyến 17 + Quote) */}
+        {/* Main Grid: left column (Tại miền Bắc) | right column (Tại miền Nam) */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.1fr 0.9fr",
+            gridTemplateColumns: "1fr 1fr",
             gap: 28,
             alignItems: "start",
             marginBottom: 28,
@@ -135,232 +137,313 @@ export function Section2() {
               paddingRight: 24,
             }}
           >
-            <RibbonHeader label="Tại miền Bắc" />
+            <Reveal effect="fade-left">
+              <RibbonHeader label="Tại miền Bắc" />
+            </Reveal>
 
             {/* Item 1: Khôi phục kinh tế */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <FactoryIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
+            <Reveal effect="fade-left" delay={50}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
                   style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  Khôi phục kinh tế (1954-1957):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi.
-                </p>
+                  <FactoryIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Khôi phục kinh tế (1954-1957):
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
             <DottedRule my={16} />
 
             {/* Item 2: Cải cách ruộng đất */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <TractorIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
+            <Reveal effect="fade-left" delay={100}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
                   style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  Cải cách ruộng đất (7-1956):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Chế độ chiếm hữu ruộng đất phong kiến đã bị xóa bỏ hoàn toàn. Tuy nhiên, trong quá trình thực hiện đã xảy ra những sai lầm nghiêm trọng do chủ quan, giáo điều. Hội nghị Trung ương 10 (khóa II) đã nghiêm khắc kiểm điểm và tiến hành sửa sai thành công.
-                </p>
+                  <TractorIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Cải cách ruộng đất:
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Đến tháng 7-1956, chế độ chiếm hữu ruộng đất phong kiến đã bị xóa bỏ hoàn toàn. Tuy nhiên, trong quá trình thực hiện đã xảy ra những sai lầm nghiêm trọng do chủ quan, giáo điều. Hội nghị Trung ương 10 (khóa II) đã nghiêm khắc kiểm điểm và tiến hành sửa sai thành công.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
             <DottedRule my={16} />
 
             {/* Item 3: Cải tạo XHCN */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <PeopleIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
+            <Reveal effect="fade-left" delay={150}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
+                <div
+                  className="circle-badge"
                   style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  Cải tạo xã hội chủ nghĩa (1958-1960):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Miền Bắc chuyển sang giai đoạn cải tạo kinh tế cá thể của nông dân, thợ thủ công và tư bản tư doanh, xây dựng quan hệ sản xuất mới dựa trên sở hữu toàn dân và tập thể.
-                </p>
+                  <PeopleIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Cải tạo xã hội chủ nghĩa (1958-1960):
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Miền Bắc chuyển sang giai đoạn cải tạo kinh tế cá thể của nông dân, thợ thủ công và tư bản tư doanh, xây dựng quan hệ sản xuất mới dựa trên sở hữu toàn dân và tập thể.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
           </div>
 
-          {/* Right Column — Vĩ tuyến 17 + Quote + Photo */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {/* Vĩ tuyến 17 Image Card */}
-            <div
-              style={{
-                border: `1.5px solid ${C.red}`,
-                padding: "6px",
-                background: "#fff",
-                boxShadow: "0 8px 24px rgba(62,47,28,0.14)",
-              }}
-            >
-              <img
-                src={imgVT17_ToanCanh}
-                alt="Vĩ tuyến 17"
-                style={{
-                  width: "100%",
-                  height: 180,
-                  objectFit: "cover",
-                  display: "block",
-                  filter: "sepia(0.25) contrast(1.08) brightness(0.92)",
-                }}
-              />
-              <div
-                style={{
-                  background: C.red,
-                  color: "#fff",
-                  padding: "6px 10px",
-                  marginTop: 6,
-                  fontFamily: C.body,
-                  fontSize: 12.5,
-                  fontWeight: 500,
-                  textAlign: "center",
-                  lineHeight: 1.3,
-                  border: `1px solid ${C.accent}`,
-                }}
-              >
-                Vĩ tuyến 17 (Quảng Trị) trở thành giới tuyến tạm thời chia cắt hai miền.
+          {/* Right Column — Tại miền Nam */}
+          <div style={{ paddingLeft: 12 }}>
+            <Reveal effect="fade-right">
+              <RibbonHeader label="Tại miền Nam" />
+            </Reveal>
+
+            {/* Item 1: Đối phó thực dân mới */}
+            <Reveal effect="fade-right" delay={50}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <PeopleIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Đối phó với chính sách thực dân mới:
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Mỹ hất cẳng Pháp, lập nên chính quyền tay sai Ngô Đình Diệm, thực hiện quốc sách "tố cộng, diệt cộng" tàn bạo.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* Premium Quote Block */}
-            <div
-              style={{
-                background: C.bg2,
-                borderLeft: `4px solid ${C.red}`,
-                padding: "16px 20px",
-                position: "relative",
-              }}
-            >
-              <span
-                style={{
-                  position: "absolute",
-                  top: -12,
-                  left: 10,
-                  fontFamily: C.serif,
-                  fontSize: 80,
-                  lineHeight: 1,
-                  color: C.red,
-                  opacity: 0.15,
-                  userSelect: "none",
-                  fontWeight: 900,
-                }}
-              >
-                ❝
-              </span>
-              <p
-                style={{
-                  fontFamily: C.serif,
-                  fontSize: 14.5,
-                  fontStyle: "italic",
-                  color: C.dark,
-                  lineHeight: 1.6,
-                  margin: 0,
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                Miền Bắc vừa khắc phục hậu quả chiến tranh, vừa tiến hành cách mạng xã hội chủ nghĩa, đạt nhiều thành tựu to lớn, tạo nền tảng vững chắc cho sự nghiệp xây dựng chủ nghĩa xã hội và đấu tranh thống nhất đất nước.
-              </p>
-            </div>
+            <DottedRule my={16} />
 
-            {/* Industrial Chimneys Picture / Bác Hồ with workers */}
-            <div
-              style={{
-                border: "1px solid rgba(0,0,0,0.06)",
-                padding: "5px",
-                background: "#fff",
-                boxShadow: "0 6px 15px rgba(0,0,0,0.08)",
-              }}
-            >
-              <img
-                src={imgBacHo_BHH_2}
-                alt="Khôi phục sản xuất miền Bắc"
-                style={{
-                  width: "100%",
-                  height: 120,
-                  objectFit: "cover",
-                  display: "block",
-                  filter: "sepia(0.2) contrast(1.05) brightness(0.95)",
-                }}
-              />
-            </div>
+            {/* Item 2: Chuyển hướng đấu tranh */}
+            <Reveal effect="fade-right" delay={100}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <GearIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Chuyển hướng đấu tranh:
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Từ tháng 7-1954, Đảng quyết định chuyển từ đấu tranh quân sự sang đấu tranh chính trị để đòi thi hành Hiệp định.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <DottedRule my={16} />
+
+            {/* Item 3: Nghị quyết 15 */}
+            <Reveal effect="fade-right" delay={150}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <StarIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Nghị quyết 15 (1-1959):
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Ra đời trong Hội nghị TW lần thứ 15 khoá II: Đánh dấu bước ngoặt lớn, Đảng xác định con đường cách mạng miền Nam là sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để giành chính quyền.
+                  </p>
+                </div>
+              </div>
+            </Reveal>
+
+            <DottedRule my={16} />
+
+            {/* Item 4: Phong trào Đồng khởi */}
+            <Reveal effect="fade-right" delay={200}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
+                <div
+                  className="circle-badge"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <GroupIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Phong trào Đồng khởi (1960):
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Bắt đầu từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công. Mặt trận Dân tộc giải phóng miền Nam Việt Nam ra đời (20-12-1960).
+                  </p>
+                </div>
+              </div>
+            </Reveal>
           </div>
         </div>
 
@@ -532,60 +615,62 @@ export function Section2() {
       </MagazinePage>
 
       {/* ─────────────────────────────────────────────────────────────────────────────
-          PAGE 24 — KHÁNG CHIẾN CHỐNG MỸ & THỰC HIỆN HAI CHIẾN LƯỢC (1960 - 1965)
+          PAGE 24 — KHÁNG CHIẾN CHỐNG MỸ & THỰC HIỆN HAI CHIẾN LƯỢC (1961 - 1965)
           ───────────────────────────────────────────────────────────────────────────── */}
       <MagazinePage pageNum={24}>
         {/* Top Header Block */}
-        <div style={{ marginBottom: 28 }}>
-          <div
-            style={{
-              background: C.red,
-              color: "#fff",
-              display: "inline-block",
-              padding: "4px 10px",
-              fontFamily: C.sans,
-              fontSize: 14,
-              fontWeight: 800,
-              marginBottom: 12,
-            }}
-          >
-            1.2.
+        <Reveal effect="fade-up">
+          <div style={{ marginBottom: 28 }}>
+            <div
+              style={{
+                background: C.red,
+                color: "#fff",
+                display: "inline-block",
+                padding: "4px 10px",
+                fontFamily: C.sans,
+                fontSize: 14,
+                fontWeight: 800,
+                marginBottom: 12,
+              }}
+            >
+              1.2.
+            </div>
+            <h2
+              style={{
+                fontFamily: C.serif,
+                fontSize: "clamp(30px, 4.2vw, 44px)",
+                fontWeight: 900,
+                color: C.red,
+                lineHeight: 1.1,
+                letterSpacing: "-0.02em",
+                textTransform: "uppercase",
+                margin: "0 0 16px 0",
+              }}
+            >
+              CÁCH MẠNG HAI MIỀN <br />
+              GIAI ĐOẠN 1961 - 1965
+            </h2>
+            <p
+              style={{
+                fontFamily: C.body,
+                fontSize: 16.5,
+                lineHeight: 1.7,
+                color: C.dark,
+                opacity: 0.9,
+                margin: 0,
+                maxWidth: 620,
+              }}
+            >
+              Đại hội đại biểu toàn quốc lần thứ III (9-1960) đã hoàn chỉnh đường lối chiến lược chung cho cách mạng cả nước.
+            </p>
           </div>
-          <h2
-            style={{
-              fontFamily: C.serif,
-              fontSize: "clamp(30px, 4.2vw, 44px)",
-              fontWeight: 900,
-              color: C.red,
-              lineHeight: 1.1,
-              letterSpacing: "-0.02em",
-              textTransform: "uppercase",
-              margin: "0 0 16px 0",
-            }}
-          >
-            ĐỒNG KHỞI VÀ ĐÁNH BẠI <br />
-            CHIẾN TRANH ĐẶC BIỆT (1960 - 1965)
-          </h2>
-          <p
-            style={{
-              fontFamily: C.body,
-              fontSize: 16.5,
-              lineHeight: 1.7,
-              color: C.dark,
-              opacity: 0.9,
-              margin: 0,
-              maxWidth: 620,
-            }}
-          >
-            Đảng lãnh đạo nhân dân miền Nam bùng lên trong phong trào Đồng Khởi, thành lập Mặt trận Dân tộc Giải phóng miền Nam Việt Nam và đánh bại chiến lược "Chiến tranh đặc biệt" của Mỹ.
-          </p>
-        </div>
+        </Reveal>
 
         {/* Grid layout */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.1fr 0.9fr",
+            gridTemplateColumns: "1fr 1fr",
             gap: 28,
             alignItems: "start",
             marginBottom: 28,
@@ -598,210 +683,151 @@ export function Section2() {
               paddingRight: 24,
             }}
           >
-            <RibbonHeader label="Cách mạng Miền Nam" />
+            <Reveal effect="fade-left">
+              <RibbonHeader label="Tại miền Bắc" />
+            </Reveal>
 
-            {/* Nghị quyết 15 & Đồng Khởi */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <PeopleIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
+            {/* Đường lối chung */}
+            <Reveal effect="fade-left" delay={50}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
                   style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  Nghị quyết 15 &amp; Đồng Khởi (1959-1960):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Xác định con đường bạo lực cách mạng kết hợp đấu tranh chính trị và quân sự. Phong trào Đồng Khởi bùng nổ từ Bến Tre (17/1/1960) lan rộng khắp miền Nam, phá vỡ hệ thống kìm kẹp của địch.
-                </p>
+                  <GearIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Đường lối chung &amp; Hai chiến lược:
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Thực hiện đồng thời hai chiến lược cách mạng: cách mạng XHCN ở miền Bắc và cách mạng dân tộc dân chủ nhân dân ở miền Nam.
+                    <br />
+                    • <strong>Miền Bắc:</strong> Giữ vai trò quyết định nhất đối với sự phát triển của toàn bộ cách mạng Việt Nam.
+                    <br />
+                    • <strong>Miền Nam:</strong> Giữ vai trò quyết định trực tiếp đối với sự nghiệp giải phóng miền Nam.
+                    <br />
+                    • <strong>Mục tiêu chung:</strong> Giải phóng miền Nam, hòa bình thống nhất đất nước.
+                  </p>
+                </div>
               </div>
-            </div>
+            </Reveal>
 
             <DottedRule my={16} />
 
-            {/* Đại hội III & Kế hoạch 5 năm */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <GearIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
+            {/* Kế hoạch 5 năm */}
+            <Reveal effect="fade-left" delay={100}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
+                <div
+                  className="circle-badge"
                   style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
                   }}
                 >
-                  Đại hội III &amp; Hai chiến lược (9-1960):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Hoàn chỉnh đường lối cách mạng: CMXHCN ở miền Bắc đóng vai trò quyết định nhất; CMDTDCND ở miền Nam đóng vai trò quyết định trực tiếp đối với sự nghiệp giải phóng miền Nam.
-                </p>
+                  <FactoryIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Kế hoạch 5 năm lần thứ nhất (1961-1965):
+                  </h4>
+                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                    Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như "Mỗi người làm việc bằng hai" dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <DottedRule my={16} />
-
-            {/* Đánh bại chiến tranh đặc biệt */}
-            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
-              <div
-                className="circle-badge"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: "50%",
-                  border: `2px solid ${C.red}`,
-                  background: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                  transition: "all 0.3s ease",
-                }}
-              >
-                <FactoryIcon size={26} color={C.red} />
-              </div>
-              <div>
-                <h4
-                  style={{
-                    fontFamily: C.serif,
-                    fontSize: 14.5,
-                    fontWeight: 700,
-                    color: C.red,
-                    textTransform: "uppercase",
-                    margin: "0 0 6px 0",
-                  }}
-                >
-                  Chiến thắng quân sự (1961-1965):
-                </h4>
-                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                  Quân dân miền Nam sử dụng "ba mũi giáp công" để phá tan ấp chiến lược, chiến thắng vang dội tại Ấp Bắc (1963), Bình Giã (1964), Ba Gia và Đồng Xoài (1965), làm phá sản chiến lược "Chiến tranh đặc biệt".
-                </p>
-              </div>
-            </div>
+            </Reveal>
           </div>
 
           {/* Right column */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-            {/* Đồng Khởi image */}
-            <div
-              style={{
-                border: `1.5px solid ${C.red}`,
-                padding: "6px",
-                background: "#fff",
-                boxShadow: "0 8px 24px rgba(62,47,28,0.14)",
-              }}
-            >
-              <img
-                src={imgDongKhoi}
-                alt="Phong trào Đồng Khởi"
-                style={{
-                  width: "100%",
-                  height: 160,
-                  objectFit: "cover",
-                  display: "block",
-                  filter: "sepia(0.25) contrast(1.08) brightness(0.92)",
-                }}
-              />
-              <div
-                style={{
-                  background: C.red,
-                  color: "#fff",
-                  padding: "6px 10px",
-                  marginTop: 6,
-                  fontFamily: C.body,
-                  fontSize: 12.5,
-                  fontWeight: 500,
-                  textAlign: "center",
-                  lineHeight: 1.3,
-                  border: `1px solid ${C.accent}`,
-                }}
-              >
-                Nhân dân Bến Tre nổi dậy trong phong trào Đồng Khởi (1960).
+          <div style={{ paddingLeft: 12, display: "flex", flexDirection: "column", gap: 20 }}>
+            <Reveal effect="fade-right">
+              <RibbonHeader label="Tại miền Nam" />
+            </Reveal>
+
+            {/* Đánh bại Chiến tranh đặc biệt */}
+            <Reveal effect="fade-right" delay={50}>
+              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
+                <div
+                  className="circle-badge"
+                  style={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: "50%",
+                    border: `2px solid ${C.red}`,
+                    background: "#fff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                    transition: "all 0.3s ease",
+                  }}
+                >
+                  <PeopleIcon size={26} color={C.red} />
+                </div>
+                <div>
+                  <h4
+                    style={{
+                      fontFamily: C.serif,
+                      fontSize: 14.5,
+                      fontWeight: 700,
+                      color: C.red,
+                      textTransform: "uppercase",
+                      margin: "0 0 6px 0",
+                    }}
+                  >
+                    Đánh bại Chiến tranh đặc biệt:
+                  </h4>
+                <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  Mỹ thực hiện công thức "cố vấn, vũ khí Mỹ và quân chủ lực Việt Nam Cộng hòa" cùng quốc sách "ấp chiến lược".
+                  <br />
+                  Đảng chỉ đạo giữ vững thế tiến công, đánh địch bằng "ba mũi giáp công" (quân sự, chính trị, binh vận) trên cả "ba vùng chiến lược" (đô thị, nông thôn đồng bằng, miền núi).
+                  <br />
+                  Chiến thắng Ấp Bắc (1963) và các chiến dịch Bình Giã, Ba Gia, Đồng Xoài (1964-1965) đã làm phá sản hoàn toàn chiến lược "Chiến tranh đặc biệt" của Mỹ.
+                </p>
               </div>
             </div>
-
-            {/* Quote block */}
-            <div
-              style={{
-                background: C.bg2,
-                borderLeft: `4px solid ${C.red}`,
-                padding: "16px 20px",
-                position: "relative",
-              }}
-            >
-              <span
-                style={{
-                  position: "absolute",
-                  top: -12,
-                  left: 10,
-                  fontFamily: C.serif,
-                  fontSize: 80,
-                  lineHeight: 1,
-                  color: C.red,
-                  opacity: 0.15,
-                  userSelect: "none",
-                  fontWeight: 900,
-                }}
-              >
-                ❝
-              </span>
-              <p
-                style={{
-                  fontFamily: C.serif,
-                  fontSize: 14.5,
-                  fontStyle: "italic",
-                  color: C.dark,
-                  lineHeight: 1.6,
-                  margin: 0,
-                  position: "relative",
-                  zIndex: 1,
-                }}
-              >
-                Nghị quyết Trung ương 15 mở đường cho cách mạng miền Nam bùng nổ. Sự kết hợp giữa bạo lực vũ trang và chính trị tạo ra thế tiến công mạnh mẽ không thể đảo ngược.
-              </p>
-            </div>
+          </Reveal>
 
             {/* Bác Hồ / Đại hội III image */}
             <div
