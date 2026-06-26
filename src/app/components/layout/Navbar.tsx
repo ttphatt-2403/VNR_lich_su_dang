@@ -7,9 +7,10 @@ interface NavbarProps {
   mobileOpen: boolean;
   setMobileOpen: (open: boolean) => void;
   issue: { num: string; date: string };
+  onOpenMuseum: () => void;
 }
 
-export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue }: NavbarProps) {
+export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseum }: NavbarProps) {
   return (
     <>
       <header style={{
@@ -29,20 +30,61 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue }: NavbarPro
             </svg>
             <span style={{ fontFamily: C.serif, fontWeight: 800, fontSize: 17, color: C.dark, letterSpacing: "-0.01em" }}>Lịch sử Đảng</span>
           </a>
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-0">
-            {CHAPTERS.map(ch => (
-              <a key={ch.id} href={`#${ch.id}`} className="nav-link" style={{
-                textDecoration: "none", fontFamily: C.sans, fontSize: 12.5,
-                color: C.dark, opacity: 0.85, padding: "8px 16px",
-                borderRight: `1px dotted ${C.border}`,
-                display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
-              }}>
-                <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 11, color: C.accent }}>{ch.roman}.</span>
-                {ch.label}
-              </a>
-            ))}
-          </nav>
+          
+          {/* Desktop nav with 3D Museum Button */}
+          <div className="hidden md:flex items-center">
+            <nav className="flex items-center gap-0">
+              {CHAPTERS.map(ch => (
+                <a key={ch.id} href={`#${ch.id}`} className="nav-link" style={{
+                  textDecoration: "none", fontFamily: C.sans, fontSize: 12.5,
+                  color: C.dark, opacity: 0.85, padding: "8px 16px",
+                  borderRight: `1px dotted ${C.border}`,
+                  display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap",
+                }}>
+                  <span style={{ fontFamily: C.serif, fontWeight: 700, fontSize: 11, color: C.accent }}>{ch.roman}.</span>
+                  {ch.label}
+                </a>
+              ))}
+            </nav>
+            <button
+              onClick={onOpenMuseum}
+              style={{
+                background: C.red,
+                color: "#fff",
+                border: `1.5px solid ${C.accent}`,
+                fontFamily: C.sans,
+                fontSize: 11,
+                fontWeight: 800,
+                padding: "6px 14px",
+                borderRadius: 4,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                marginLeft: 16,
+                boxShadow: "0 4px 10px rgba(122,26,28,0.2)",
+                transition: C.tr,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = C.redMid;
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = C.red;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                <line x1="12" y1="22.08" x2="12" y2="12" />
+              </svg>
+              Bảo Tàng 3D
+            </button>
+          </div>
+
           <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}
             style={{ background: "none", border: "none", cursor: "pointer", color: C.dark }}>
             {mobileOpen ? <X size={20}/> : <Menu size={20}/>}
@@ -61,6 +103,35 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue }: NavbarPro
               <span style={{ color: C.accent, marginRight: 12 }}>{ch.roman}.</span>{ch.title}
             </a>
           ))}
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenMuseum();
+            }}
+            style={{
+              background: C.red,
+              color: "#fff",
+              border: `1.5px solid ${C.accent}`,
+              fontFamily: C.sans,
+              fontSize: 15,
+              fontWeight: 800,
+              padding: "10px 24px",
+              borderRadius: 4,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginTop: 12,
+              boxShadow: "0 6px 16px rgba(122,26,28,0.25)",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg>
+            Tham Quan Bảo Tàng 3D
+          </button>
         </div>
       )}
     </>

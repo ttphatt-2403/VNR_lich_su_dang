@@ -7,6 +7,7 @@ import { HeroCover } from "@/app/components/sections/HeroCover";
 import { Section1 } from "@/app/components/sections/Section1";
 import { Section2 } from "@/app/components/sections/Section2";
 import { Section4 } from "@/app/components/sections/Section4";
+import { Museum3DModal } from "@/app/components/ui/Museum3DModal";
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos]     = useState({ x: -1000, y: -1000 });
   const [issue] = useState({ num: "05", date: "Tháng 5/2024" });
+  const [isMuseumOpen, setIsMuseumOpen] = useState(false);
 
   useEffect(() => {
     const h = () => {
@@ -277,7 +279,7 @@ export default function App() {
         }
       `}</style>
 
-      <Navbar scrolled={scrolled} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} issue={issue}/>
+      <Navbar scrolled={scrolled} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} issue={issue} onOpenMuseum={() => setIsMuseumOpen(true)}/>
 
       {/* Glowing scroll progress indicator */}
       <div style={{
@@ -316,7 +318,7 @@ export default function App() {
         <span style={{ fontSize: 20, color: C.red }}>★</span>
       </div>
 
-      <HeroCover/>
+      <HeroCover onOpenMuseum={() => setIsMuseumOpen(true)}/>
 
       <main style={{ maxWidth: 1024, margin: "0 auto", padding: "8px 16px" }}>
         <Section1/>
@@ -349,6 +351,9 @@ export default function App() {
           <ArrowUp size={18}/>
         </button>
       )}
+
+      {/* 3D Museum Modal */}
+      <Museum3DModal isOpen={isMuseumOpen} onClose={() => setIsMuseumOpen(false)} />
     </div>
   );
 }
