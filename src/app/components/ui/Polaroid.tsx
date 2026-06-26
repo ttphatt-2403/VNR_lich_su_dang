@@ -67,7 +67,7 @@ export function Polaroid({
               padding: "8px 12px",
               marginTop: 6,
               fontFamily: C.body,
-              fontSize: 15.5,
+              fontSize: 17,
               fontWeight: 600,
               textAlign: "center",
               lineHeight: 1.4,
@@ -103,7 +103,7 @@ export function Polaroid({
           <figcaption
             style={{
               fontFamily: C.body,
-              fontSize: 15,
+              fontSize: 16.5,
               fontStyle: "italic",
               color: C.brown,
               fontWeight: 600,

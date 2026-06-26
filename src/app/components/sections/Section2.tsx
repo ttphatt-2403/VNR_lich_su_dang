@@ -165,7 +165,7 @@ export function Section2() {
                 display: "inline-block",
                 padding: "4px 10px",
                 fontFamily: C.sans,
-                fontSize: 14,
+                fontSize: 15.5,
                 fontWeight: 800,
                 marginBottom: 12,
               }}
@@ -249,7 +249,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -258,7 +258,7 @@ export function Section2() {
                   >
                     Khôi phục kinh tế (1954-1957):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi.
                   </p>
                 </div>
@@ -292,7 +292,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -301,7 +301,7 @@ export function Section2() {
                   >
                     Cải cách ruộng đất:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Đến tháng 7-1956, chế độ chiếm hữu ruộng đất phong kiến đã bị xóa bỏ hoàn toàn. Tuy nhiên, trong quá trình thực hiện đã xảy ra những sai lầm nghiêm trọng do chủ quan, giáo điều. Hội nghị Trung ương 10 (khóa II) đã nghiêm khắc kiểm điểm và tiến hành sửa sai thành công.
                   </p>
                 </div>
@@ -335,7 +335,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -344,7 +344,7 @@ export function Section2() {
                   >
                     Cải tạo xã hội chủ nghĩa (1958-1960):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Miền Bắc chuyển sang giai đoạn cải tạo kinh tế cá thể của nông dân, thợ thủ công và tư bản tư doanh, xây dựng quan hệ sản xuất mới dựa trên sở hữu toàn dân và tập thể.
                   </p>
                 </div>
@@ -383,7 +383,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -392,7 +392,7 @@ export function Section2() {
                   >
                     Đối phó với chính sách thực dân mới:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Mỹ hất cẳng Pháp, lập nên chính quyền tay sai Ngô Đình Diệm, thực hiện quốc sách "tố cộng, diệt cộng" tàn bạo.
                   </p>
                 </div>
@@ -426,7 +426,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -435,7 +435,7 @@ export function Section2() {
                   >
                     Chuyển hướng đấu tranh:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Từ tháng 7-1954, Đảng quyết định chuyển từ đấu tranh quân sự sang đấu tranh chính trị để đòi thi hành Hiệp định.
                   </p>
                 </div>
@@ -469,7 +469,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -478,7 +478,7 @@ export function Section2() {
                   >
                     Nghị quyết 15 (1-1959):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Ra đời trong Hội nghị TW lần thứ 15 khoá II: Đánh dấu bước ngoặt lớn, Đảng xác định con đường cách mạng miền Nam là sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để giành chính quyền.
                   </p>
                 </div>
@@ -512,7 +512,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -521,7 +521,7 @@ export function Section2() {
                   >
                     Phong trào Đồng khởi (1960):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Bắt đầu từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công. Mặt trận Dân tộc giải phóng miền Nam Việt Nam ra đời (20-12-1960).
                   </p>
                 </div>
@@ -601,7 +601,7 @@ export function Section2() {
                 >
                   <SeedlingIcon size={12} color={C.red} />
                 </div>
-                <span style={{ fontFamily: C.body, fontSize: 14.5, color: C.dark, opacity: 0.9 }}>
+                <span style={{ fontFamily: C.body, fontSize: 16, color: C.dark, opacity: 0.9 }}>
                   Kinh tế phục hồi và phát triển, đặc biệt là nông nghiệp.
                 </span>
               </div>
@@ -624,7 +624,7 @@ export function Section2() {
                 >
                   <GroupIcon size={12} color={C.red} />
                 </div>
-                <span style={{ fontFamily: C.body, fontSize: 14.5, color: C.dark, opacity: 0.9 }}>
+                <span style={{ fontFamily: C.body, fontSize: 16, color: C.dark, opacity: 0.9 }}>
                   Cải cách ruộng đất xóa bỏ chế độ phong kiến, tạo cơ sở phát triển.
                 </span>
               </div>
@@ -647,7 +647,7 @@ export function Section2() {
                 >
                   <GearIcon size={12} color={C.red} />
                 </div>
-                <span style={{ fontFamily: C.body, fontSize: 14.5, color: C.dark, opacity: 0.9 }}>
+                <span style={{ fontFamily: C.body, fontSize: 16, color: C.dark, opacity: 0.9 }}>
                   Xây dựng nền tảng cho chủ nghĩa xã hội ở miền Bắc.
                 </span>
               </div>
@@ -711,7 +711,7 @@ export function Section2() {
                 display: "inline-block",
                 padding: "4px 10px",
                 fontFamily: C.sans,
-                fontSize: 14,
+                fontSize: 15.5,
                 fontWeight: 800,
                 marginBottom: 12,
               }}
@@ -794,7 +794,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -803,7 +803,7 @@ export function Section2() {
                   >
                     Đường lối chung &amp; Hai chiến lược:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Thực hiện đồng thời hai chiến lược cách mạng: cách mạng XHCN ở miền Bắc và cách mạng dân tộc dân chủ nhân dân ở miền Nam.
                     <br />
                     • <strong>Miền Bắc:</strong> Giữ vai trò quyết định nhất đối với sự phát triển của toàn bộ cách mạng Việt Nam.
@@ -843,7 +843,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -852,7 +852,7 @@ export function Section2() {
                   >
                     Kế hoạch 5 năm lần thứ nhất (1961-1965):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như "Mỗi người làm việc bằng hai" dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
                   </p>
                 </div>
@@ -891,7 +891,7 @@ export function Section2() {
                   <h4
                     style={{
                       fontFamily: C.serif,
-                      fontSize: 14.5,
+                      fontSize: 16,
                       fontWeight: 700,
                       color: C.red,
                       textTransform: "uppercase",
@@ -900,7 +900,7 @@ export function Section2() {
                   >
                     Đánh bại Chiến tranh đặc biệt:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Mỹ thực hiện công thức "cố vấn, vũ khí Mỹ và quân chủ lực Việt Nam Cộng hòa" cùng quốc sách "ấp chiến lược".
                     <br />
                     Đảng chỉ đạo giữ vững thế tiến công, đánh địch bằng "ba mũi giáp công" (quân sự, chính trị, binh vận) trên cả "ba vùng chiến lược" (đô thị, nông thôn đồng bằng, miền núi).
@@ -1165,10 +1165,10 @@ export function Section2() {
                     <h3 style={{ fontFamily: C.serif, fontSize: 17.5, fontWeight: 800, color: C.red, margin: "0 0 10px 0" }}>
                       1. Trường phái "Ngoại giao cây tre"
                     </h3>
-                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0", textAlign: "justify" }}>
+                    <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0", textAlign: "justify" }}>
                       Bài học về độc lập, tự chủ và linh hoạt trong quan hệ quốc tế tiếp tục được thể hiện qua trường phái "Ngoại giao cây tre Việt Nam". Trong bối cảnh cạnh tranh chiến lược giữa các nước lớn ngày càng phức tạp, Việt Nam kiên định đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; đồng thời thực hiện đa phương hóa, đa dạng hóa quan hệ quốc tế. Ngoại giao Việt Nam được xác định là kiên định về nguyên tắc và mục tiêu nhưng linh hoạt, chủ động về phương pháp, qua đó bảo vệ lợi ích quốc gia – dân tộc và duy trì môi trường hòa bình phục vụ phát triển đất nước (Bộ Ngoại giao, 2024).
                     </p>
-                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0, textAlign: "justify" }}>
+                    <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0, textAlign: "justify" }}>
                       Tính đến năm 2026, Việt Nam đã thiết lập quan hệ Đối tác chiến lược toàn diện với cả năm nước Ủy viên Thường trực Hội đồng Bảo an Liên Hợp Quốc, gồm Trung Quốc, Nga, Mỹ, Pháp và Anh. Trong đó, quan hệ Việt Nam – Anh được nâng cấp lên Đối tác chiến lược toàn diện vào tháng 10 năm 2025 (Bộ Ngoại giao, 2025). Điều này phản ánh khả năng mở rộng và cân bằng quan hệ với các nước lớn trên cơ sở tôn trọng độc lập, chủ quyền và lợi ích quốc gia.
                     </p>
                   </Reveal>
@@ -1180,7 +1180,7 @@ export function Section2() {
                     <h3 style={{ fontFamily: C.serif, fontSize: 17.5, fontWeight: 800, color: C.red, margin: "0 0 10px 0" }}>
                       2. Chính sách quốc phòng "4 không"
                     </h3>
-                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 16px 0" }}>
+                    <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 16px 0" }}>
                       Bên cạnh đó, chính sách quốc phòng "4 không" của Việt Nam bao gồm:
                     </p>
 
@@ -1230,7 +1230,7 @@ export function Section2() {
                             </div>
                             <span style={{
                               fontFamily: C.body,
-                              fontSize: 14.5,
+                              fontSize: 16,
                               fontWeight: isHovered ? 600 : 500,
                               lineHeight: 1.45,
                               color: isHovered ? C.red : C.dark,
@@ -1368,7 +1368,7 @@ export function Section2() {
                             <line x1="3" y1="10" x2="21" y2="10" />
                           </svg>
                         </div>
-                        <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.5, color: C.dark, margin: 0 }}>
+                        <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.5, color: C.dark, margin: 0 }}>
                           <strong style={{ color: C.red }}>Tháng 10/2025:</strong> Quan hệ Việt Nam – Anh được chính thức nâng cấp lên Đối tác chiến lược toàn diện.
                         </p>
                       </div>
@@ -1398,7 +1398,7 @@ export function Section2() {
                       </div>
 
                       <span style={{ fontSize: 48, fontFamily: C.serif, color: C.accent, lineHeight: 1, position: "absolute", top: 8, left: 14, opacity: 0.35 }}>"</span>
-                      <p style={{ fontFamily: C.serif, fontSize: 14.5, fontStyle: "italic", lineHeight: 1.6, margin: "0 0 0 14px", position: "relative", zIndex: 1, textAlign: "justify" }}>
+                      <p style={{ fontFamily: C.serif, fontSize: 16, fontStyle: "italic", lineHeight: 1.6, margin: "0 0 0 14px", position: "relative", zIndex: 1, textAlign: "justify" }}>
                         Chính sách "4 không" thể hiện sự kế thừa bài học độc lập, tự chủ trong giai đoạn 1954–1965, đồng thời cho thấy Việt Nam không phụ thuộc hoặc bị cuốn vào sự đối đầu giữa các cường quốc nhưng vẫn chủ động mở rộng hợp tác quốc phòng và quốc tế.
                       </p>
                     </div>
@@ -1626,11 +1626,11 @@ export function Section2() {
                     }}>
                       <span style={{ color: "#fff", fontFamily: C.sans, fontWeight: 900, fontSize: 18 }}>A</span>
                     </div>
-                    <h4 style={{ fontFamily: C.serif, fontSize: 14.5, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
+                    <h4 style={{ fontFamily: C.serif, fontSize: 16, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
                       Tuyến đường bộ cao tốc <br /> Bắc – Nam phía Đông
                     </h4>
                   </div>
-                  <p style={{ fontFamily: C.body, fontSize: 13.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
+                  <p style={{ fontFamily: C.body, fontSize: 16.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
                     Tuyến cao tốc Bắc – Nam phía Đông được xác định là trục giao thông huyết mạch, có nhiệm vụ kết nối các trung tâm kinh tế, chính trị, khu công nghiệp, cảng biển, cảng hàng không và trung tâm logistics, từ đó tạo động lực phát triển kinh tế – xã hội và góp phần bảo đảm quốc phòng, an ninh quốc gia.
                     <span style={{ display: "block", fontFamily: C.sans, fontSize: 10.5, color: C.muted, marginTop: 4 }}>
                       (Báo Điện tử Chính phủ, 2021)
@@ -1726,11 +1726,11 @@ export function Section2() {
                         <circle cx="16" cy="7" r="1" fill="#fff" />
                       </svg>
                     </div>
-                    <h4 style={{ fontFamily: C.serif, fontSize: 14.5, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
+                    <h4 style={{ fontFamily: C.serif, fontSize: 16, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
                       Dự án đường sắt tốc độ cao <br /> Bắc – Nam
                     </h4>
                   </div>
-                  <p style={{ fontFamily: C.body, fontSize: 13.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
+                  <p style={{ fontFamily: C.body, fontSize: 16.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
                     Nghị quyết số 172/2024/QH15 xác định tuyến đường có chiều dài khoảng 1.541 km, kết nối Hà Nội với Thành phố Hồ Chí Minh. Dự án không chỉ phục vụ nhu cầu vận tải hành khách mà còn được thiết kế theo hướng lưỡng dụng, sẵn sàng phục vụ quốc phòng, an ninh và vận chuyển hàng hóa khi cần thiết.
                     <span style={{ display: "block", fontFamily: C.sans, fontSize: 10.5, color: C.muted, marginTop: 4 }}>
                       (Báo Điện tử Chính phủ, 2024)
@@ -1832,7 +1832,7 @@ export function Section2() {
                   }}>"</span>
                   <p style={{
                     fontFamily: C.serif, 
-                    fontSize: 14.5, 
+                    fontSize: 16, 
                     fontWeight: 600, 
                     fontStyle: "italic", 
                     lineHeight: 1.6,

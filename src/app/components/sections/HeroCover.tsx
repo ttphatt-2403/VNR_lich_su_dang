@@ -162,7 +162,7 @@ export function HeroCover() {
                 <p
                   style={{
                     fontFamily: C.body,
-                    fontSize: 18.5,
+                    fontSize: 20,
                     lineHeight: 1.8,
                     color: C.dark,
                     opacity: 0.96,
@@ -327,7 +327,7 @@ export function HeroCover() {
                     <p
                       style={{
                         fontFamily: C.body,
-                        fontSize: 13.5,
+                        fontSize: 16.5,
                         fontWeight: 700,
                         textAlign: "center",
                         color: C.brown,
@@ -363,7 +363,7 @@ export function HeroCover() {
                     <p
                       style={{
                         fontFamily: C.body,
-                        fontSize: 13.5,
+                        fontSize: 16.5,
                         fontWeight: 700,
                         textAlign: "center",
                         color: C.brown,

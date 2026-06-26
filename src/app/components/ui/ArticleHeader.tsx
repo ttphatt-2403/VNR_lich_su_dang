@@ -24,7 +24,7 @@ export function ArticleHeader({ category, headline, sub, intro, period }: {
       </div>
       {/* Lead text with drop-cap effect */}
       <p style={{
-        fontFamily: C.body, fontSize: 19.5, lineHeight: 1.85, color: C.dark, opacity: 0.96,
+        fontFamily: C.body, fontSize: 21, lineHeight: 1.85, color: C.dark, opacity: 0.96,
         maxWidth: 680,
       }}>{intro}</p>
     </div>

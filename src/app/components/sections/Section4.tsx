@@ -151,7 +151,7 @@ export function Section4() {
             }}>
               <span style={{ fontSize: 16 }}>💡</span> 
               <span>Gợi ý thảo luận:</span>
-              <span style={{ fontWeight: 500, color: "rgba(252,249,242,0.9)", fontFamily: C.body, fontSize: 15, fontStyle: "normal", marginLeft: 4 }}>
+              <span style={{ fontWeight: 500, color: "rgba(252,249,242,0.9)", fontFamily: C.body, fontSize: 16.5, fontStyle: "normal", marginLeft: 4 }}>
                 Chứng minh vì sao "đánh chắc, tiến chắc" là sự sáng tạo đích thực của nghệ thuật quân sự Việt Nam trong quyết chiến chiến lược Điện Biên Phủ.
               </span>
             </p>
@@ -165,7 +165,7 @@ export function Section4() {
         <div style={{ paddingRight: 24 }}>
           <Reveal>
             <RibbonHeader label="1. Tại sao &quot;đánh chắc, tiến chắc&quot; là đỉnh cao sáng tạo?" />
-            <p style={{ fontFamily: C.body, fontSize: 15, fontStyle: "italic", color: C.brown, marginBottom: 16, marginTop: 0 }}>
+            <p style={{ fontFamily: C.body, fontSize: 16.5, fontStyle: "italic", color: C.brown, marginBottom: 16, marginTop: 0 }}>
               Sự sáng tạo không nằm ở việc chọn phương án "an toàn", mà nằm ở khả năng đảo ngược tư duy chiến thuật ngay tại thời điểm áp lực nhất.
             </p>
           </Reveal>
@@ -179,8 +179,8 @@ export function Section4() {
                 <div style={{ display: "flex", gap: 12 }}>
                   <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
                   <div>
-                    <p style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
+                    <p style={{ fontFamily: C.serif, fontSize: 16.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
+                    <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
                   </div>
                 </div>
               </div>
@@ -202,7 +202,7 @@ export function Section4() {
             />
           </Reveal>
           <Reveal delay={60}>
-            <p style={{ fontFamily: C.body, fontSize: 15, color: C.dark, opacity: 0.9, margin: "16px 0 16px" }}>
+            <p style={{ fontFamily: C.body, fontSize: 16.5, color: C.dark, opacity: 0.9, margin: "16px 0 16px" }}>
               Tuy nhiên, việc đề cao "đánh chắc, tiến chắc" không chỉ dựa vào kết quả, mà dựa trên các giá trị bền vững sau:
             </p>
             {[
@@ -213,8 +213,8 @@ export function Section4() {
                 <div style={{ display: "flex", gap: 12 }}>
                   <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.accent, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
                   <div>
-                    <p style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
+                    <p style={{ fontFamily: C.serif, fontSize: 16.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
+                    <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
                   </div>
                 </div>
               </div>
@@ -228,13 +228,13 @@ export function Section4() {
       <Reveal>
         <div style={{ background: C.bg2, padding: "24px 28px", borderLeft: `4px solid ${C.red}`, borderRight: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, borderTop: `1px solid ${C.border}` }}>
           <h4 style={{ fontFamily: C.serif, fontSize: 16, fontWeight: 700, color: C.red, margin: "0 0 12px 0", textTransform: "uppercase", letterSpacing: "0.05em" }}>Kết luận</h4>
-          <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: "0 0 14px 0" }}>
+          <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: "0 0 14px 0" }}>
             "Đánh chắc, tiến chắc" không đơn thuần là một lựa chọn chiến thuật, mà là đỉnh cao của tư duy quân sự phản ánh trình độ làm chủ tình hình ở mức độ chiến lược. Như Đại tướng Võ Nguyên Giáp từng khẳng định, đây là "quyết định khó khăn nhất" trong cuộc đời cầm quân của ông. Việc thay đổi phương châm không phải là chọn con đường dễ dàng, mà là dám phủ nhận chính mình để tìm ra phương án tối ưu nhất trước một kẻ thù mạnh, thể hiện sự bản lĩnh và tầm nhìn sắc bén.
           </p>
-          <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: "0 0 14px 0" }}>
+          <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: "0 0 14px 0" }}>
             Nếu giả định ta thực hiện "đánh nhanh, thắng nhanh" và vẫn chiến thắng dù tổn thất nặng nề, lịch sử có thể ghi nhận đó là một chiến tích của lòng quả cảm, nhưng chắc chắn sẽ không được suy tôn là đỉnh cao sáng tạo. Bởi lẽ, sự sáng tạo của "đánh chắc, tiến chắc" nằm ở việc ta đã chủ động thay đổi toàn bộ hình thái chiến tranh: chuyển từ lối đánh vận động sang đánh công kiên vây lấn quy mô lớn; chuyển từ việc dựa vào sự quả cảm thuần túy sang kết hợp chặt chẽ giữa khoa học quân sự, sự kiên trì bền bỉ và sức mạnh hậu cần toàn dân.
           </p>
-          <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: 0 }}>
+          <p style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.7, color: C.dark, opacity: 0.9, margin: 0 }}>
             Chính sự chuyển dịch này đã làm phá sản hoàn toàn kế hoạch Navarre, tạo nên một thắng lợi "lừng lẫy năm châu, chấn động địa cầu". Thành công của Điện Biên Phủ không chỉ được tôn vinh vì kết quả thắng lợi cuối cùng, mà còn vì cách chúng ta đã định nghĩa lại nghệ thuật quân sự: một cuộc chiến nơi sự thận trọng, tính toán khoa học và sự thấu hiểu sâu sắc yếu tố con người đã thực sự khuất phục được hỏa lực công nghệ vượt trội của một đế quốc hùng mạnh.
           </p>
         </div>

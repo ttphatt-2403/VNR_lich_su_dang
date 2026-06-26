@@ -164,7 +164,7 @@ export function Section1() {
                 <Reveal key={i} delay={i * 60} effect="fade-left">
                   <div className="sig-row" style={{ display: "flex", gap: 12, marginBottom: 12 }}>
                     <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 30, color: C.accent, opacity: 0.45, lineHeight: 1, flexShrink: 0, userSelect: "none", transition: "all 0.3s ease" }}>{i + 1}</span>
-                    <p style={{ fontFamily: C.body, fontSize: 17.5, lineHeight: 1.65, color: C.dark, opacity: 0.96, paddingTop: 2 }}>{sig}</p>
+                    <p style={{ fontFamily: C.body, fontSize: 19, lineHeight: 1.65, color: C.dark, opacity: 0.96, paddingTop: 2 }}>{sig}</p>
                   </div>
                 </Reveal>
               ))}
@@ -274,7 +274,7 @@ export function Section1() {
                   <h4 style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.red, textTransform: "uppercase", margin: "0 0 6px 0" }}>
                     {P1_MODERN_EVIDENCE[0].category} — {P1_MODERN_EVIDENCE[0].title}
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     {P1_MODERN_EVIDENCE[0].desc}
                   </p>
                 </div>
@@ -308,7 +308,7 @@ export function Section1() {
                   <h4 style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.red, textTransform: "uppercase", margin: "0 0 6px 0" }}>
                     {P1_MODERN_EVIDENCE[1].category} — {P1_MODERN_EVIDENCE[1].title}
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     {P1_MODERN_EVIDENCE[1].desc}
                   </p>
                 </div>
@@ -342,7 +342,7 @@ export function Section1() {
                   <h4 style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.red, textTransform: "uppercase", margin: "0 0 6px 0" }}>
                     {P1_MODERN_EVIDENCE[2].category} — {P1_MODERN_EVIDENCE[2].title}
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     {P1_MODERN_EVIDENCE[2].desc}
                   </p>
                 </div>
@@ -384,7 +384,7 @@ export function Section1() {
                   <h4 style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.red, textTransform: "uppercase", margin: "0 0 6px 0" }}>
                     {P1_MODERN_EVIDENCE[3].category} — {P1_MODERN_EVIDENCE[3].title}
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     {P1_MODERN_EVIDENCE[3].desc}
                   </p>
                 </div>
@@ -418,7 +418,7 @@ export function Section1() {
                   <h4 style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.red, textTransform: "uppercase", margin: "0 0 6px 0" }}>
                     {P1_MODERN_EVIDENCE[4].category} — {P1_MODERN_EVIDENCE[4].title}
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 15.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     {P1_MODERN_EVIDENCE[4].desc}
                   </p>
                 </div>
@@ -430,7 +430,7 @@ export function Section1() {
             {/* Quote / Highlight Box */}
             <Reveal effect="scale-up" delay={150}>
               <div style={{ background: C.bg2, padding: "16px 20px", borderLeft: `4px solid ${C.accent}`, marginTop: 10 }}>
-                <p style={{ fontFamily: C.serif, fontSize: 14, fontStyle: "italic", color: C.dark, opacity: 0.9, lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontFamily: C.serif, fontSize: 15.5, fontStyle: "italic", color: C.dark, opacity: 0.9, lineHeight: 1.6, margin: 0 }}>
                   "Bài học quý giá nhất từ quá khứ không phải là việc lặp lại nguyên bản lịch sử, mà là khả năng vận dụng tinh túy của lịch sử để giải quyết những thách thức mang tính thời đại."
                 </p>
               </div>
