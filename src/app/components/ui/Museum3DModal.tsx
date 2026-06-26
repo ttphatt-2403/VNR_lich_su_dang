@@ -212,32 +212,32 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
     // Define 20 structured historical exhibits
     const insideExhibitsData = [
       {
-        title: "Đại hội đại biểu toàn quốc lần thứ II (2-1951)",
+        title: "Phim tư liệu Đại hội II (1951)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "image",
-        url: imgDaihoi2PhatBieu,
-        details: "Đại hội II của Đảng diễn ra tại chiến khu Việt Bắc, quyết định đưa Đảng ra hoạt động công khai dưới tên gọi Đảng Lao động Việt Nam để trực tiếp lãnh đạo kháng chiến."
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4",
+        details: "Đoạn phim tư liệu chân thực quay lại bối cảnh đại biểu thảo luận, biểu quyết và sinh hoạt tại chiến khu Việt Bắc trong những ngày Đại hội diễn ra."
       },
       {
-        title: "Chiến dịch Điện Biên Phủ (1954)",
+        title: "Phim tư liệu Chiến thắng Điện Biên Phủ (1954)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "image",
-        url: imgDBP_CamCo,
-        details: "Chiến dịch Điện Biên Phủ kết thúc thắng lợi rực rỡ, đập tan tập đoàn cứ điểm mạnh nhất Đông Dương của thực dân Pháp, tạo tiếng vang chấn động địa cầu."
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4",
+        details: "Thước phim chân thực ghi lại khí thế hào hùng của quân dân ta: kéo pháo qua đèo, đào hào bao vây và đợt tổng công kích cuối cùng vào hầm chỉ huy của giặc."
       },
       {
-        title: "Hiệp định Giơnevơ (1954)",
-        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "image",
-        url: imgGVR_KyKet,
-        details: "Hiệp định Giơnevơ lập lại hòa bình tại Đông Dương được ký kết, giải phóng hoàn toàn miền Bắc, mở ra thời kỳ cách mạng mới cho đất nước."
+        title: "Phim tư liệu Phong trào Đồng Khởi (1960)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/(387) Phong trào Đồng Khởi - Bước ngoặt của cách mạng miền Nam - YouTube.mp4",
+        details: "Bùng nổ từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam sang thế tiến công."
       },
       {
-        title: "Bác Hồ tại chiến khu Việt Bắc",
-        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "image",
-        url: imgBacHo_BHH_1,
-        details: "Hình ảnh Chủ tịch Hồ Chí Minh cùng các đồng chí lãnh đạo Trung ương chỉ đạo kháng chiến và kiến quốc tại chiến khu an toàn khu (ATK) Việt Bắc."
+        title: "Phim tư liệu Chiến Tranh Đặc Biệt (1961)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/(387) Chiến Tranh Đặc Biệt 1961 - YouTube.mp4",
+        details: "Thước phim tư liệu về thời kỳ chống chiến lược Chiến tranh đặc biệt của đế quốc Mỹ ở miền Nam Việt Nam (1961 - 1965)."
       }
     ];
 
@@ -274,11 +274,11 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
 
     const outsideExhibitsData = [
       {
-        title: "Thước phim tư liệu Đại hội II",
+        title: "Đại hội đại biểu toàn quốc lần thứ II (2-1951)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "video",
-        url: "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4",
-        details: "Đoạn phim tư liệu chân thực quay lại bối cảnh đại biểu thảo luận, biểu quyết và sinh hoạt tại chiến khu Việt Bắc trong những ngày Đại hội diễn ra."
+        type: "image",
+        url: imgDaihoi2PhatBieu,
+        details: "Đại hội II của Đảng diễn ra tại chiến khu Việt Bắc, quyết định đưa Đảng ra hoạt động công khai dưới tên gọi Đảng Lao động Việt Nam để trực tiếp lãnh đạo kháng chiến."
       },
       {
         title: "Toàn cảnh hội trường Đại hội II",
@@ -295,11 +295,11 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         details: "Đại tướng Võ Nguyên Giáp cùng Bộ chỉ huy họp bàn kế hoạch tác chiến cho chiến dịch lịch sử Điện Biên Phủ với phương châm 'đánh chắc, tiến chắc'."
       },
       {
-        title: "Thước phim Điện Biên Phủ lịch sử",
+        title: "Chiến dịch Điện Biên Phủ (1954)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
-        type: "video",
-        url: "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4",
-        details: "Thước phim chân thực ghi lại khí thế hào hùng của quân dân ta: kéo pháo qua đèo, đào hào bao vây và đợt tổng công kích cuối cùng vào hầm chỉ huy của giặc."
+        type: "image",
+        url: imgDBP_CamCo,
+        details: "Chiến dịch Điện Biên Phủ kết thúc thắng lợi rực rỡ, đập tan tập đoàn cứ điểm mạnh nhất Đông Dương của thực dân Pháp, tạo tiếng vang chấn động địa cầu."
       },
       {
         title: "Toàn cảnh Hội nghị Giơnevơ (1954)",
