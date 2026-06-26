@@ -83,6 +83,40 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
     gridHelper.position.y = 0.01;
     scene.add(gridHelper);
 
+    // Setup texture loader & video textures for the 3 slots
+    const textureLoader = new THREE.TextureLoader();
+
+    // Slot 1: Điện Biên Phủ Video
+    const dbpVideo = document.createElement("video");
+    dbpVideo.src = "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4";
+    dbpVideo.loop = true;
+    dbpVideo.muted = true;
+    dbpVideo.playsInline = true;
+    dbpVideo.setAttribute("webkit-playsinline", "true");
+    dbpVideo.play().catch((err) => console.log("dbpVideo autoplay blocked:", err));
+
+    const dbpVideoTexture = new THREE.VideoTexture(dbpVideo);
+    dbpVideoTexture.colorSpace = THREE.SRGBColorSpace;
+    dbpVideoTexture.flipY = false;
+
+    // Slot 2: Hiệp định Giơnevơ Image
+    const gioNeVeTexture = textureLoader.load("/BaoTang3D/pic_and_video/Hiệp định Giơnevơ 21-7-1954.jpg");
+    gioNeVeTexture.colorSpace = THREE.SRGBColorSpace;
+    gioNeVeTexture.flipY = false;
+
+    // Slot 3: Đại hội II Video
+    const dh2Video = document.createElement("video");
+    dh2Video.src = "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4";
+    dh2Video.loop = true;
+    dh2Video.muted = true;
+    dh2Video.playsInline = true;
+    dh2Video.setAttribute("webkit-playsinline", "true");
+    dh2Video.play().catch((err) => console.log("dh2Video autoplay blocked:", err));
+
+    const dh2VideoTexture = new THREE.VideoTexture(dh2Video);
+    dh2VideoTexture.colorSpace = THREE.SRGBColorSpace;
+    dh2VideoTexture.flipY = false;
+
     // GLTF Loader to load art_gallery.glb.glb
     const loader = new GLTFLoader();
     let model: THREE.Group | null = null;
@@ -91,24 +125,44 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       "/BaoTang3D/art_gallery.glb.glb",
       (gltf) => {
         model = gltf.scene;
-        
-        // Center/adjust model scale or position if needed
         model.position.set(0, 0, 0);
         
-        // Enable shadows on all child meshes
+        // Enable shadows and apply dynamic textures to designated painting meshes
         model.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            
-            // Adjust materials if they are too dark or shiny
             const mesh = child as THREE.Mesh;
-            if (mesh.material) {
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            
+            // Check mesh names and apply custom materials
+            if (mesh.name === "PaitingsInside_Painting_0") {
+              mesh.material = new THREE.MeshStandardMaterial({
+                map: dbpVideoTexture,
+                roughness: 0.1,
+                metalness: 0.1,
+                side: THREE.DoubleSide
+              });
+            } else if (mesh.name === "PaitingsOutside_Painting_0") {
+              mesh.material = new THREE.MeshStandardMaterial({
+                map: gioNeVeTexture,
+                roughness: 0.1,
+                metalness: 0.1,
+                side: THREE.DoubleSide
+              });
+            } else if (mesh.name === "PaitingsInside.001_Painting_0") {
+              mesh.material = new THREE.MeshStandardMaterial({
+                map: dh2VideoTexture,
+                roughness: 0.1,
+                metalness: 0.1,
+                side: THREE.DoubleSide
+              });
+            } else if (mesh.material) {
+              // Adjust other generic materials
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               materials.forEach((mat) => {
                 if (mat instanceof THREE.MeshStandardMaterial) {
-                  mat.roughness = Math.max(mat.roughness, 0.4);
-                  mat.metalness = Math.min(mat.metalness, 0.6);
+                  mat.roughness = Math.max(mat.roughness, 0.45);
+                  mat.metalness = Math.min(mat.metalness, 0.5);
                 }
               });
             }
@@ -123,7 +177,6 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
           const percent = Math.round((xhr.loaded / xhr.total) * 100);
           setProgress(percent);
         } else {
-          // If total is 0 or not provided, approximate based on loaded size (~44MB)
           const approximateTotal = 44630060;
           const percent = Math.min(Math.round((xhr.loaded / approximateTotal) * 100), 99);
           setProgress(percent);
@@ -163,6 +216,15 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       document.body.style.overflow = "unset";
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
+
+      // Pause and clean up video elements
+      dbpVideo.pause();
+      dbpVideo.removeAttribute("src");
+      dbpVideo.load();
+
+      dh2Video.pause();
+      dh2Video.removeAttribute("src");
+      dh2Video.load();
       
       if (currentMount && renderer.domElement) {
         currentMount.removeChild(renderer.domElement);
