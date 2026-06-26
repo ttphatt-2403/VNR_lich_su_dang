@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { C } from "@/tokens";
 import { Reveal } from "@/app/components/ui/Reveal";
 import { MagazinePullQuote } from "@/app/components/ui/MagazinePullQuote";
@@ -15,7 +16,7 @@ function RibbonHeader({ label }: { label: string }) {
         alignItems: "center",
         padding: "6px 24px 6px 14px",
         fontFamily: C.sans,
-        fontSize: 12,
+        fontSize: 12.5,
         fontWeight: 700,
         letterSpacing: "0.12em",
         textTransform: "uppercase",
@@ -32,11 +33,14 @@ function RibbonHeader({ label }: { label: string }) {
 }
 
 export function Section4() {
+  const [hoveredScenario, setHoveredScenario] = useState(false);
+
   return (
-    <MagazinePage id="phan-4" pageNum={26}>
+    <MagazinePage id="phan-3" pageNum={27}>
+      {/* Page Title & Intro */}
       <Reveal>
         <ArticleHeader
-          category="Chương II · Phần IV"
+          category="Chương II · Phần III"
           headline="Thảo luận chuyên đề"
           sub="Phân tích phản biện về nghệ thuật quân sự"
           period="Điện Biên Phủ 1954"
@@ -44,28 +48,114 @@ export function Section4() {
         />
       </Reveal>
 
-      {/* Scenario Box */}
-      <Reveal>
-        <div style={{ background: C.dark, padding: "28px 36px", marginBottom: 32, position: "relative", overflow: "hidden", border: `1.5px solid ${C.accent}` }}>
-          <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: `radial-gradient(circle, rgba(212,163,69,0.06) 1px, transparent 1px)`, backgroundSize: "24px 24px" }}/>
-          <p style={{ fontFamily: C.sans, fontSize: 9.5, fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: C.accent, marginBottom: 12, position: "relative", zIndex: 1 }}>
-            Câu hỏi thảo luận phản biện · Điện Biên Phủ 1954
-          </p>
+      {/* Scenario Box (Hero Question Hook) */}
+      <Reveal effect="fade-down">
+        <div
+          onMouseEnter={() => setHoveredScenario(true)}
+          onMouseLeave={() => setHoveredScenario(false)}
+          style={{
+            background: `linear-gradient(135deg, #2b0b0e 0%, #120304 100%)`,
+            padding: "36px 42px",
+            marginBottom: 32,
+            position: "relative",
+            overflow: "hidden",
+            border: `2px solid ${hoveredScenario ? C.accent : "rgba(212,163,69,0.6)"}`,
+            boxShadow: hoveredScenario 
+              ? "0 16px 36px rgba(122,26,28,0.35), inset 0 0 24px rgba(212,163,69,0.2)"
+              : "0 8px 24px rgba(122,26,28,0.2), inset 0 0 16px rgba(212,163,69,0.1)",
+            borderRadius: 6,
+            transition: C.tr,
+            transform: hoveredScenario ? "translateY(-4px)" : "none",
+          }}
+        >
+          {/* Subtle dotted background grid */}
+          <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: `radial-gradient(circle, rgba(212,163,69,0.08) 1px, transparent 1px)`, backgroundSize: "20px 20px" }}/>
+          
+          {/* Decorative quote mark */}
+          <span style={{
+            fontSize: 140,
+            fontFamily: C.serif,
+            color: C.accent,
+            lineHeight: 1,
+            position: "absolute",
+            top: -24,
+            left: 16,
+            opacity: 0.15,
+            pointerEvents: "none",
+          }}>"</span>
+
+          {/* Header pill inside the box */}
+          <div style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 8,
+            background: C.red,
+            color: "#fff",
+            fontFamily: C.sans,
+            fontSize: 11,
+            fontWeight: 800,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            padding: "6px 16px",
+            borderRadius: 3,
+            marginBottom: 20,
+            position: "relative",
+            zIndex: 2,
+            border: `1.5px solid ${C.accent}`,
+            boxShadow: "0 2px 8px rgba(122,26,28,0.3)",
+          }}>
+            <span style={{ color: C.accent }}>★</span> TÌNH HUỐNG THẢO LUẬN PHẢN BIỆN <span style={{ color: C.accent }}>★</span>
+          </div>
+
+          {/* The Question Text - Large & Beautiful */}
           <p style={{
-            fontFamily: C.serif, fontSize: "clamp(16px,2vw,20px)", fontStyle: "italic",
-            color: "rgba(252,249,242,0.92)", lineHeight: 1.65,
-            borderLeft: `4px solid ${C.red}`, paddingLeft: 20,
-            position: "relative", zIndex: 1,
-            margin: 0,
+            fontFamily: C.serif,
+            fontSize: "clamp(20px, 2.5vw, 24px)",
+            fontWeight: 600,
+            fontStyle: "italic",
+            color: "#faf6ed",
+            lineHeight: 1.7,
+            borderLeft: `6px solid ${C.accent}`,
+            paddingLeft: 24,
+            position: "relative",
+            zIndex: 1,
+            margin: "0 0 20px 0",
+            textShadow: "0 2px 8px rgba(0,0,0,0.6)",
           }}>
             Lịch sử thường được viết bởi người chiến thắng. Nếu ngày đó ta giữ nguyên phương châm{" "}
-            <strong style={{ color: C.accent, fontStyle: "normal" }}>"đánh nhanh, thắng nhanh"</strong>{" "}
+            <strong style={{ color: C.accent, fontStyle: "normal", textDecoration: "underline", decorationColor: C.accent }}>"đánh nhanh, thắng nhanh"</strong>{" "}
             và vẫn chiến thắng dù tổn thất nặng nề, liệu cách đánh đó có được ca ngợi là đỉnh cao sáng tạo?
-            Phải chăng ta đang đề cao <strong style={{ color: C.accent, fontStyle: "normal" }}>"đánh chắc, tiến chắc"</strong> phần lớn là vì dựa vào kết quả đã rồi?
+            Phải chăng ta đang đề cao <strong style={{ color: C.accent, fontStyle: "normal", textDecoration: "underline", decorationColor: C.accent }}>"đánh chắc, tiến chắc"</strong> phần lớn là vì dựa vào kết quả đã rồi?
           </p>
-          <p style={{ fontFamily: C.sans, fontSize: 11, fontWeight: 700, color: C.accent, marginTop: 14, margin: "14px 0 0 0" }}>
-            Gợi ý: Chứng minh Vì sao nói "đánh chắc, tiến chắc" là sự sáng tạo của nghệ thuật quân sự Việt Nam trong quyết chiến chiến lược Điện Biên Phủ - "lừng lẫy năm châu, chấn động địa cầu"?
-          </p>
+
+          {/* Hint/Guideline section */}
+          <div style={{
+            background: "rgba(212,163,69,0.08)",
+            border: "1px solid rgba(212,163,69,0.25)",
+            padding: "14px 18px",
+            borderRadius: 4,
+            position: "relative",
+            zIndex: 2,
+            transition: C.tr,
+            boxShadow: hoveredScenario ? "0 2px 10px rgba(0,0,0,0.15)" : "none",
+          }}>
+            <p style={{
+              fontFamily: C.sans,
+              fontSize: 13.5,
+              fontWeight: 700,
+              color: C.accent,
+              margin: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: 8
+            }}>
+              <span style={{ fontSize: 16 }}>💡</span> 
+              <span>Gợi ý thảo luận:</span>
+              <span style={{ fontWeight: 500, color: "rgba(252,249,242,0.9)", fontFamily: C.body, fontSize: 15, fontStyle: "normal", marginLeft: 4 }}>
+                Chứng minh vì sao "đánh chắc, tiến chắc" là sự sáng tạo đích thực của nghệ thuật quân sự Việt Nam trong quyết chiến chiến lược Điện Biên Phủ.
+              </span>
+            </p>
+          </div>
         </div>
       </Reveal>
 
@@ -90,7 +180,7 @@ export function Section4() {
                   <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
                   <div>
                     <p style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, opacity: 0.85, margin: 0 }}>{pt.body}</p>
+                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
                   </div>
                 </div>
               </div>
@@ -124,7 +214,7 @@ export function Section4() {
                   <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.accent, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
                   <div>
                     <p style={{ fontFamily: C.serif, fontSize: 15, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 14, lineHeight: 1.6, color: C.dark, opacity: 0.85, margin: 0 }}>{pt.body}</p>
+                    <p style={{ fontFamily: C.body, fontSize: 14.5, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
                   </div>
                 </div>
               </div>

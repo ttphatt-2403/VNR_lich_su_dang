@@ -6,7 +6,6 @@ import { Footer } from "@/app/components/layout/Footer";
 import { HeroCover } from "@/app/components/sections/HeroCover";
 import { Section1 } from "@/app/components/sections/Section1";
 import { Section2 } from "@/app/components/sections/Section2";
-import { Section3 } from "@/app/components/sections/Section3";
 import { Section4 } from "@/app/components/sections/Section4";
 
 export default function App() {
@@ -322,7 +321,6 @@ export default function App() {
       <main style={{ maxWidth: 1024, margin: "0 auto", padding: "8px 16px" }}>
         <Section1/>
         <Section2/>
-        <Section3/>
         <Section4/>
       </main>
 

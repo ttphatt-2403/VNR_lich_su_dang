@@ -21,3 +21,16 @@ export { default as imgBinhGia }         from "@/imports/image-23.png";
 export { default as imgDongXoai }        from "@/imports/image-24.png";
 export { default as imgBoTuLenh }        from "@/imports/image-25.png";
 export { default as imgVuotSong }        from "@/imports/image-26.png";
+
+export { default as imgToLamUN }         from "@/assets/to_lam_un.jpg";
+export { default as imgDipBottom1 }      from "@/assets/dip_bottom_1.jpg";
+export { default as imgDipBottom2 }      from "@/assets/dip_bottom_2.jpg";
+export { default as imgDipBottom3 }      from "@/assets/dip_bottom_3.jpg";
+export { default as imgDipBottom4 }      from "@/assets/dip_bottom_4.jpg";
+
+export { default as imgVietnamTrain }         from "@/assets/vietnam_high_speed_train.png";
+export { default as imgVietnamHighwayBridge }  from "@/assets/vietnam_highway_bridge.png";
+export { default as imgVietnamHighwayTraffic } from "@/assets/vietnam_highway_traffic.png";
+export { default as imgVietnamMap }           from "@/assets/vietnam_map.png";
+
+

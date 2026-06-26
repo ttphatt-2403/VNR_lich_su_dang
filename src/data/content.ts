@@ -4,9 +4,8 @@
 
 export const CHAPTERS = [
   { id: "phan-1", roman: "I", label: "Phần I", title: "Kháng chiến chống thực dân Pháp", period: "1945–1954" },
-  { id: "phan-2", roman: "II", label: "Phần II", title: "Kháng chiến chống đế quốc Mỹ", period: "1954–1975" },
-  { id: "phan-3", roman: "III", label: "Phần III", title: "Vận dụng bài học hiện nay", period: "Đương đại" },
-  { id: "phan-4", roman: "IV", label: "Phần IV", title: "Tình huống thảo luận", period: "Điện Biên Phủ" },
+  { id: "phan-2", roman: "II", label: "Phần II", title: "Kháng chiến chống Mỹ & Vận dụng", period: "1954–1975 & Đương đại" },
+  { id: "phan-3", roman: "III", label: "Phần III", title: "Tình huống thảo luận", period: "Điện Biên Phủ" },
 ];
 
 export const P1_MILESTONES = [
@@ -29,6 +28,35 @@ export const P1_LESSONS = [
   { num: "4", title: "Lực lượng vũ trang ba thứ quân", desc: "Xây dựng và phát triển lực lượng vũ trang ba thứ quân: Bộ đội chủ lực, bộ đội địa phương, dân quân du kích một cách thích hợp, đáp ứng kịp thời yêu cầu của nhiệm vụ chính trị-quân sự của cuộc kháng chiến." },
   { num: "5", title: "Coi trọng xây dựng, chỉnh đốn Đảng", desc: "Nâng cao vai trò lãnh đạo toàn diện của Đảng đối với cuộc kháng chiến trên tất cả mọi lĩnh vực, mặt trận." },
 ];
+
+export const P1_MODERN_EVIDENCE = [
+  {
+    category: "Chính trị",
+    title: "Đại đoàn kết toàn dân tộc",
+    desc: "Bài học về \"kháng chiến toàn dân\" được vận dụng trong việc xây dựng khối đại đoàn kết toàn dân tộc hiện nay. Đảng xác định nhân dân là chủ thể của công cuộc đổi mới, mọi chủ trương phải xuất phát từ lợi ích của nhân dân, thực hiện phương châm \"dân biết, dân bàn, dân làm, dân kiểm tra\"."
+  },
+  {
+    category: "Kinh tế",
+    title: "Tự lực cánh sinh và Hội nhập",
+    desc: "Tinh thần \"tự lực cánh sinh\" từ kháng chiến được chuyển hóa thành việc xây dựng nền kinh tế độc lập, tự chủ gắn với hội nhập quốc tế sâu rộng. Trong bối cảnh biến động toàn cầu, việc phát triển nội lực (như các tập đoàn kinh tế mạnh, khoa học công nghệ) là yếu tố tiên quyết để giữ vững ổn định kinh tế."
+  },
+  {
+    category: "Quốc phòng - An ninh",
+    title: "Chiến lược bảo vệ Tổ quốc",
+    desc: "Bài học xây dựng lực lượng vũ trang ba thứ quân được kế thừa trong chiến lược \"Bảo vệ Tổ quốc trong tình hình mới\", xây dựng quân đội cách mạng, chính quy, tinh nhuệ, hiện đại và thế trận quốc phòng toàn dân vững chắc."
+  },
+  {
+    category: "Đối ngoại",
+    title: "Đa phương hóa, đa dạng hóa",
+    desc: "Kinh nghiệm kết hợp sức mạnh dân tộc với sức mạnh thời đại (tranh thủ sự ủng hộ của quốc tế như năm 1950 - 1954) được vận dụng thành chính sách đối ngoại \"đa phương hóa, đa dạng hóa\", làm bạn với tất cả các nước vì hòa bình và phát triển."
+  },
+  {
+    category: "Xây dựng Đảng",
+    title: "Chỉnh đốn Đảng toàn diện",
+    desc: "Bài học về xây dựng, chỉnh đốn Đảng được nhấn mạnh qua các Nghị quyết Trung ương 4 (khóa XI, XII) nhằm ngăn chặn sự suy thoái về tư tưởng, đạo đức, lối sống, giữ vững bản chất cách mạng và nâng cao năng lực cầm quyền trong điều kiện mới."
+  }
+];
+
 
 export const P2_MILESTONES = [
   { date: "1954–1957", title: "Miền Bắc khôi phục kinh tế", body: "Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi." },
