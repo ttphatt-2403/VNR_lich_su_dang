@@ -28,7 +28,7 @@ export function TimelineEntry({ date, title, body }: { date: string; title: stri
             transition: "max-height 0.4s ease-in-out, opacity 0.3s ease",
             opacity: open ? 1 : 0,
           }}>
-            <p style={{ fontFamily: C.body, fontSize: 18.5, color: C.dark, opacity: 0.96, lineHeight: 1.7, marginTop: 6, paddingRight: 8 }}>{body}</p>
+            <p style={{ fontFamily: C.body, fontSize: 20.5, color: C.dark, opacity: 0.96, lineHeight: 1.7, marginTop: 6, paddingRight: 8 }}>{body}</p>
           </div>
         </div>
         <span style={{ color: C.muted, flexShrink: 0, marginTop: 2 }}>{open ? <ChevronUp size={14}/> : <ChevronDown size={14}/>}</span>
