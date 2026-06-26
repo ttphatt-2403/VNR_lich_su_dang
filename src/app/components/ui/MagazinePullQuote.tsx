@@ -16,13 +16,13 @@ export function MagazinePullQuote({ text, attribution }: { text: string; attribu
         pointerEvents: "none",
       }}>❝</div>
       <p style={{
-        fontFamily: C.serif, fontSize: 23, fontStyle: "italic",
+        fontFamily: C.serif, fontSize: 24.5, fontStyle: "italic",
         fontWeight: 600, color: C.dark, lineHeight: 1.6,
         position: "relative", zIndex: 1,
       }}>{text}</p>
       {attribution && (
         <p style={{
-          fontFamily: C.sans, fontSize: 13, fontWeight: 700,
+          fontFamily: C.sans, fontSize: 15, fontWeight: 700,
           letterSpacing: "0.14em", textTransform: "uppercase",
           color: C.brown, opacity: 0.95, marginTop: 10,
         }}>— {attribution}</p>
