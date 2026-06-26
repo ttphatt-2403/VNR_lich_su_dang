@@ -50,8 +50,15 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
   const [error, setError] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(true);
   
-  // Track active exhibit that camera is looking at
-  const [activeExhibit, setActiveExhibit] = useState<Exhibit | null>(null);
+  // Track active exhibit in proximity and focused detail view
+  const [nearExhibit, setNearExhibit] = useState<Exhibit | null>(null);
+  const [focusedExhibit, setFocusedExhibit] = useState<Exhibit | null>(null);
+  const nearExhibitRef = useRef<Exhibit | null>(null);
+  const focusedExhibitRef = useRef<Exhibit | null>(null);
+
+  useEffect(() => {
+    focusedExhibitRef.current = focusedExhibit;
+  }, [focusedExhibit]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -71,8 +78,10 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       1000
     );
     
-    // Position the camera at the center area of the gallery
-    camera.position.set(0, 1.8, 4);
+    // Set up camera rotation order for first-person (YXZ)
+    camera.rotation.order = "YXZ";
+    camera.position.set(0, 1.8, 2.0); // Eye-level starting position
+    camera.rotation.set(0, 0, 0);      // Facing forward
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -87,18 +96,102 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       currentMount.appendChild(renderer.domElement);
     }
 
-    // OrbitControls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = true;
-    controls.minDistance = 0.5;
-    controls.maxDistance = 25;
-    // Limit looking down below the floor and up to ceiling too much
-    controls.maxPolarAngle = Math.PI / 2 + 0.12; 
-    controls.minPolarAngle = Math.PI / 6;
-    controls.target.set(0, 1.6, 0);
-    controls.update();
+    // --- First-Person Keyboard & Drag Controls ---
+    const keysPressed: Record<string, boolean> = {};
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
+      keysPressed[key] = true;
+
+      if (key === "f") {
+        if (nearExhibitRef.current) {
+          // Toggle focused exhibit modal
+          setFocusedExhibit((prev) => (prev ? null : nearExhibitRef.current));
+        }
+      }
+      if (e.key === "Escape") {
+        setFocusedExhibit(null);
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      keysPressed[e.key.toLowerCase()] = false;
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keyup", handleKeyUp);
+
+    // Mouse drag to look around
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    const handleMouseDown = (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest(".no-drag-ui")) return;
+      isDragging = true;
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDragging) return;
+      // If reading detail modal, ignore looking around
+      if (focusedExhibitRef.current) return;
+
+      const deltaX = e.clientX - previousMousePosition.x;
+      const deltaY = e.clientY - previousMousePosition.y;
+
+      const sensitivity = 0.0025;
+      camera.rotation.y -= deltaX * sensitivity;
+      camera.rotation.x -= deltaY * sensitivity;
+
+      // Limit pitch (look up/down) to avoid flipping upside down
+      const maxPitch = Math.PI / 2.2;
+      camera.rotation.x = Math.max(-maxPitch, Math.min(maxPitch, camera.rotation.x));
+
+      previousMousePosition = { x: e.clientX, y: e.clientY };
+    };
+
+    const handleMouseUp = () => {
+      isDragging = false;
+    };
+
+    // Touch swipe to look around for mobile devices
+    const handleTouchStart = (e: TouchEvent) => {
+      if ((e.target as HTMLElement).closest(".no-drag-ui")) return;
+      if (e.touches.length === 1) {
+        isDragging = true;
+        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging || e.touches.length !== 1) return;
+      if (focusedExhibitRef.current) return;
+
+      const deltaX = e.touches[0].clientX - previousMousePosition.x;
+      const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+      const sensitivity = 0.004;
+      camera.rotation.y -= deltaX * sensitivity;
+      camera.rotation.x -= deltaY * sensitivity;
+
+      const maxPitch = Math.PI / 2.2;
+      camera.rotation.x = Math.max(-maxPitch, Math.min(maxPitch, camera.rotation.x));
+
+      previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    };
+
+    const handleTouchEnd = () => {
+      isDragging = false;
+    };
+
+    const domElement = renderer.domElement;
+    domElement.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+
+    domElement.addEventListener("touchstart", handleTouchStart);
+    domElement.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
 
     // Lighting
     const ambientLight = new THREE.AmbientLight("#ffffff", 0.75);
@@ -354,30 +447,14 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         const sizeZ = maxZ - minZ;
         const width = sizeX > sizeZ ? sizeX : sizeZ;
 
-        // Normal estimation using first triangle
-        const tri0 = cluster[0];
-        const p0 = new THREE.Vector3(positions[tri0.indices[0] * 3], positions[tri0.indices[0] * 3 + 1], positions[tri0.indices[0] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
-        const p1 = new THREE.Vector3(positions[tri0.indices[1] * 3], positions[tri0.indices[1] * 3 + 1], positions[tri0.indices[1] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
-        const p2 = new THREE.Vector3(positions[tri0.indices[2] * 3], positions[tri0.indices[2] * 3 + 1], positions[tri0.indices[2] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
-
-        const normal = new THREE.Vector3()
-          .crossVectors(new THREE.Vector3().subVectors(p1, p0), new THREE.Vector3().subVectors(p2, p0))
-          .normalize();
-        normal.y = 0;
-        normal.normalize();
-
-        // Adjust orientation: Inwards for inside/outside, Outwards for inside001
-        const centerHorizontal = new THREE.Vector3(0, center.y, 0);
-        const toCenterVec = new THREE.Vector3().subVectors(centerHorizontal, center).normalize();
-        toCenterVec.y = 0;
-        toCenterVec.normalize();
-
-        if (exhibitTypePrefix === "inside") {
-          if (normal.dot(toCenterVec) < 0) normal.negate();
-        } else if (exhibitTypePrefix === "inside001") {
-          if (normal.dot(toCenterVec) > 0) normal.negate();
+        // Calculate rotation using radial geometry (center of gallery is [0, center.y, 0])
+        const normal = new THREE.Vector3();
+        if (exhibitTypePrefix === "inside001") {
+          // Point outwards (facing the corridor)
+          normal.set(center.x, 0, center.z).normalize();
         } else {
-          if (normal.dot(toCenterVec) < 0) normal.negate();
+          // Point inwards (facing the center/corridor inwards)
+          normal.set(-center.x, 0, -center.z).normalize();
         }
 
         const angle = Math.atan2(center.x, center.z);
@@ -543,23 +620,64 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
        renderer.setSize(window.innerWidth, window.innerHeight);
      };
      window.addEventListener("resize", handleResize);
- 
-     // Keep reference of current active exhibit to avoid React trigger loop
-     let currentActive: Exhibit | null = null;
- 
-     // Animation Loop
-     let animationFrameId: number;
-     const animate = () => {
-       animationFrameId = requestAnimationFrame(animate);
-       
-       // Update camera light position
-       camLight.position.copy(camera.position);
-       
-       controls.update();
+    // Keep reference of current active exhibit to avoid React trigger loop
+    let currentActive: Exhibit | null = null;
+
+    // Animation Loop
+    let animationFrameId: number;
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+      
+      // Update camera light position
+      camLight.position.copy(camera.position);
+      
+      // WASD / Arrow Keys Walking movement
+      // ONLY walk if we are not focused on reading details!
+      if (!focusedExhibitRef.current) {
+        const moveSpeed = 0.08;
+        const moveDirection = new THREE.Vector3();
+
+        // Get forward vector (horizontal plane only)
+        const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+        forward.y = 0;
+        forward.normalize();
+
+        // Get right vector (horizontal plane only)
+        const right = new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion);
+        right.y = 0;
+        right.normalize();
+
+        if (keysPressed["w"] || keysPressed["arrowup"]) {
+          moveDirection.add(forward);
+        }
+        if (keysPressed["s"] || keysPressed["arrowdown"]) {
+          moveDirection.sub(forward);
+        }
+        if (keysPressed["a"] || keysPressed["arrowleft"]) {
+          moveDirection.sub(right);
+        }
+        if (keysPressed["d"] || keysPressed["arrowright"]) {
+          moveDirection.add(right);
+        }
+
+        if (moveDirection.lengthSq() > 0) {
+          moveDirection.normalize().multiplyScalar(moveSpeed);
+          const newPos = new THREE.Vector3().addVectors(camera.position, moveDirection);
+          
+          // Limit walk boundaries (circular room boundary radius is ~8.2m)
+          const distFromCenter = Math.sqrt(newPos.x * newPos.x + newPos.z * newPos.z);
+          if (distFromCenter < 8.2) {
+            camera.position.add(moveDirection);
+          }
+        }
+      }
+
+      // Constrain camera height to eye level
+      camera.position.y = 1.8;
  
        // Check proximity of camera to each exhibit center
        let nearestEx: Exhibit | null = null;
-       let minDistance = 2.8; // Proximity boundary in meters
+       let minDistance = 2.5; // Proximity boundary in meters
  
        exhibits.forEach((ex) => {
          const exPos = new THREE.Vector3(ex.position[0], ex.position[1], ex.position[2]);
@@ -570,10 +688,11 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
          }
        });
 
-      if (currentActive !== nearestEx) {
-        currentActive = nearestEx;
-        setActiveExhibit(nearestEx);
-      }
+       if (currentActive !== nearestEx) {
+         currentActive = nearestEx;
+         nearExhibitRef.current = nearestEx;
+         setNearExhibit(nearestEx);
+       }
 
       renderer.render(scene, camera);
     };
@@ -584,6 +703,18 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       document.body.style.overflow = "unset";
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
+
+      // Remove keyboard listeners
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keyup", handleKeyUp);
+
+      // Remove drag/swipe look listeners
+      domElement.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+      domElement.removeEventListener("touchstart", handleTouchStart);
+      domElement.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
 
       // Pause and clean up all active video elements
       activeVideos.forEach((v) => {
@@ -763,70 +894,208 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         </div>
       )}
 
-      {/* Active Exhibit Proximity Card (Overlayed at bottom center) */}
-      {activeExhibit && !loading && !error && (
+      {/* Active Exhibit Proximity Card (Prompt to press [F] or Tap) */}
+      {nearExhibit && !focusedExhibit && !loading && !error && (
         <div
+          className="no-drag-ui"
+          onClick={() => setFocusedExhibit(nearExhibit)}
           style={{
             position: "absolute",
             bottom: 32,
             left: "50%",
             transform: "translateX(-50%)",
             width: "90%",
-            maxWidth: 600,
-            background: "rgba(30, 21, 16, 0.94)",
+            maxWidth: 500,
+            background: "rgba(30, 21, 16, 0.95)",
             backdropFilter: "blur(10px)",
             border: `1.5px solid ${C.accent}`,
-            borderRadius: 6,
-            padding: "18px 24px",
-            boxShadow: "0 12px 35px rgba(0,0,0,0.6)",
+            borderRadius: 8,
+            padding: "16px 20px",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.6)",
             zIndex: 40,
-            pointerEvents: "auto",
+            cursor: "pointer",
             display: "flex",
-            gap: 16,
+            flexDirection: "column",
             alignItems: "center",
+            textAlign: "center",
             transition: "all 0.3s ease",
+          }}
+        >
+          <span style={{ fontSize: 11, fontWeight: 800, color: C.accent, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 4 }}>
+            {nearExhibit.part}
+          </span>
+          <h4 style={{ fontFamily: C.serif, fontSize: 17, fontWeight: 800, color: "#fff", margin: "0 0 8px 0" }}>
+            {nearExhibit.title}
+          </h4>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, background: C.red, color: "#fff", padding: "6px 14px", borderRadius: 4, fontSize: 13, fontWeight: 700 }}>
+            <span>Nhấn phím [F] hoặc Chạm để xem chi tiết</span>
+          </div>
+        </div>
+      )}
+
+      {/* Glassmorphic Cinema Focus Modal Overlay */}
+      {focusedExhibit && !loading && !error && (
+        <div
+          className="no-drag-ui"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(15, 10, 8, 0.85)",
+            backdropFilter: "blur(12px)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 100,
+            padding: 24,
           }}
         >
           <div
             style={{
-              width: 44,
-              height: 44,
-              borderRadius: "50%",
-              background: C.red,
-              border: `1px solid ${C.accent}`,
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              width: "100%",
+              maxWidth: 900,
+              maxHeight: "85vh",
+              background: "#1e1510",
+              border: `2px solid ${C.accent}`,
+              borderRadius: 8,
+              boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+              overflowY: "auto",
+              position: "relative",
             }}
           >
-            {activeExhibit.type === "video" ? (
-              <Film size={20} color="#fff" />
-            ) : (
-              <BookOpen size={20} color="#fff" />
-            )}
-          </div>
-          <div style={{ flex: 1 }}>
-            <span
+            {/* Close button top-right */}
+            <button
+              onClick={() => setFocusedExhibit(null)}
               style={{
-                fontFamily: C.sans,
-                fontSize: 10,
-                fontWeight: 800,
-                color: C.accent,
-                textTransform: "uppercase",
-                letterSpacing: "0.12em",
-                display: "block",
-                marginBottom: 4,
+                position: "absolute",
+                top: 16,
+                right: 16,
+                background: "rgba(0,0,0,0.5)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                borderRadius: "50%",
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                cursor: "pointer",
+                zIndex: 110,
               }}
             >
-              {activeExhibit.part}
-            </span>
-            <h4 style={{ fontFamily: C.serif, fontSize: 18, fontWeight: 900, color: "#fff", margin: "0 0 6px 0", lineHeight: 1.25 }}>
-              {activeExhibit.title}
-            </h4>
-            <p style={{ fontFamily: C.body, fontSize: 14.5, color: "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5, textAlign: "justify" }}>
-              {activeExhibit.details}
-            </p>
+              <X size={20} />
+            </button>
+
+            {/* Left Column: Media view */}
+            <div
+              style={{
+                flex: "1 1 450px",
+                background: "#000",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                minHeight: 300,
+                position: "relative",
+              }}
+            >
+              {focusedExhibit.type === "video" ? (
+                <video
+                  src={focusedExhibit.url}
+                  controls
+                  autoPlay
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    maxHeight: "50vh",
+                    objectFit: "contain",
+                  }}
+                />
+              ) : (
+                <img
+                  src={focusedExhibit.url}
+                  alt={focusedExhibit.title}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    maxHeight: "50vh",
+                    objectFit: "contain",
+                  }}
+                />
+              )}
+            </div>
+
+            {/* Right Column: Historical text details */}
+            <div
+              style={{
+                flex: "1 1 350px",
+                padding: "28px",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: 800,
+                  color: C.accent,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  display: "block",
+                  marginBottom: 8,
+                }}
+              >
+                {focusedExhibit.part}
+              </span>
+              <h3
+                style={{
+                  fontFamily: C.serif,
+                  fontSize: 22,
+                  fontWeight: 900,
+                  color: "#fff",
+                  margin: "0 0 16px 0",
+                  lineHeight: 1.3,
+                  borderBottom: `1px solid rgba(139,107,63,0.25)`,
+                  paddingBottom: 12,
+                }}
+              >
+                {focusedExhibit.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: C.body,
+                  fontSize: 15.5,
+                  color: "rgba(255,255,255,0.9)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                  textAlign: "justify",
+                  whiteSpace: "pre-line",
+                }}
+              >
+                {focusedExhibit.details}
+              </p>
+
+              <div style={{ marginTop: "24px", paddingTop: "12px" }}>
+                <button
+                  onClick={() => setFocusedExhibit(null)}
+                  style={{
+                    background: C.red,
+                    color: "#fff",
+                    border: "none",
+                    padding: "10px 24px",
+                    borderRadius: 4,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    fontSize: 14,
+                    boxShadow: "0 4px 10px rgba(122,26,28,0.3)",
+                    transition: C.tr,
+                  }}
+                >
+                  Quay lại tham quan [F]
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -868,26 +1137,26 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
           </div>
           <ul style={{ paddingLeft: 16, margin: 0, fontSize: 13, lineHeight: 1.6, color: "rgba(255,255,255,0.85)" }}>
             <li style={{ marginBottom: 6 }}>
-              <strong style={{ color: C.accent }}>Chuột trái + Kéo:</strong> Xoay góc nhìn (Orbit)
+              <strong style={{ color: C.accent }}>Phím WASD / Mũi tên:</strong> Di chuyển (Walk)
             </li>
             <li style={{ marginBottom: 6 }}>
-              <strong style={{ color: C.accent }}>Chuột phải + Kéo:</strong> Di chuyển vị trí (Pan)
+              <strong style={{ color: C.accent }}>Kéo chuột / Vuốt màn hình:</strong> Xoay hướng nhìn (Look around)
             </li>
             <li style={{ marginBottom: 6 }}>
-              <strong style={{ color: C.accent }}>Cuộn chuột:</strong> Thu phóng khoảng cách (Zoom)
+              <strong style={{ color: C.accent }}>Phím F / Click tranh:</strong> Đọc chi tiết / Xem video lớn
             </li>
             <li>
-              <strong style={{ color: C.accent }}>Chạm & Vuốt (Mobile):</strong> Xoay / Thu phóng góc nhìn
+              <strong style={{ color: C.accent }}>Phím ESC / F:</strong> Thoát giao diện đọc chi tiết
             </li>
           </ul>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: 12, paddingTop: 10, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>
-            * Tiến lại gần bất kỳ bức tranh nào để đọc thông tin chi tiết và xem phim tư liệu hoạt động.
+            * Tiến lại gần bất kỳ bức tranh nào trong khoảng 2.5m để tương tác với tư liệu.
           </div>
         </div>
       )}
 
       {/* Quick guide text at the bottom right */}
-      {!loading && !error && !activeExhibit && (
+      {!loading && !error && !nearExhibit && (
         <div
           style={{
             position: "absolute",
@@ -902,7 +1171,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
             zIndex: 35,
           }}
         >
-          Sử dụng chuột hoặc cảm ứng để di chuyển trong bảo tàng
+          Sử dụng WASD để di chuyển, kéo chuột để xoay đầu
         </div>
       )}
     </div>
