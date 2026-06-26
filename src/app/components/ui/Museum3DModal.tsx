@@ -2,12 +2,45 @@ import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { X, HelpCircle, Loader2 } from "lucide-react";
+import { X, HelpCircle, Loader2, BookOpen, Film } from "lucide-react";
 import { C } from "@/tokens";
+import {
+  imgToLamUN,
+  imgVietnamMap,
+  imgVietnamTrain,
+  imgVietnamHighwayTraffic,
+  imgDBP_CamCo,
+  imgDaihoi2PhatBieu,
+  imgGVR_KyKet,
+  imgBacHo_BHH_1,
+  imgNQ15_HoiNghi,
+  imgDongKhoi,
+  imgDaihoi3_1,
+  imgDaihoi2ToanCanh,
+  imgDBP_HopBan,
+  imgGVR_HoiNghi,
+  imgApBac,
+  imgBinhGia,
+  imgDongXoai,
+  imgBaSanSang
+} from "@/assets/images";
 
 interface Museum3DModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface Exhibit {
+  id: number;
+  title: string;
+  part: string;
+  type: "image" | "video";
+  url: string;
+  width: number;
+  height: number;
+  position: [number, number, number];
+  rotation: [number, number, number];
+  details: string;
 }
 
 export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
@@ -16,6 +49,9 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(true);
+  
+  // Track active exhibit that camera is looking at
+  const [activeExhibit, setActiveExhibit] = useState<Exhibit | null>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -34,8 +70,9 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       0.1,
       1000
     );
-    // Position the camera inside the gallery
-    camera.position.set(0, 1.8, 8);
+    
+    // Position the camera at the center area of the gallery
+    camera.position.set(0, 1.8, 4);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -56,106 +93,415 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
     controls.dampingFactor = 0.05;
     controls.screenSpacePanning = true;
     controls.minDistance = 0.5;
-    controls.maxDistance = 60;
-    // Limit looking down below the floor
-    controls.maxPolarAngle = Math.PI / 2 + 0.15; 
-    controls.target.set(0, 1.5, 0);
+    controls.maxDistance = 25;
+    // Limit looking down below the floor and up to ceiling too much
+    controls.maxPolarAngle = Math.PI / 2 + 0.12; 
+    controls.minPolarAngle = Math.PI / 6;
+    controls.target.set(0, 1.6, 0);
     controls.update();
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight("#ffffff", 0.6);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 0.75);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight("#fff9e6", 1.2);
+    const sunLight = new THREE.DirectionalLight("#fff9e6", 1.0);
     sunLight.position.set(10, 20, 15);
-    sunLight.castShadow = true;
-    sunLight.shadow.mapSize.width = 2048;
-    sunLight.shadow.mapSize.height = 2048;
-    sunLight.shadow.bias = -0.001;
     scene.add(sunLight);
 
     // Light attached to camera so view is never pitch black
-    const camLight = new THREE.PointLight("#ffffff", 0.8, 20);
+    const camLight = new THREE.PointLight("#ffffff", 0.8, 15);
     scene.add(camLight);
 
-    // Floor Grid Helper (for spatial references, styled nicely)
-    const gridHelper = new THREE.GridHelper(100, 100, "#8b6b3f", "rgba(139,107,63,0.15)");
-    gridHelper.position.y = 0.01;
-    scene.add(gridHelper);
-
-    // Setup texture loader & video textures for the 3 slots
+    // Setup texture loader & list to keep track of active video tags
     const textureLoader = new THREE.TextureLoader();
+    const activeVideos: HTMLVideoElement[] = [];
 
-    // Slot 1: Điện Biên Phủ Video
-    const dbpVideo = document.createElement("video");
-    dbpVideo.src = "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4";
-    dbpVideo.loop = true;
-    dbpVideo.muted = true;
-    dbpVideo.playsInline = true;
-    dbpVideo.setAttribute("webkit-playsinline", "true");
-    dbpVideo.play().catch((err) => console.log("dbpVideo autoplay blocked:", err));
+    // Define 20 structured historical exhibits
+    const insideExhibitsData = [
+      {
+        title: "Đại hội đại biểu toàn quốc lần thứ II (2-1951)",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgDaihoi2PhatBieu,
+        details: "Đại hội II của Đảng diễn ra tại chiến khu Việt Bắc, quyết định đưa Đảng ra hoạt động công khai dưới tên gọi Đảng Lao động Việt Nam để trực tiếp lãnh đạo kháng chiến."
+      },
+      {
+        title: "Chiến dịch Điện Biên Phủ (1954)",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgDBP_CamCo,
+        details: "Chiến dịch Điện Biên Phủ kết thúc thắng lợi rực rỡ, đập tan tập đoàn cứ điểm mạnh nhất Đông Dương của thực dân Pháp, tạo tiếng vang chấn động địa cầu."
+      },
+      {
+        title: "Hiệp định Giơnevơ (1954)",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgGVR_KyKet,
+        details: "Hiệp định Giơnevơ lập lại hòa bình tại Đông Dương được ký kết, giải phóng hoàn toàn miền Bắc, mở ra thời kỳ cách mạng mới cho đất nước."
+      },
+      {
+        title: "Bác Hồ tại chiến khu Việt Bắc",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgBacHo_BHH_1,
+        details: "Hình ảnh Chủ tịch Hồ Chí Minh cùng các đồng chí lãnh đạo Trung ương chỉ đạo kháng chiến và kiến quốc tại chiến khu an toàn khu (ATK) Việt Bắc."
+      }
+    ];
 
-    const dbpVideoTexture = new THREE.VideoTexture(dbpVideo);
-    dbpVideoTexture.colorSpace = THREE.SRGBColorSpace;
-    dbpVideoTexture.flipY = false;
+    const inside001ExhibitsData = [
+      {
+        title: "Bản đồ Cách mạng hai miền (1954 - 1975)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgVietnamMap,
+        details: "Việt Nam tạm thời chia cắt thành hai miền tại vĩ tuyến 17. Đảng đề ra hai nhiệm vụ chiến lược song song: xây dựng miền Bắc làm hậu phương và giải phóng miền Nam."
+      },
+      {
+        title: "Hội nghị Trung ương lần thứ 15 (1-1959)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgNQ15_HoiNghi,
+        details: "Hội nghị quan trọng vạch ra con đường cách mạng miền Nam: sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để đánh đổ Mỹ - Diệm."
+      },
+      {
+        title: "Phong trào Đồng khởi (1960)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgDongKhoi,
+        details: "Bùng nổ từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam sang thế tiến công."
+      },
+      {
+        title: "Đại hội đại biểu toàn quốc lần thứ III (9-1960)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgDaihoi3_1,
+        details: "Đại hội xác định đường lối chung của cách mạng cả nước: kết hợp xây dựng CNXH ở miền Bắc và đấu tranh giải phóng dân tộc ở miền Nam."
+      }
+    ];
 
-    // Slot 2: Hiệp định Giơnevơ Image
-    const gioNeVeTexture = textureLoader.load("/BaoTang3D/pic_and_video/Hiệp định Giơnevơ 21-7-1954.jpg");
-    gioNeVeTexture.colorSpace = THREE.SRGBColorSpace;
-    gioNeVeTexture.flipY = false;
+    const outsideExhibitsData = [
+      {
+        title: "Thước phim tư liệu Đại hội II",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4",
+        details: "Đoạn phim tư liệu chân thực quay lại bối cảnh đại biểu thảo luận, biểu quyết và sinh hoạt tại chiến khu Việt Bắc trong những ngày Đại hội diễn ra."
+      },
+      {
+        title: "Toàn cảnh hội trường Đại hội II",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgDaihoi2ToanCanh,
+        details: "Toàn cảnh hội trường làm việc giản dị bằng tranh tre nứa lá tại chiến khu Việt Bắc, thể hiện tinh thần vượt khó kháng chiến thắng lợi của Đảng."
+      },
+      {
+        title: "Bộ Chỉ huy chiến dịch Điện Biên Phủ",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgDBP_HopBan,
+        details: "Đại tướng Võ Nguyên Giáp cùng Bộ chỉ huy họp bàn kế hoạch tác chiến cho chiến dịch lịch sử Điện Biên Phủ với phương châm 'đánh chắc, tiến chắc'."
+      },
+      {
+        title: "Thước phim Điện Biên Phủ lịch sử",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "video",
+        url: "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4",
+        details: "Thước phim chân thực ghi lại khí thế hào hùng của quân dân ta: kéo pháo qua đèo, đào hào bao vây và đợt tổng công kích cuối cùng vào hầm chỉ huy của giặc."
+      },
+      {
+        title: "Toàn cảnh Hội nghị Giơnevơ (1954)",
+        part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
+        type: "image",
+        url: imgGVR_HoiNghi,
+        details: "Quang cảnh phòng họp hội nghị đa phương tại Giơnevơ bàn về việc lập lại hòa bình ở Đông Dương sau thắng lợi quân sự của Việt Nam."
+      },
+      {
+        title: "Chiến thắng Ấp Bắc (1963)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgApBac,
+        details: "Chiến thắng vang dội mở đầu cho phong trào tiêu diệt các chiến thuật 'trực thăng vận' và 'thiết xa vận' của Mỹ, chứng minh quân dân miền Nam hoàn toàn có thể đánh bại quân Mỹ."
+      },
+      {
+        title: "Chiến thắng Bình Giã (1964)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgBinhGia,
+        details: "Chiến thắng tại Bình Giã (Bà Rịa) đã đập tan xương sống của chiến lược 'Chiến tranh đặc biệt', tiêu diệt nhiều tiểu đoàn chủ lực tinh nhuệ của ngụy."
+      },
+      {
+        title: "Chiến thắng Đồng Xoài (1965)",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgDongXoai,
+        details: "Trận tiến công quy mô lớn góp phần làm sụp đổ hoàn toàn chiến lược 'Chiến tranh đặc biệt' của Mỹ, khẳng định sự trưởng thành vượt bậc của Quân Giải phóng."
+      },
+      {
+        title: "Phong trào 'Ba sẵn sàng' lịch sử",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
+        type: "image",
+        url: imgBaSanSang,
+        details: "Phong trào thi đua yêu nước sục sôi của thanh niên miền Bắc sẵn sàng chiến đấu, sẵn sàng gia nhập quân đội và sẵn sàng đi bất cứ nơi đâu Tổ quốc cần."
+      },
+      {
+        title: "Đột phá giao thông & Tốc độ cao",
+        part: "Ví dụ thực tiễn · Đất nước đổi mới",
+        type: "image",
+        url: imgVietnamHighwayTraffic,
+        details: "Hạ tầng giao thông Bắc - Nam đột phá mạnh mẽ thể hiện tiềm lực và khát vọng phát triển vượt trội của nước nhà trong kỷ nguyên đổi mới."
+      },
+      {
+        title: "Đường sắt tốc độ cao Bắc - Nam",
+        part: "Ví dụ thực tiễn · Hướng tới tương lai",
+        type: "image",
+        url: imgVietnamTrain,
+        details: "Dự án đường sắt tốc độ cao kết nối hai miền Tổ quốc nhanh chóng, an toàn, thể hiện tầm nhìn thế kỷ và quyết tâm vươn mình của quốc gia."
+      },
+      {
+        title: "Trường phái Ngoại giao cây tre",
+        part: "Ví dụ thực tiễn · Kế thừa lịch sử",
+        type: "image",
+        url: imgToLamUN,
+        details: "Bài học độc lập, tự chủ từ quá khứ được phát triển thành học thuyết 'Ngoại giao cây tre Việt Nam' thời đại mới: mềm dẻo về phương pháp nhưng kiên định về nguyên tắc."
+      }
+    ];
 
-    // Slot 3: Đại hội II Video
-    const dh2Video = document.createElement("video");
-    dh2Video.src = "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4";
-    dh2Video.loop = true;
-    dh2Video.muted = true;
-    dh2Video.playsInline = true;
-    dh2Video.setAttribute("webkit-playsinline", "true");
-    dh2Video.play().catch((err) => console.log("dh2Video autoplay blocked:", err));
+    // Array to be dynamically populated for proximity checking
+    const exhibits: Exhibit[] = [];
 
-    const dh2VideoTexture = new THREE.VideoTexture(dh2Video);
-    dh2VideoTexture.colorSpace = THREE.SRGBColorSpace;
-    dh2VideoTexture.flipY = false;
+    // Helper to auto-detect slots from original merged meshes, sort them, and spawn planes
+    const setupSlotsForMesh = (
+      mesh: THREE.Mesh,
+      exhibitDataList: any[],
+      exhibitTypePrefix: string
+    ) => {
+      const geometry = mesh.geometry;
+      if (!geometry.index) return;
+
+      const indices = geometry.index.array;
+      const positions = geometry.attributes.position.array;
+
+      const numTriangles = indices.length / 3;
+      const triangles: { indices: number[]; center: THREE.Vector3 }[] = [];
+
+      for (let i = 0; i < numTriangles; i++) {
+        const i0 = indices[i * 3];
+        const i1 = indices[i * 3 + 1];
+        const i2 = indices[i * 3 + 2];
+
+        const p0 = new THREE.Vector3(positions[i0 * 3], positions[i0 * 3 + 1], positions[i0 * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+        const p1 = new THREE.Vector3(positions[i1 * 3], positions[i1 * 3 + 1], positions[i1 * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+        const p2 = new THREE.Vector3(positions[i2 * 3], positions[i2 * 3 + 1], positions[i2 * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+
+        const center = new THREE.Vector3().add(p0).add(p1).add(p2).multiplyScalar(1 / 3);
+        triangles.push({ indices: [i0, i1, i2], center });
+      }
+
+      // Simple distance-based clustering (group triangles closer than 1.5m)
+      const visited = new Set<number>();
+      const clusters: typeof triangles[] = [];
+
+      for (let i = 0; i < triangles.length; i++) {
+        if (visited.has(i)) continue;
+
+        const cluster: typeof triangles = [];
+        const queue = [triangles[i]];
+        visited.add(i);
+
+        while (queue.length > 0) {
+          const tri = queue.shift()!;
+          cluster.push(tri);
+
+          for (let j = 0; j < triangles.length; j++) {
+            if (visited.has(j)) continue;
+
+            const tri2 = triangles[j];
+            const dist = tri.center.distanceTo(tri2.center);
+
+            if (dist < 1.5) {
+              visited.add(j);
+              queue.push(tri2);
+            }
+          }
+        }
+        clusters.push(cluster);
+      }
+
+      // Map clusters to slot metrics
+      const slots = clusters.map((cluster) => {
+        let minX = Infinity, maxX = -Infinity;
+        let minY = Infinity, maxY = -Infinity;
+        let minZ = Infinity, maxZ = -Infinity;
+
+        const uniqueVertexIndices = new Set<number>();
+        cluster.forEach((tri) => tri.indices.forEach((idx) => uniqueVertexIndices.add(idx)));
+
+        uniqueVertexIndices.forEach((idx) => {
+          const v = new THREE.Vector3(positions[idx * 3], positions[idx * 3 + 1], positions[idx * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+          if (v.x < minX) minX = v.x;
+          if (v.x > maxX) maxX = v.x;
+          if (v.y < minY) minY = v.y;
+          if (v.y > maxY) maxY = v.y;
+          if (v.z < minZ) minZ = v.z;
+          if (v.z > maxZ) maxZ = v.z;
+        });
+
+        const center = new THREE.Vector3((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
+
+        // Dimensions
+        const height = maxY - minY;
+        const sizeX = maxX - minX;
+        const sizeZ = maxZ - minZ;
+        const width = sizeX > sizeZ ? sizeX : sizeZ;
+
+        // Normal estimation using first triangle
+        const tri0 = cluster[0];
+        const p0 = new THREE.Vector3(positions[tri0.indices[0] * 3], positions[tri0.indices[0] * 3 + 1], positions[tri0.indices[0] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+        const p1 = new THREE.Vector3(positions[tri0.indices[1] * 3], positions[tri0.indices[1] * 3 + 1], positions[tri0.indices[1] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+        const p2 = new THREE.Vector3(positions[tri0.indices[2] * 3], positions[tri0.indices[2] * 3 + 1], positions[tri0.indices[2] * 3 + 2]).applyMatrix4(mesh.matrixWorld);
+
+        const normal = new THREE.Vector3()
+          .crossVectors(new THREE.Vector3().subVectors(p1, p0), new THREE.Vector3().subVectors(p2, p0))
+          .normalize();
+        normal.y = 0;
+        normal.normalize();
+
+        // Adjust orientation: Inwards for inside/outside, Outwards for inside001
+        const centerHorizontal = new THREE.Vector3(0, center.y, 0);
+        const toCenterVec = new THREE.Vector3().subVectors(centerHorizontal, center).normalize();
+        toCenterVec.y = 0;
+        toCenterVec.normalize();
+
+        if (exhibitTypePrefix === "inside") {
+          if (normal.dot(toCenterVec) < 0) normal.negate();
+        } else if (exhibitTypePrefix === "inside001") {
+          if (normal.dot(toCenterVec) > 0) normal.negate();
+        } else {
+          if (normal.dot(toCenterVec) < 0) normal.negate();
+        }
+
+        const angle = Math.atan2(center.x, center.z);
+
+        return { center, width, height, normal, angle };
+      });
+
+      // Sort slots clockwise by Y-rotation angle
+      slots.sort((a, b) => a.angle - b.angle);
+
+      // Create new picture meshes and add to scene
+      slots.forEach((slot, index) => {
+        const data = exhibitDataList[index % exhibitDataList.length];
+        if (!data) return;
+
+        const group = new THREE.Group();
+
+        // Cap sizes to standard gallery ratios
+        const finalWidth = slot.width > 0.5 ? slot.width : 1.68;
+        const finalHeight = slot.height > 0.5 ? slot.height : 1.12;
+
+        // 1. Frame Mesh
+        const frameGeo = new THREE.BoxGeometry(finalWidth + 0.08, finalHeight + 0.08, 0.04);
+        const frameMat = new THREE.MeshStandardMaterial({
+          color: 0x2b1e15, // Rich brown wood
+          roughness: 0.85,
+          metalness: 0.1
+        });
+        const frameMesh = new THREE.Mesh(frameGeo, frameMat);
+        frameMesh.castShadow = true;
+        frameMesh.receiveShadow = true;
+        group.add(frameMesh);
+
+        // 2. Picture Canvas Mesh
+        const canvasGeo = new THREE.PlaneGeometry(finalWidth, finalHeight);
+        let canvasMat: THREE.Material;
+
+        if (data.type === "video") {
+          const video = document.createElement("video");
+          video.src = data.url;
+          video.loop = true;
+          video.muted = true;
+          video.playsInline = true;
+          video.setAttribute("webkit-playsinline", "true");
+          video.play().catch((err) => console.log("Video autoplay blocked:", err));
+          activeVideos.push(video);
+
+          const videoTex = new THREE.VideoTexture(video);
+          videoTex.colorSpace = THREE.SRGBColorSpace;
+
+          canvasMat = new THREE.MeshBasicMaterial({
+            map: videoTex,
+            side: THREE.DoubleSide
+          });
+        } else {
+          const tex = textureLoader.load(data.url);
+          tex.colorSpace = THREE.SRGBColorSpace;
+
+          canvasMat = new THREE.MeshBasicMaterial({
+            map: tex,
+            side: THREE.DoubleSide
+          });
+        }
+
+        const canvasMesh = new THREE.Mesh(canvasGeo, canvasMat);
+        canvasMesh.position.z = 0.022; // Offset forward slightly
+        group.add(canvasMesh);
+
+        // Spawn position: offset slightly along the normal vector to sit neatly in front of wall
+        const spawnPosition = new THREE.Vector3().addVectors(slot.center, new THREE.Vector3().copy(slot.normal).multiplyScalar(0.02));
+        group.position.copy(spawnPosition);
+
+        // Point the front of the painting towards the normal
+        const lookTarget = new THREE.Vector3().addVectors(spawnPosition, slot.normal);
+        group.lookAt(lookTarget);
+
+        scene.add(group);
+
+        // Push to dynamic exhibits list for proximity checking
+        exhibits.push({
+          id: exhibits.length + 1,
+          title: data.title,
+          part: data.part,
+          type: data.type,
+          url: data.url,
+          width: finalWidth,
+          height: finalHeight,
+          position: [spawnPosition.x, spawnPosition.y, spawnPosition.z],
+          rotation: [group.rotation.x, group.rotation.y, group.rotation.z],
+          details: data.details
+        });
+      });
+    };
 
     // GLTF Loader to load art_gallery.glb.glb
     const loader = new GLTFLoader();
-    let model: THREE.Group | null = null;
+    let galleryModel: THREE.Group | null = null;
 
     loader.load(
       "/BaoTang3D/art_gallery.glb.glb",
       (gltf) => {
-        model = gltf.scene;
-        model.position.set(0, 0, 0);
+        galleryModel = gltf.scene;
+        galleryModel.position.set(0, 0, 0);
         
-        // Enable shadows and apply dynamic textures to designated painting meshes
-        model.traverse((child) => {
+        // Hide the original baking paintings and auto-setup custom ones
+        galleryModel.traverse((child) => {
           if ((child as THREE.Mesh).isMesh) {
             const mesh = child as THREE.Mesh;
             mesh.castShadow = true;
             mesh.receiveShadow = true;
             
-            // Check mesh names and apply custom materials
+            // Detect slots and setup dynamic paintings on matching walls
             if (mesh.name === "PaitingsInside_Painting_0") {
-              mesh.material = new THREE.MeshStandardMaterial({
-                map: dbpVideoTexture,
-                roughness: 0.1,
-                metalness: 0.1,
-                side: THREE.DoubleSide
-              });
-            } else if (mesh.name === "PaitingsOutside_Painting_0") {
-              mesh.material = new THREE.MeshStandardMaterial({
-                map: gioNeVeTexture,
-                roughness: 0.1,
-                metalness: 0.1,
-                side: THREE.DoubleSide
-              });
+              mesh.updateMatrixWorld(true);
+              setupSlotsForMesh(mesh, insideExhibitsData, "inside");
+              mesh.visible = false;
             } else if (mesh.name === "PaitingsInside.001_Painting_0") {
-              mesh.material = new THREE.MeshStandardMaterial({
-                map: dh2VideoTexture,
-                roughness: 0.1,
-                metalness: 0.1,
-                side: THREE.DoubleSide
-              });
+              mesh.updateMatrixWorld(true);
+              setupSlotsForMesh(mesh, inside001ExhibitsData, "inside001");
+              mesh.visible = false;
+            } else if (mesh.name === "PaitingsOutside_Painting_0") {
+              mesh.updateMatrixWorld(true);
+              setupSlotsForMesh(mesh, outsideExhibitsData, "outside");
+              mesh.visible = false;
             } else if (mesh.material) {
               // Adjust other generic materials
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
@@ -168,45 +514,67 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
             }
           }
         });
+ 
+         scene.add(galleryModel);
+         setLoading(false);
+       },
+       (xhr) => {
+         if (xhr.total) {
+           const percent = Math.round((xhr.loaded / xhr.total) * 100);
+           setProgress(percent);
+         } else {
+           const approximateTotal = 44630060;
+           const percent = Math.min(Math.round((xhr.loaded / approximateTotal) * 100), 99);
+           setProgress(percent);
+         }
+       },
+       (err) => {
+         console.error("Error loading GLB model:", err);
+         setError("Không thể tải mô hình 3D. Vui lòng thử lại sau.");
+         setLoading(false);
+       }
+     );
+ 
+     // Resize Handler
+     const handleResize = () => {
+       if (!mountRef.current) return;
+       camera.aspect = window.innerWidth / window.innerHeight;
+       camera.updateProjectionMatrix();
+       renderer.setSize(window.innerWidth, window.innerHeight);
+     };
+     window.addEventListener("resize", handleResize);
+ 
+     // Keep reference of current active exhibit to avoid React trigger loop
+     let currentActive: Exhibit | null = null;
+ 
+     // Animation Loop
+     let animationFrameId: number;
+     const animate = () => {
+       animationFrameId = requestAnimationFrame(animate);
+       
+       // Update camera light position
+       camLight.position.copy(camera.position);
+       
+       controls.update();
+ 
+       // Check proximity of camera to each exhibit center
+       let nearestEx: Exhibit | null = null;
+       let minDistance = 2.8; // Proximity boundary in meters
+ 
+       exhibits.forEach((ex) => {
+         const exPos = new THREE.Vector3(ex.position[0], ex.position[1], ex.position[2]);
+         const dist = camera.position.distanceTo(exPos);
+         if (dist < minDistance) {
+           minDistance = dist;
+           nearestEx = ex;
+         }
+       });
 
-        scene.add(model);
-        setLoading(false);
-      },
-      (xhr) => {
-        if (xhr.total) {
-          const percent = Math.round((xhr.loaded / xhr.total) * 100);
-          setProgress(percent);
-        } else {
-          const approximateTotal = 44630060;
-          const percent = Math.min(Math.round((xhr.loaded / approximateTotal) * 100), 99);
-          setProgress(percent);
-        }
-      },
-      (err) => {
-        console.error("Error loading GLB model:", err);
-        setError("Không thể tải mô hình 3D. Vui lòng thử lại sau.");
-        setLoading(false);
+      if (currentActive !== nearestEx) {
+        currentActive = nearestEx;
+        setActiveExhibit(nearestEx);
       }
-    );
 
-    // Resize Handler
-    const handleResize = () => {
-      if (!mountRef.current) return;
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
-    window.addEventListener("resize", handleResize);
-
-    // Animation Loop
-    let animationFrameId: number;
-    const animate = () => {
-      animationFrameId = requestAnimationFrame(animate);
-      
-      // Update camera light position
-      camLight.position.copy(camera.position);
-      
-      controls.update();
       renderer.render(scene, camera);
     };
     animate();
@@ -217,14 +585,12 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
 
-      // Pause and clean up video elements
-      dbpVideo.pause();
-      dbpVideo.removeAttribute("src");
-      dbpVideo.load();
-
-      dh2Video.pause();
-      dh2Video.removeAttribute("src");
-      dh2Video.load();
+      // Pause and clean up all active video elements
+      activeVideos.forEach((v) => {
+        v.pause();
+        v.removeAttribute("src");
+        v.load();
+      });
       
       if (currentMount && renderer.domElement) {
         currentMount.removeChild(renderer.domElement);
@@ -267,6 +633,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
           justifyContent: "space-between",
           alignItems: "center",
           pointerEvents: "none",
+          zIndex: 50,
         }}
       >
         <div style={{ pointerEvents: "auto" }}>
@@ -396,6 +763,74 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         </div>
       )}
 
+      {/* Active Exhibit Proximity Card (Overlayed at bottom center) */}
+      {activeExhibit && !loading && !error && (
+        <div
+          style={{
+            position: "absolute",
+            bottom: 32,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "90%",
+            maxWidth: 600,
+            background: "rgba(30, 21, 16, 0.94)",
+            backdropFilter: "blur(10px)",
+            border: `1.5px solid ${C.accent}`,
+            borderRadius: 6,
+            padding: "18px 24px",
+            boxShadow: "0 12px 35px rgba(0,0,0,0.6)",
+            zIndex: 40,
+            pointerEvents: "auto",
+            display: "flex",
+            gap: 16,
+            alignItems: "center",
+            transition: "all 0.3s ease",
+          }}
+        >
+          <div
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: "50%",
+              background: C.red,
+              border: `1px solid ${C.accent}`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            {activeExhibit.type === "video" ? (
+              <Film size={20} color="#fff" />
+            ) : (
+              <BookOpen size={20} color="#fff" />
+            )}
+          </div>
+          <div style={{ flex: 1 }}>
+            <span
+              style={{
+                fontFamily: C.sans,
+                fontSize: 10,
+                fontWeight: 800,
+                color: C.accent,
+                textTransform: "uppercase",
+                letterSpacing: "0.12em",
+                display: "block",
+                marginBottom: 4,
+              }}
+            >
+              {activeExhibit.part}
+            </span>
+            <h4 style={{ fontFamily: C.serif, fontSize: 18, fontWeight: 900, color: "#fff", margin: "0 0 6px 0", lineHeight: 1.25 }}>
+              {activeExhibit.title}
+            </h4>
+            <p style={{ fontFamily: C.body, fontSize: 14.5, color: "rgba(255,255,255,0.85)", margin: 0, lineHeight: 1.5, textAlign: "justify" }}>
+              {activeExhibit.details}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Instructions Modal / Card (Overlayed in bottom-left) */}
       {showHelp && !loading && !error && (
         <div
@@ -411,9 +846,10 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
             padding: "16px 20px",
             boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
             pointerEvents: "auto",
+            zIndex: 45,
           }}
         >
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+          <div style={{ display: "flex", justifyContext: "space-between", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
             <h4 style={{ fontFamily: C.serif, fontSize: 16, fontWeight: 800, color: C.accent, margin: 0 }}>
               Hướng dẫn tham quan
             </h4>
@@ -445,13 +881,13 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
             </li>
           </ul>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", marginTop: 12, paddingTop: 10, fontSize: 11, color: "rgba(255,255,255,0.5)" }}>
-            * Ở các bước tiếp theo, chúng ta sẽ chèn trực tiếp tranh ảnh và video Điện Biên Phủ vào các khung tranh 3D trong không gian này.
+            * Tiến lại gần bất kỳ bức tranh nào để đọc thông tin chi tiết và xem phim tư liệu hoạt động.
           </div>
         </div>
       )}
 
       {/* Quick guide text at the bottom right */}
-      {!loading && !error && (
+      {!loading && !error && !activeExhibit && (
         <div
           style={{
             position: "absolute",
@@ -463,9 +899,10 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
             fontSize: 12,
             color: "rgba(255,255,255,0.7)",
             pointerEvents: "none",
+            zIndex: 35,
           }}
         >
-          Sử dụng chuột hoặc cảm ứng để tương tác với mô hình 3D
+          Sử dụng chuột hoặc cảm ứng để di chuyển trong bảo tàng
         </div>
       )}
     </div>
