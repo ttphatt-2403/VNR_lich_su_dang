@@ -1155,10 +1155,10 @@ export function Section2() {
 
 
 
-              {/* 2-Col Body Layout */}
+                            {/* 2-Col Body Layout (Top Part: Bamboo Diplomacy & Partners) */}
               <div style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 24, marginBottom: 20 }}>
 
-                {/* Left Column (Content 1 & 2) */}
+                {/* Left Column (Content 1) */}
                 <div>
                   {/* 1. Trường phái Ngoại giao cây tre */}
                   <Reveal effect="fade-left">
@@ -1172,81 +1172,9 @@ export function Section2() {
                       Tính đến năm 2026, Việt Nam đã thiết lập quan hệ Đối tác chiến lược toàn diện với cả năm nước Ủy viên Thường trực Hội đồng Bảo an Liên Hợp Quốc, gồm Trung Quốc, Nga, Mỹ, Pháp và Anh. Trong đó, quan hệ Việt Nam – Anh được nâng cấp lên Đối tác chiến lược toàn diện vào tháng 10 năm 2025 (Bộ Ngoại giao, 2025). Điều này phản ánh khả năng mở rộng và cân bằng quan hệ với các nước lớn trên cơ sở tôn trọng độc lập, chủ quyền và lợi ích quốc gia.
                     </p>
                   </Reveal>
-
-                  <DottedRule my={16} />
-
-                  {/* 2. Chính sách quốc phòng 4 không */}
-                  <Reveal effect="fade-left" delay={80}>
-                    <h3 style={{ fontFamily: C.serif, fontSize: 19.5, fontWeight: 800, color: C.red, margin: "0 0 10px 0" }}>
-                      2. Chính sách quốc phòng "4 không"
-                    </h3>
-                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 16px 0" }}>
-                      Bên cạnh đó, chính sách quốc phòng "4 không" của Việt Nam bao gồm:
-                    </p>
-
-                    {/* 4 items list */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                      {[
-                        "Không tham gia liên minh quân sự",
-                        "Không liên kết với nước này để chống nước kia",
-                        "Không cho nước ngoài đặt căn cứ quân sự hoặc sử dụng lãnh thổ Việt Nam để chống lại nước khác",
-                        "Không sử dụng hoặc đe dọa sử dụng vũ lực trong quan hệ quốc tế"
-                      ].map((item, idx) => {
-                        const isHovered = hoveredFourNo === idx;
-                        return (
-                          <div
-                            key={idx}
-                            onMouseEnter={() => setHoveredFourNo(idx)}
-                            onMouseLeave={() => setHoveredFourNo(null)}
-                            style={{
-                              display: "flex",
-                              gap: 14,
-                              alignItems: "center",
-                              padding: "12px 14px",
-                              background: isHovered ? "rgba(122,26,28,0.06)" : "rgba(100,70,34,0.03)",
-                              border: `1px solid ${isHovered ? C.red : "rgba(100,70,34,0.12)"}`,
-                              borderRadius: 4,
-                              transition: C.tr,
-                              cursor: "pointer",
-                              boxShadow: isHovered ? "0 4px 12px rgba(122,26,28,0.08)" : "none",
-                              transform: isHovered ? "translateX(6px)" : "none",
-                            }}
-                          >
-                            <div style={{
-                              width: 42,
-                              height: 42,
-                              borderRadius: "50%",
-                              border: `1.5px solid ${isHovered ? C.accent : C.red}`,
-                              background: isHovered ? "#fff" : "#ede0c8",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              position: "relative",
-                              flexShrink: 0,
-                              transition: C.tr,
-                              boxShadow: isHovered ? "0 2px 8px rgba(122,26,28,0.12)" : "none",
-                            }}>
-                              {getFourNoIcon(idx, isHovered)}
-                            </div>
-                            <span style={{
-                              fontFamily: C.body,
-                              fontSize: 18,
-                              fontWeight: isHovered ? 600 : 500,
-                              lineHeight: 1.45,
-                              color: isHovered ? C.red : C.dark,
-                              transition: C.tr,
-                            }}>
-                              {item}
-                            </span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <p style={{ fontFamily: C.sans, fontSize: 9, color: C.muted, margin: "12px 0 0 0" }}>Nguồn: Bộ Quốc phòng (2019)</p>
-                  </Reveal>
                 </div>
 
-                {/* Right Column (Partners table & Quote) */}
+                {/* Right Column (Partners table) */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                   {/* Partners Table Card */}
                   <Reveal effect="fade-right">
@@ -1377,6 +1305,103 @@ export function Section2() {
                       </p>
                     </div>
                   </Reveal>
+                </div>
+              </div>
+
+              <DottedRule my={16} />
+
+              {/* 2-Col Body Layout (Bottom Part: 4 Không Policy & 2x2 Photos) */}
+              <div style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 24, marginBottom: 20 }}>
+                
+                {/* Left Column: 2. Chính sách quốc phòng "4 không" */}
+                <div>
+                  {/* 2. Chính sách quốc phòng 4 không */}
+                  <Reveal effect="fade-left" delay={80}>
+                    <h3 style={{ fontFamily: C.serif, fontSize: 19.5, fontWeight: 800, color: C.red, margin: "0 0 10px 0" }}>
+                      2. Chính sách quốc phòng "4 không"
+                    </h3>
+                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 16px 0" }}>
+                      Bên cạnh đó, chính sách quốc phòng "4 không" của Việt Nam bao gồm:
+                    </p>
+
+                    {/* 4 items list */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                      {[
+                        "Không tham gia liên minh quân sự",
+                        "Không liên kết với nước này để chống nước kia",
+                        "Không cho nước ngoài đặt căn cứ quân sự hoặc sử dụng lãnh thổ Việt Nam để chống lại nước khác",
+                        "Không sử dụng hoặc đe dọa sử dụng vũ lực trong quan hệ quốc tế"
+                      ].map((item, idx) => {
+                        const isHovered = hoveredFourNo === idx;
+                        return (
+                          <div
+                            key={idx}
+                            onMouseEnter={() => setHoveredFourNo(idx)}
+                            onMouseLeave={() => setHoveredFourNo(null)}
+                            style={{
+                              display: "flex",
+                              gap: 14,
+                              alignItems: "center",
+                              padding: "12px 14px",
+                              background: isHovered ? "rgba(122,26,28,0.06)" : "rgba(100,70,34,0.03)",
+                              border: `1px solid ${isHovered ? C.red : "rgba(100,70,34,0.12)"}`,
+                              borderRadius: 4,
+                              transition: C.tr,
+                              cursor: "pointer",
+                              boxShadow: isHovered ? "0 4px 12px rgba(122,26,28,0.08)" : "none",
+                              transform: isHovered ? "translateX(6px)" : "none",
+                            }}
+                          >
+                            <div style={{
+                              width: 42,
+                              height: 42,
+                              borderRadius: "50%",
+                              border: `1.5px solid ${isHovered ? C.accent : C.red}`,
+                              background: isHovered ? "#fff" : "#ede0c8",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              position: "relative",
+                              flexShrink: 0,
+                              transition: C.tr,
+                              boxShadow: isHovered ? "0 2px 8px rgba(122,26,28,0.12)" : "none",
+                            }}>
+                              {getFourNoIcon(idx, isHovered)}
+                            </div>
+                            <span style={{
+                              fontFamily: C.body,
+                              fontSize: 18,
+                              fontWeight: isHovered ? 600 : 500,
+                              lineHeight: 1.45,
+                              color: isHovered ? C.red : C.dark,
+                              transition: C.tr,
+                            }}>
+                              {item}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <p style={{ fontFamily: C.sans, fontSize: 9, color: C.muted, margin: "12px 0 0 0" }}>Nguồn: Bộ Quốc phòng (2019)</p>
+                  </Reveal>
+                </div>
+
+                {/* Right Column: 2x2 Photos & Quote */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  {/* 2x2 Photo Grid */}
+                  <Reveal effect="scale-up" duration={800}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {[imgDipBottom1, imgDipBottom2, imgDipBottom3, imgDipBottom4].map((img, i) => (
+                        <div key={i} style={{ border: `1px solid rgba(100,70,34,0.18)`, padding: 4, background: "#fff", boxShadow: "0 2px 6px rgba(100,70,34,0.08)" }}>
+                          <img
+                            src={img}
+                            alt={`Hoạt động đối ngoại ${i + 1}`}
+                            style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </Reveal>
 
                   {/* Brown Bamboo Quote Block */}
                   <Reveal effect="fade-right" delay={100}>
@@ -1404,22 +1429,9 @@ export function Section2() {
                     </div>
                   </Reveal>
                 </div>
+
               </div>
 
-              {/* Bottom row of 4 photos */}
-              <Reveal effect="scale-up" duration={800}>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 12, marginBottom: 18 }}>
-                  {[imgDipBottom1, imgDipBottom2, imgDipBottom3, imgDipBottom4].map((img, i) => (
-                    <div key={i} style={{ border: `1px solid rgba(100,70,34,0.18)`, padding: 4, background: "#fff", boxShadow: "0 2px 6px rgba(100,70,34,0.08)" }}>
-                      <img
-                        src={img}
-                        alt={`Hoạt động đối ngoại ${i + 1}`}
-                        style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
 
               {/* Bottom Brown Banner */}
               <div
