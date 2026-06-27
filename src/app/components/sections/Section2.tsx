@@ -1174,7 +1174,7 @@ export function Section2() {
                         "Ngoại giao cây tre Việt Nam là nghệ thuật ứng xử mềm dẻo, linh hoạt nhưng rất kiên cường, kiên định về nguyên tắc và mục tiêu."
                       </p>
                       <div style={{ borderTop: `1px solid rgba(212,163,69,0.4)`, paddingTop: 8 }}>
-                        <p style={{ fontFamily: C.sans, fontSize: 10, fontWeight: 700, color: C.accent, margin: "0 0 2px 0" }}>
+                        <p style={{ fontFamily: C.sans, fontSize: 12, fontWeight: 700, color: C.accent, margin: "0 0 2px 0" }}>
                           Tổng Bí thư Tô Lâm
                         </p>
                         <p style={{ fontFamily: C.sans, fontSize: 8.5, color: "rgba(245,238,220,0.7)", margin: 0 }}>
@@ -1226,7 +1226,7 @@ export function Section2() {
                           {
                             name: "Trung Quốc",
                             flag: (
-                              <svg viewBox="0 0 30 20" style={{ width: 44, height: 28, border: "1.5px solid rgba(100,70,34,0.12)" }}>
+                              <svg viewBox="0 0 30 20" style={{ width: 66, height: 44, border: "1.5px solid rgba(100,70,34,0.12)" }}>
                                 <rect width="30" height="20" fill="#de2910" />
                                 <polygon points="6,6 5.5,4.5 4,4 5.5,3.5 6,2 6.5,3.5 8,4 6.5,4.5" fill="#ffde00" />
                               </svg>
@@ -1235,7 +1235,7 @@ export function Section2() {
                           {
                             name: "Nga",
                             flag: (
-                              <svg viewBox="0 0 30 20" style={{ width: 44, height: 28, border: "1.5px solid rgba(100,70,34,0.12)" }}>
+                              <svg viewBox="0 0 30 20" style={{ width: 66, height: 44, border: "1.5px solid rgba(100,70,34,0.12)" }}>
                                 <rect width="30" height="6.6" fill="#fff" />
                                 <rect y="6.6" width="30" height="6.8" fill="#0039a6" />
                                 <rect y="13.4" width="30" height="6.6" fill="#d52b1e" />
@@ -1245,7 +1245,7 @@ export function Section2() {
                           {
                             name: "Mỹ",
                             flag: (
-                              <svg viewBox="0 0 30 20" style={{ width: 44, height: 28, border: "1.5px solid rgba(100,70,34,0.12)" }}>
+                              <svg viewBox="0 0 30 20" style={{ width: 66, height: 44, border: "1.5px solid rgba(100,70,34,0.12)" }}>
                                 <rect width="30" height="20" fill="#fff" />
                                 {/* Stripes */}
                                 {[...Array(7)].map((_, i) => (
@@ -1258,7 +1258,7 @@ export function Section2() {
                           {
                             name: "Pháp",
                             flag: (
-                              <svg viewBox="0 0 30 20" style={{ width: 44, height: 28, border: "1.5px solid rgba(100,70,34,0.12)" }}>
+                              <svg viewBox="0 0 30 20" style={{ width: 66, height: 44, border: "1.5px solid rgba(100,70,34,0.12)" }}>
                                 <rect width="10" height="20" fill="#002395" />
                                 <rect x="10" width="10" height="20" fill="#fff" />
                                 <rect x="20" width="10" height="20" fill="#ed2939" />
@@ -1268,7 +1268,7 @@ export function Section2() {
                           {
                             name: "Anh",
                             flag: (
-                              <svg viewBox="0 0 30 20" style={{ width: 44, height: 28, border: "1.5px solid rgba(100,70,34,0.12)" }}>
+                              <svg viewBox="0 0 30 20" style={{ width: 66, height: 44, border: "1.5px solid rgba(100,70,34,0.12)" }}>
                                 <rect width="30" height="20" fill="#012169" />
                                 {/* Diagonals */}
                                 <path d="M0,0 L30,20 M0,20 L30,0" stroke="#fff" strokeWidth="2.5" />
@@ -1308,7 +1308,7 @@ export function Section2() {
                               </div>
                               <span style={{
                                 fontFamily: C.sans,
-                                fontSize: 10,
+                                fontSize: 12,
                                 fontWeight: isHovered ? 700 : 600,
                                 color: isHovered ? C.red : C.dark,
                                 opacity: isHovered ? 1 : 0.85,
@@ -1321,21 +1321,7 @@ export function Section2() {
                         })}
                       </div>
 
-                      {/* Calendar box */}
-                      <div style={{ display: "flex", gap: 12, background: "rgba(212,163,69,0.06)", padding: "12px 14px", border: "1px solid rgba(122,26,28,0.15)", borderRadius: 4, transition: C.tr }}>
-                        <div style={{ color: C.red, display: "flex", alignItems: "center", transition: C.tr }}>
-                          {/* Simple calendar icon */}
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                            <line x1="16" y1="2" x2="16" y2="6" />
-                            <line x1="8" y1="2" x2="8" y2="6" />
-                            <line x1="3" y1="10" x2="21" y2="10" />
-                          </svg>
-                        </div>
-                        <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.5, color: C.dark, margin: 0 }}>
-                          <strong style={{ color: C.red }}>Tháng 10/2025:</strong> Quan hệ Việt Nam – Anh được chính thức nâng cấp lên Đối tác chiến lược toàn diện.
-                        </p>
-                      </div>
+
                       <p style={{ fontFamily: C.sans, fontSize: 9, color: C.muted, margin: "8px 0 0 0", textAlign: "right" }}>
                         Nguồn: Bộ Ngoại giao (2025)
                       </p>
