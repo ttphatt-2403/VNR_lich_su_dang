@@ -1079,7 +1079,7 @@ export function Section2() {
             <Polaroid
               src="/section2_images/truc_thang_van.jpg"
               alt="Chiến thuật trực thăng vận"
-              caption="Chiến thuật 'trực thăng vận' của Mỹ trong trận Ấp Bắc."
+              caption="Chiến thuật 'trực thăng vận' (Ấp Bắc)"
               rotate={-1.5}
               darkCaption
               height={140}
@@ -1087,7 +1087,7 @@ export function Section2() {
             <Polaroid
               src="/section2_images/co_binh_gia.jpg"
               alt="Cờ chiến thắng Bình Giã"
-              caption="Tặng thưởng cờ Quyết chiến quyết thắng cho đơn vị chiến thắng Bình Giã."
+              caption="Cờ Quyết chiến Quyết thắng (Bình Giã)"
               rotate={1.5}
               darkCaption
               height={140}
@@ -1095,7 +1095,7 @@ export function Section2() {
             <Polaroid
               src="/section2_images/le_trong_tan.jpg"
               alt="Lê Trọng Tấn"
-              caption="Đ/c Lê Trọng Tấn (Tư lệnh kiêm Chính ủy trong Chiến dịch Đồng Xoài) nghiên cứu tình hình chiến trường miền Nam, 1965."
+              caption="Đ/c Lê Trọng Tấn nghiên cứu chiến trường (1965)"
               rotate={-1}
               darkCaption
               height={140}
@@ -1103,7 +1103,7 @@ export function Section2() {
             <Polaroid
               src="/section2_images/vuot_song_dong_xoai.jpg"
               alt="Đồng Xoài"
-              caption="Tư lệnh và Chính ủy Chiến dịch Đồng Xoài vượt sông ra trận địa, năm 1965."
+              caption="Vượt sông ra trận địa (Đồng Xoài, 1965)"
               rotate={2}
               darkCaption
               height={140}
