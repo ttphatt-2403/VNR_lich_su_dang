@@ -158,20 +158,38 @@ export function Section2() {
         {/* Top Header Block */}
         <Reveal effect="fade-up">
           <div style={{ marginBottom: 28, position: "relative" }}>
+            {/* Phần II (La mã lớn) */}
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 800,
+                color: C.accent,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                marginBottom: 8,
+                lineHeight: 1.4,
+              }}
+            >
+              Phần II: Lãnh đạo xây dựng chủ nghĩa xã hội ở miền Bắc và kháng chiến chống đế quốc Mỹ xâm lược, giải phóng miền Nam, thống nhất đất nước (1954 - 1975)
+            </div>
+            {/* Mục 1 nhỏ */}
             <div
               style={{
                 background: C.red,
                 color: "#fff",
                 display: "inline-block",
-                padding: "4px 10px",
+                padding: "6px 12px",
                 fontFamily: C.sans,
-                fontSize: 19.5,
-                fontWeight: 800,
+                fontSize: 14.5,
+                fontWeight: 700,
                 marginBottom: 12,
+                borderRadius: 2,
+                lineHeight: 1.3,
               }}
             >
-              Phần II.1 · Lý thuyết lịch sử (1954 - 1960)
+              1. Sự lãnh đạo của Đảng đối với cách mạng hai miền Nam - Bắc (1954 - 1965)
             </div>
+            {/* Mục 1.1 con */}
             <h2
               style={{
                 fontFamily: C.serif,
@@ -704,20 +722,38 @@ export function Section2() {
         {/* Top Header Block */}
         <Reveal effect="fade-up">
           <div style={{ marginBottom: 28 }}>
+            {/* Phần II (La mã lớn) */}
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 800,
+                color: C.accent,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                marginBottom: 8,
+                lineHeight: 1.4,
+              }}
+            >
+              Phần II: Lãnh đạo xây dựng chủ nghĩa xã hội ở miền Bắc và kháng chiến chống đế quốc Mỹ xâm lược, giải phóng miền Nam, thống nhất đất nước (1954 - 1975)
+            </div>
+            {/* Mục 1 nhỏ */}
             <div
               style={{
                 background: C.red,
                 color: "#fff",
                 display: "inline-block",
-                padding: "4px 10px",
+                padding: "6px 12px",
                 fontFamily: C.sans,
-                fontSize: 19.5,
-                fontWeight: 800,
+                fontSize: 14.5,
+                fontWeight: 700,
                 marginBottom: 12,
+                borderRadius: 2,
+                lineHeight: 1.3,
               }}
             >
-              Phần II.1 · Lý thuyết lịch sử (1961 - 1965)
+              1. Sự lãnh đạo của Đảng đối với cách mạng hai miền Nam - Bắc (1954 - 1965)
             </div>
+            {/* Mục 1.2 con */}
             <h2
               style={{
                 fontFamily: C.serif,
@@ -729,7 +765,7 @@ export function Section2() {
                 margin: "0 0 16px 0",
               }}
             >
-              Xây dựng chủ nghĩa xã hội ở miền Bắc và đánh bại <br />
+              1.2. Xây dựng chủ nghĩa xã hội ở miền Bắc và đánh bại <br />
               chiến lược "Chiến tranh đặc biệt" ở miền Nam (1961-1965)
             </h2>
             <p
@@ -1103,7 +1139,7 @@ export function Section2() {
                       {/* Bamboo vertical decoration */}
                       <div style={{ flexShrink: 0, display: "flex", flexDirection: "column", alignItems: "center" }}>
                         <div style={{ background: C.red, color: "#fff", fontFamily: C.sans, fontSize: 11, fontWeight: 900, padding: "2px 6px", marginBottom: 6, borderRadius: 1 }}>
-                          1.2.
+                          2.
                         </div>
                         <svg width="20" height="110" viewBox="0 0 24 120" fill="none">
                           <path d="M12,5 L12,115 M8,25 Q12,30 18,20 M16,55 Q12,60 6,50 M8,85 Q12,90 18,80" stroke={C.accent} strokeWidth="1.8" strokeLinecap="round" />
@@ -1114,7 +1150,7 @@ export function Section2() {
 
                       <div>
                         <p style={{ fontFamily: C.sans, fontSize: 11, fontWeight: 700, textTransform: "uppercase", color: C.accent, margin: "0 0 6px 0", letterSpacing: "0.1em" }}>
-                          Ví dụ thực tiễn, bối cảnh hiện nay:
+                          2. Ví dụ thực tiễn, bối cảnh hiện nay:
                         </p>
                         <h2 style={{ fontFamily: C.serif, fontSize: "clamp(18px, 2.2vw, 26px)", fontWeight: 900, color: "#fff", margin: 0, lineHeight: 1.2, textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}>
                           TRƯỜNG PHÁI <span style={{ color: C.accent }}>"NGOẠI GIAO CÂY TRE"</span> <br />
@@ -1586,7 +1622,7 @@ export function Section2() {
                     width: "fit-content",
                     marginBottom: 10
                   }}>
-                    1.2.
+                    2.
                   </div>
                   <h2 style={{
                     fontFamily: C.serif,

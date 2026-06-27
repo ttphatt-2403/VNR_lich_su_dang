@@ -4,7 +4,7 @@
 
 export const CHAPTERS = [
   { id: "phan-1", roman: "I", label: "Phần I", title: "Kháng chiến chống thực dân Pháp", period: "1945–1954" },
-  { id: "phan-2", roman: "II", label: "Phần II", title: "Kháng chiến chống Mỹ & Vận dụng", period: "1954–1975 & Đương đại" },
+  { id: "phan-2", roman: "II", label: "Phần II", title: "Lãnh đạo xây dựng chủ nghĩa xã hội ở miền Bắc và kháng chiến chống đế quốc Mỹ xâm lược, giải phóng miền Nam, thống nhất đất nước (1954 - 1975)", period: "1954–1975" },
   { id: "phan-3", roman: "III", label: "Phần III", title: "Tình huống thảo luận", period: "Điện Biên Phủ" },
 ];
 
