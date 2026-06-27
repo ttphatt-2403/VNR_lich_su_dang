@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, CheckCircle, XCircle, Clock } from "lucide-react";
+import { X, CheckCircle, XCircle } from "lucide-react";
 import { C } from "@/tokens";
 import { imgDaihoi2ToanCanh } from "@/assets/images";
 import { GAME_QUESTIONS } from "@/data/gameQuestions";
@@ -9,58 +9,62 @@ interface PuzzleGameProps {
 }
 
 export function PuzzleGame({ onClose }: PuzzleGameProps) {
+  const [shuffledQuestionIds, setShuffledQuestionIds] = useState<number[]>([]);
   const [revealedPieces, setRevealedPieces] = useState<number[]>([]);
+  const [lostPieces, setLostPieces] = useState<number[]>([]);
   const [selectedPiece, setSelectedPiece] = useState<number | null>(null);
   
   // States cho việc trả lời câu hỏi
   const [textAnswer, setTextAnswer] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [cooldown, setCooldown] = useState(0);
+  const [hasFailedCurrent, setHasFailedCurrent] = useState(false);
+
+  // States cho đoán từ khóa ảnh nền
+  const [keywordGuess, setKeywordGuess] = useState("");
+  const [keywordError, setKeywordError] = useState("");
+  const [isKeywordWon, setIsKeywordWon] = useState(false);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (cooldown > 0) {
-      timer = setTimeout(() => setCooldown(c => c - 1), 1000);
+    const ids = GAME_QUESTIONS.map((q) => q.id);
+    for (let i = ids.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ids[i], ids[j]] = [ids[j], ids[i]];
     }
-    return () => clearTimeout(timer);
-  }, [cooldown]);
+    setShuffledQuestionIds(ids);
+  }, []);
 
   const totalPieces = 20;
-  const isWinner = revealedPieces.length === totalPieces;
+  const isWinner = revealedPieces.length === totalPieces || isKeywordWon;
 
   const handleAnswerSubmit = (submittedAnswer: string) => {
-    if (cooldown > 0) return;
+    if (hasFailedCurrent) return;
     
-    const q = GAME_QUESTIONS.find((q) => q.id === selectedPiece);
+    const questionId = shuffledQuestionIds[selectedPiece! - 1];
+    const q = GAME_QUESTIONS.find((q) => q.id === questionId);
     if (!q) return;
 
     let isCorrect = false;
 
     if (q.type === "text") {
-      // answer là 'A', 'B', 'C', 'D'
-      // submittedAnswer là string đầy đủ ví dụ "A. Đảng Cộng sản Việt Nam"
       if (submittedAnswer.startsWith(q.answer)) {
         isCorrect = true;
       }
     } else if (q.type === "image") {
-      // Helper function to remove Vietnamese diacritics and punctuation
       const normalizeStr = (str: string) => {
         return str
           .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "") // remove accents
+          .replace(/[\u0300-\u036f]/g, "")
           .replace(/đ/g, "d").replace(/Đ/g, "D")
-          .replace(/[^a-zA-Z0-9\s]/g, " ") // replace punctuation (like dashes) with space
+          .replace(/[^a-zA-Z0-9\s]/g, " ")
           .trim()
-          .replace(/\s+/g, " ") // collapse multiple spaces
+          .replace(/\s+/g, " ")
           .toLowerCase();
       };
 
       const normalizedSubmit = normalizeStr(submittedAnswer);
       const normalizedAnswer = normalizeStr(q.answer);
       
-      // Cho phép khớp một phần hoặc khớp chính xác không dấu
       if (normalizedSubmit === normalizedAnswer || normalizedAnswer.includes(normalizedSubmit)) {
-         // Yêu cầu người chơi gõ phải dài ít nhất 4 ký tự
          if (normalizedSubmit.length >= 4) {
            isCorrect = true;
          }
@@ -78,10 +82,44 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
       setSelectedPiece(null);
       setErrorMsg("");
       setTextAnswer("");
-      setCooldown(0);
     } else {
-      setErrorMsg("Câu trả lời chưa chính xác, hãy thử lại sau");
-      setCooldown(5);
+      setErrorMsg("Sai rồi! Mảnh ghép này đã bị khóa vĩnh viễn.");
+      setHasFailedCurrent(true);
+      if (selectedPiece !== null) {
+        setLostPieces([...lostPieces, selectedPiece]);
+      }
+    }
+  };
+
+  const handleKeywordSubmit = () => {
+    if (!keywordGuess.trim()) {
+      setKeywordError("Vui lòng nhập từ khóa đoán!");
+      return;
+    }
+
+    const verifyKeyword = (guess: string) => {
+      const normalizeStr = (str: string) => {
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/đ/g, "d").replace(/Đ/g, "D")
+          .replace(/[^a-zA-Z0-9\s]/g, " ")
+          .trim()
+          .replace(/\s+/g, " ")
+          .toLowerCase();
+      };
+
+      const norm = normalizeStr(guess);
+      const hasDaiHoi = norm.includes("dai hoi");
+      const hasNumberTwo = norm.includes("ii") || norm.includes("hai") || norm.split(" ").includes("2");
+      return hasDaiHoi && hasNumberTwo;
+    };
+
+    if (verifyKeyword(keywordGuess)) {
+      setIsKeywordWon(true);
+      setKeywordError("");
+    } else {
+      setKeywordError("Từ khóa chưa chính xác, hãy quan sát thêm!");
     }
   };
 
@@ -172,34 +210,41 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
         >
           {Array.from({ length: totalPieces }).map((_, index) => {
             const pieceNumber = index + 1;
-            const isRevealed = revealedPieces.includes(pieceNumber);
+            const isRevealed = isWinner || revealedPieces.includes(pieceNumber);
+            const isLost = !isWinner && lostPieces.includes(pieceNumber);
 
             return (
               <div
                 key={pieceNumber}
                 onClick={() => {
-                  if (!isRevealed) setSelectedPiece(pieceNumber);
+                  if (!isRevealed && !isLost) {
+                    setSelectedPiece(pieceNumber);
+                    setHasFailedCurrent(false);
+                    setErrorMsg("");
+                  }
                 }}
                 style={{
                   border: "1px solid rgba(255,255,255,0.15)",
                   background: isRevealed
                     ? "transparent"
+                    : isLost
+                    ? "linear-gradient(135deg, rgba(80,80,80,0.95), rgba(40,40,40,0.95))"
                     : "linear-gradient(135deg, rgba(122,26,28,0.95), rgba(62,20,20,0.95))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  cursor: isRevealed ? "default" : "pointer",
+                  cursor: (isRevealed || isLost) ? "default" : "pointer",
                   transition: "background 0.4s ease, opacity 0.4s ease",
                   opacity: isRevealed ? 0 : 1,
                   backdropFilter: isRevealed ? "none" : "blur(4px)",
                 }}
                 onMouseEnter={(e) => {
-                  if (!isRevealed) {
+                  if (!isRevealed && !isLost) {
                     e.currentTarget.style.background = "linear-gradient(135deg, rgba(150,40,40,0.95), rgba(80,25,25,0.95))";
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (!isRevealed) {
+                  if (!isRevealed && !isLost) {
                     e.currentTarget.style.background = "linear-gradient(135deg, rgba(122,26,28,0.95), rgba(62,20,20,0.95))";
                   }
                 }}
@@ -210,11 +255,11 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
                       fontFamily: C.sans,
                       fontSize: 32,
                       fontWeight: 900,
-                      color: C.accent,
+                      color: isLost ? "#777" : C.accent,
                       textShadow: "0 2px 4px rgba(0,0,0,0.5)",
                     }}
                   >
-                    {pieceNumber}
+                    {isLost ? "🔒" : pieceNumber}
                   </span>
                 )}
               </div>
@@ -265,9 +310,84 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
         )}
       </div>
 
-      <div style={{ marginTop: 24, color: "rgba(255,255,255,0.6)", fontFamily: C.sans, fontSize: 14 }}>
-        Số mảnh ghép đã mở: {revealedPieces.length} / {totalPieces}
+      <div style={{ marginTop: 24, color: "rgba(255,255,255,0.6)", fontFamily: C.sans, fontSize: 15, display: "flex", gap: 20 }}>
+        <span>Đã mở: <strong>{revealedPieces.length}</strong> / {totalPieces}</span>
+        <span>Đã khóa: <strong>{lostPieces.length}</strong></span>
+        <span>Còn lại: <strong>{totalPieces - revealedPieces.length - lostPieces.length}</strong></span>
       </div>
+
+      {/* Keyword Guess Section */}
+      {!isWinner && (
+        <div
+          style={{
+            marginTop: 28,
+            background: "rgba(100, 70, 34, 0.15)",
+            border: `1.5px solid ${C.accent}`,
+            padding: "20px 24px",
+            borderRadius: 8,
+            width: "90vw",
+            maxWidth: 600,
+            textAlign: "center",
+            boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
+          }}
+        >
+          <h4 style={{ fontFamily: C.serif, color: C.accent, fontSize: 18, margin: "0 0 8px 0", textTransform: "uppercase", fontWeight: 700 }}>
+            Đoán Từ Khóa Bức Tranh Ẩn
+          </h4>
+          <p style={{ fontFamily: C.body, color: "#fff", fontSize: 15, margin: "0 0 16px 0", opacity: 0.85 }}>
+            Bạn có thể đoán từ khóa bức tranh ẩn bất cứ lúc nào khi đã nhận diện được!
+          </p>
+          <div style={{ display: "flex", gap: 10 }}>
+            <input
+              type="text"
+              placeholder="Nhập tên sự kiện / bức tranh..."
+              value={keywordGuess}
+              onChange={(e) => {
+                setKeywordGuess(e.target.value);
+                setKeywordError("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleKeywordSubmit();
+              }}
+              style={{
+                flex: 1,
+                padding: "12px 16px",
+                fontSize: 16,
+                fontFamily: C.body,
+                borderRadius: 4,
+                border: `1px solid ${C.brown}`,
+                outline: "none",
+                background: "#fff",
+                color: C.dark
+              }}
+            />
+            <button
+              onClick={handleKeywordSubmit}
+              style={{
+                background: C.red,
+                color: "#fff",
+                border: "none",
+                padding: "0 24px",
+                fontSize: 16,
+                fontFamily: C.sans,
+                fontWeight: 700,
+                borderRadius: 4,
+                cursor: "pointer",
+                transition: C.tr,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = C.redMid)}
+              onMouseLeave={(e) => (e.currentTarget.style.background = C.red)}
+            >
+              Đoán
+            </button>
+          </div>
+          {keywordError && (
+            <p style={{ color: "#ff4d4f", fontFamily: C.sans, fontSize: 14, fontWeight: 700, margin: "12px 0 0 0" }}>
+              ❌ {keywordError}
+            </p>
+          )}
+        </div>
+      )}
 
       {/* Question Modal for Selected Piece */}
       {selectedPiece !== null && (
@@ -300,7 +420,9 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
             </h3>
             
             {(() => {
-              const q = GAME_QUESTIONS.find((q) => q.id === selectedPiece);
+              if (shuffledQuestionIds.length === 0) return <p>Nội dung câu hỏi đang được khởi tạo...</p>;
+              const questionId = shuffledQuestionIds[selectedPiece - 1];
+              const q = GAME_QUESTIONS.find((q) => q.id === questionId);
               if (!q) return <p>Nội dung câu hỏi đang được cập nhật...</p>;
               
               return (
@@ -329,28 +451,28 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
                         <button 
                           key={idx} 
                           onClick={() => handleAnswerSubmit(opt)}
-                          disabled={cooldown > 0}
+                          disabled={hasFailedCurrent}
                           style={{ 
                             fontFamily: C.body, 
                             fontSize: 18, 
-                            color: cooldown > 0 ? "#999" : C.dark,
-                            background: cooldown > 0 ? "#f0f0f0" : "#fff",
-                            border: `2px solid ${cooldown > 0 ? "#ccc" : C.brown}`,
+                            color: hasFailedCurrent ? "#999" : C.dark,
+                            background: hasFailedCurrent ? "#f0f0f0" : "#fff",
+                            border: `2px solid ${hasFailedCurrent ? "#ccc" : C.brown}`,
                             borderRadius: 6,
                             padding: "12px 16px",
                             textAlign: "left",
-                            cursor: cooldown > 0 ? "not-allowed" : "pointer",
+                            cursor: hasFailedCurrent ? "not-allowed" : "pointer",
                             transition: C.tr,
-                            opacity: cooldown > 0 ? 0.7 : 1
+                            opacity: hasFailedCurrent ? 0.7 : 1
                           }}
                           onMouseEnter={e => {
-                            if (cooldown === 0) {
+                            if (!hasFailedCurrent) {
                               e.currentTarget.style.background = "rgba(100,70,34,0.1)";
                               e.currentTarget.style.transform = "translateX(5px)";
                             }
                           }}
                           onMouseLeave={e => {
-                            if (cooldown === 0) {
+                            if (!hasFailedCurrent) {
                               e.currentTarget.style.background = "#fff";
                               e.currentTarget.style.transform = "translateX(0)";
                             }
@@ -372,24 +494,24 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
                             onChange={(e) => setTextAnswer(e.target.value)}
                             onKeyDown={(e) => { if(e.key === 'Enter') handleAnswerSubmit(textAnswer) }}
                             placeholder="Nhập tên sự kiện / chiến dịch..."
-                            disabled={cooldown > 0}
+                            disabled={hasFailedCurrent}
                             style={{
                                flex: 1,
                                padding: "12px 16px",
                                fontSize: 18,
                                fontFamily: C.body,
-                               border: `2px solid ${cooldown > 0 ? "#ccc" : C.brown}`,
+                               border: `2px solid ${hasFailedCurrent ? "#ccc" : C.brown}`,
                                borderRadius: 6,
                                outline: "none",
-                               background: cooldown > 0 ? "#f0f0f0" : "#fff",
-                               color: cooldown > 0 ? "#999" : C.dark,
+                               background: hasFailedCurrent ? "#f0f0f0" : "#fff",
+                               color: hasFailedCurrent ? "#999" : C.dark,
                             }}
                           />
                           <button
                             onClick={() => handleAnswerSubmit(textAnswer)}
-                            disabled={cooldown > 0}
+                            disabled={hasFailedCurrent}
                             style={{
-                              background: cooldown > 0 ? "#ccc" : C.red,
+                              background: hasFailedCurrent ? "#ccc" : C.red,
                               color: "#fff",
                               border: "none",
                               padding: "0 24px",
@@ -397,11 +519,11 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
                               fontFamily: C.sans,
                               fontWeight: 700,
                               borderRadius: 6,
-                              cursor: cooldown > 0 ? "not-allowed" : "pointer",
+                              cursor: hasFailedCurrent ? "not-allowed" : "pointer",
                               transition: C.tr,
                             }}
-                            onMouseEnter={e => { if (cooldown === 0) e.currentTarget.style.background = C.redMid }}
-                            onMouseLeave={e => { if (cooldown === 0) e.currentTarget.style.background = C.red }}
+                            onMouseEnter={e => { if (!hasFailedCurrent) e.currentTarget.style.background = C.redMid }}
+                            onMouseLeave={e => { if (!hasFailedCurrent) e.currentTarget.style.background = C.red }}
                           >
                             Gửi
                           </button>
@@ -414,12 +536,7 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
             
             {errorMsg && (
               <div style={{ padding: "12px", background: "rgba(220,53,69,0.1)", color: "#dc3545", borderRadius: 4, marginBottom: 24, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-                {errorMsg}
-                {cooldown > 0 && (
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: 4, background: "#dc3545", color: "#fff", padding: "2px 8px", borderRadius: 12, fontSize: 14 }}>
-                    <Clock size={14} /> {cooldown}s
-                  </span>
-                )}
+                <XCircle size={18} /> {errorMsg}
               </div>
             )}
             
@@ -428,7 +545,7 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
                 setSelectedPiece(null);
                 setErrorMsg("");
                 setTextAnswer("");
-                setCooldown(0);
+                setHasFailedCurrent(false);
               }}
               style={{
                 background: "rgba(0,0,0,0.1)",
@@ -444,7 +561,7 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
               onMouseEnter={e => e.currentTarget.style.background = "rgba(0,0,0,0.15)"}
               onMouseLeave={e => e.currentTarget.style.background = "rgba(0,0,0,0.1)"}
             >
-              Đóng / Bỏ qua mảnh này
+              Xác nhận và Đóng
             </button>
           </div>
         </div>
