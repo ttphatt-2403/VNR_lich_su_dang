@@ -8,9 +8,10 @@ interface NavbarProps {
   setMobileOpen: (open: boolean) => void;
   issue: { num: string; date: string };
   onOpenMuseum: () => void;
+  onOpenGame: () => void;
 }
 
-export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseum }: NavbarProps) {
+export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseum, onOpenGame }: NavbarProps) {
   return (
     <>
       <header style={{
@@ -46,6 +47,43 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseu
                 </a>
               ))}
             </nav>
+            <button
+              onClick={onOpenGame}
+              style={{
+                background: C.brown,
+                color: "#fff",
+                border: `1.5px solid ${C.accent}`,
+                fontFamily: C.sans,
+                fontSize: 11,
+                fontWeight: 800,
+                padding: "6px 14px",
+                borderRadius: 4,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                marginLeft: 16,
+                boxShadow: "0 4px 10px rgba(100,70,34,0.2)",
+                transition: C.tr,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#7a5835";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = C.brown;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+              </svg>
+              Mini Game
+            </button>
+
             <button
               onClick={onOpenMuseum}
               style={{
@@ -103,6 +141,34 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseu
               <span style={{ color: C.accent, marginRight: 12 }}>{ch.roman}.</span>{ch.title}
             </a>
           ))}
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenGame();
+            }}
+            style={{
+              background: C.brown,
+              color: "#fff",
+              border: `1.5px solid ${C.accent}`,
+              fontFamily: C.sans,
+              fontSize: 15,
+              fontWeight: 800,
+              padding: "10px 24px",
+              borderRadius: 4,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginTop: 12,
+              boxShadow: "0 6px 16px rgba(100,70,34,0.25)",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+            </svg>
+            Mini Game Khám Phá
+          </button>
           <button
             onClick={() => {
               setMobileOpen(false);
