@@ -201,7 +201,7 @@ export function Section2() {
                 margin: "0 0 16px 0",
               }}
             >
-              Khôi phục kinh tế, cải tạo XHCN ở miền Bắc và chuyển <br />
+              1.1. Khôi phục kinh tế, cải tạo XHCN ở miền Bắc và chuyển <br />
               cách mạng miền Nam sang thế tiến công (1954-1960)
             </h2>
             <p
@@ -2076,7 +2076,7 @@ export function Section2() {
               }}
             >
               <span>SỐ 05 – THÁNG 5/2024</span>
-              <span>Trang 26</span> {/* Match number 26 of original mockup */}
+              <span>Trang 27</span>
             </div>
           </div>
         </article>
