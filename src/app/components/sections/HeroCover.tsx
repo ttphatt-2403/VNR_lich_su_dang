@@ -9,7 +9,7 @@ import { StarIcon } from "@/app/components/ui/CustomIcons";
 import { Reveal } from "@/app/components/ui/Reveal";
 import { ArrowRight } from "lucide-react";
 
-export function HeroCover({ onOpenMuseum }: { onOpenMuseum: () => void }) {
+export function HeroCover() {
   return (
     <section
       style={{
@@ -235,65 +235,7 @@ export function HeroCover({ onOpenMuseum }: { onOpenMuseum: () => void }) {
                 </div>
               </Reveal>
 
-              {/* Immersive 3D Museum CTA */}
-              <Reveal effect="fade-up" delay={450}>
-                <div style={{
-                  marginTop: 28,
-                  padding: "16px 20px",
-                  background: "rgba(122, 26, 28, 0.05)",
-                  border: `1.5px solid ${C.red}`,
-                  borderRadius: 4,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                }}>
-                  <div>
-                    <h4 style={{ fontFamily: C.serif, fontSize: 16, fontWeight: 800, color: C.red, margin: "0 0 4px 0" }}>
-                      Trải nghiệm Không gian 3D
-                    </h4>
-                    <p style={{ fontFamily: C.body, fontSize: 14, color: C.dark, opacity: 0.9, margin: 0, lineHeight: 1.4 }}>
-                      Tham quan trực quan phòng trưng bày 3D lưu trữ hình ảnh & thước phim lịch sử Điện Biên Phủ, Hiệp định Giơnevơ.
-                    </p>
-                  </div>
-                  <button
-                    onClick={onOpenMuseum}
-                    style={{
-                      alignSelf: "flex-start",
-                      background: C.red,
-                      color: "#fff",
-                      border: `1px solid ${C.accent}`,
-                      fontFamily: C.sans,
-                      fontSize: 13,
-                      fontWeight: 800,
-                      padding: "8px 18px",
-                      borderRadius: 4,
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 8,
-                      boxShadow: "0 4px 12px rgba(122,26,28,0.25)",
-                      transition: C.tr,
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.background = C.redMid;
-                      e.currentTarget.style.transform = "translateY(-1px)";
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.background = C.red;
-                      e.currentTarget.style.transform = "translateY(0)";
-                    }}
-                  >
-                    {/* Immersive/3D box icon */}
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-                      <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                      <line x1="12" y1="22.08" x2="12" y2="12" />
-                    </svg>
-                    Bắt đầu tham quan 3D
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
-              </Reveal>
+
             </div>
 
             {/* Right - Magazine Cover Picture collage */}

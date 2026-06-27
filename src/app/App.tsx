@@ -318,7 +318,7 @@ export default function App() {
         <span style={{ fontSize: 20, color: C.red }}>★</span>
       </div>
 
-      <HeroCover onOpenMuseum={() => setIsMuseumOpen(true)}/>
+      <HeroCover />
 
       <main style={{ maxWidth: 1024, margin: "0 auto", padding: "8px 16px" }}>
         <Section1/>
