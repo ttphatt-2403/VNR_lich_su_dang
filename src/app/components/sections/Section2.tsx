@@ -1327,6 +1327,21 @@ export function Section2() {
                       </p>
                     </div>
                   </Reveal>
+
+                  {/* 2x2 Photo Grid (Moved here under Partners Table Card) */}
+                  <Reveal effect="scale-up" duration={800}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                      {[imgDipBottom1, imgDipBottom2, imgDipBottom3, imgDipBottom4].map((img, i) => (
+                        <div key={i} style={{ border: `1px solid rgba(100,70,34,0.18)`, padding: 4, background: "#fff", boxShadow: "0 2px 6px rgba(100,70,34,0.08)" }}>
+                          <img
+                            src={img}
+                            alt={`Hoạt động đối ngoại ${i + 1}`}
+                            style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </Reveal>
                 </div>
               </div>
 
@@ -1410,25 +1425,12 @@ export function Section2() {
 
                 {/* Right Column: 2x2 Photos & Quote */}
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                  {/* 2x2 Photo Grid */}
-                  <Reveal effect="scale-up" duration={800}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                      {[imgDipBottom1, imgDipBottom2, imgDipBottom3, imgDipBottom4].map((img, i) => (
-                        <div key={i} style={{ border: `1px solid rgba(100,70,34,0.18)`, padding: 4, background: "#fff", boxShadow: "0 2px 6px rgba(100,70,34,0.08)" }}>
-                          <img
-                            src={img}
-                            alt={`Hoạt động đối ngoại ${i + 1}`}
-                            style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </Reveal>
+
 
                   {/* Brown Bamboo Quote Block */}
                   <Reveal effect="fade-right" delay={100}>
                     <div style={{
-                      background: C.brown, // Deep warm brown
+                      background: "#7a5835", // Lighter warm brown
                       color: "#fff",
                       padding: "20px 24px",
                       position: "relative",
