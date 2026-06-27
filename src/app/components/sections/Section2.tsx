@@ -520,6 +520,16 @@ export function Section2() {
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Ra đời trong Hội nghị TW lần thứ 15 khoá II: Đánh dấu bước ngoặt lớn, Đảng xác định con đường cách mạng miền Nam là sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để giành chính quyền.
                   </p>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
+                    <img
+                      src="/section2_images/hoi_nghi_tw15.jpg"
+                      alt="Hội nghị Trung ương lần thứ 15"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Hội nghị Trung ương lần thứ 15 (khóa II) do Chủ tịch Hồ Chí Minh chủ trì, họp tại Hà Nội vào tháng 1-1959.
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -571,6 +581,16 @@ export function Section2() {
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
                       Nhân dân miền Nam nổi dậy đấu tranh trong phong trào Đồng khởi (1960).
+                    </div>
+                  </div>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
+                    <img
+                      src="/section2_images/mat_tran_dtgp.jpg"
+                      alt="Mặt trận Dân tộc giải phóng miền Nam"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Ngày 20-12-1960, các thành viên của Ủy ban Trung ương Mặt trận Dân tộc Giải phóng miền Nam Việt Nam tuyên thệ trong Lễ thành lập Mặt trận.
                     </div>
                   </div>
                 </div>
@@ -924,6 +944,16 @@ export function Section2() {
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như "Mỗi người làm việc bằng hai" dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
                   </p>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
+                    <img
+                      src="/section2_images/ba_dam_nhiem.jpg"
+                      alt="Phong trào Ba đảm nhiệm"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Học sinh trường cấp III Yên Hòa, Hà Nội đăng ký phong trào "Ba đảm nhiệm", sau này là phong trào phụ nữ "Ba đảm đang".
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -990,7 +1020,7 @@ export function Section2() {
               }}
             >
               <img
-                src={imgDaihoi3_2}
+                src="/section2_images/dai_hoi_3.jpg"
                 alt="Đại hội Đảng III"
                 style={{
                   width: "100%",
@@ -1000,6 +1030,9 @@ export function Section2() {
                   filter: "sepia(0.2) contrast(1.05) brightness(0.95)",
                 }}
               />
+              <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                Chủ tịch Hồ Chí Minh và các đồng chí Lê Duẩn, Trường Chinh tại Đại hội đại biểu toàn quốc lần thứ III của Đảng họp tại Thủ đô Hà Nội từ ngày 5 đến 10-9-1960.
+              </div>
             </div>
           </div>
         </div>
@@ -1041,13 +1074,37 @@ export function Section2() {
             </div>
           </div>
 
-          {/* Right: Polaroid of Ấp Bắc / Bình Giã */}
-          <div>
+          {/* Right: Polaroids of battles */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
             <Polaroid
-              src={imgApBac}
-              alt="Chiến thắng Ấp Bắc"
-              caption="Chiến thắng Ấp Bắc (1963) khẳng định khả năng đánh bại trực thăng vận của Mỹ."
+              src="/section2_images/truc_thang_van.jpg"
+              alt="Chiến thuật trực thăng vận"
+              caption="Chiến thuật 'trực thăng vận' của Mỹ trong trận Ấp Bắc."
               rotate={-1.5}
+              darkCaption
+              height={140}
+            />
+            <Polaroid
+              src="/section2_images/co_binh_gia.jpg"
+              alt="Cờ chiến thắng Bình Giã"
+              caption="Tặng thưởng cờ Quyết chiến quyết thắng cho đơn vị chiến thắng Bình Giã."
+              rotate={1.5}
+              darkCaption
+              height={140}
+            />
+            <Polaroid
+              src="/section2_images/le_trong_tan.jpg"
+              alt="Lê Trọng Tấn"
+              caption="Đ/c Lê Trọng Tấn (Tư lệnh kiêm Chính ủy trong Chiến dịch Đồng Xoài) nghiên cứu tình hình chiến trường miền Nam, 1965."
+              rotate={-1}
+              darkCaption
+              height={140}
+            />
+            <Polaroid
+              src="/section2_images/vuot_song_dong_xoai.jpg"
+              alt="Đồng Xoài"
+              caption="Tư lệnh và Chính ủy Chiến dịch Đồng Xoài vượt sông ra trận địa, năm 1965."
+              rotate={2}
               darkCaption
               height={140}
             />
