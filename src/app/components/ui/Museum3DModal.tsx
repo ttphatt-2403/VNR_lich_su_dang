@@ -5,10 +5,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { X, HelpCircle, Loader2, BookOpen, Film } from "lucide-react";
 import { C } from "@/tokens";
 import {
-  imgToLamUN,
-  imgVietnamMap,
-  imgVietnamTrain,
-  imgVietnamHighwayTraffic,
+  imgVT17_NamBac,
   imgDBP_CamCo,
   imgDaihoi2PhatBieu,
   imgGVR_KyKet,
@@ -22,7 +19,10 @@ import {
   imgApBac,
   imgBinhGia,
   imgDongXoai,
-  imgBaSanSang
+  imgBaSanSang,
+  imgVuotSong,
+  imgMTGPMN,
+  imgBaDamNhiem,
 } from "@/assets/images";
 
 interface Museum3DModalProps {
@@ -68,8 +68,8 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
 
     // Setup scene, camera, renderer
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#1e1510"); // Warm dark background
-    scene.fog = new THREE.FogExp2("#1e1510", 0.015);
+    scene.background = new THREE.Color("#c8a040"); // Warm golden-brown background
+    scene.fog = new THREE.FogExp2("#c8a040", 0.012);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -89,7 +89,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
+    renderer.toneMappingExposure = 1.6; // Higher exposure to brighten dark GLB wall materials
 
     const currentMount = mountRef.current;
     if (currentMount) {
@@ -192,18 +192,68 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
     domElement.addEventListener("touchstart", handleTouchStart);
     domElement.addEventListener("touchmove", handleTouchMove);
     window.addEventListener("touchend", handleTouchEnd);
+    // ── Lighting ──────────────────────────────────────────────────────────
+    // Photo/video canvases use MeshBasicMaterial — NOT affected by any light.
+    // Only wall/floor/ceiling from GLB (MeshStandardMaterial) reacts to lights.
+    // So we can boost lights freely without worrying about washing out exhibits.
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight("#ffffff", 0.75);
+    // Strong ambient — fills every corner of the room
+    const ambientLight = new THREE.AmbientLight("#fff8f0", 3.5);
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight("#fff9e6", 1.0);
-    sunLight.position.set(10, 20, 15);
+    // Strong directional from above (simulates overhead gallery ceiling lights)
+    const sunLight = new THREE.DirectionalLight("#fff8e8", 3.0);
+    sunLight.position.set(0, 20, 0);
     scene.add(sunLight);
 
-    // Light attached to camera so view is never pitch black
-    const camLight = new THREE.PointLight("#ffffff", 0.8, 15);
+    // Front-fill directional to reduce deep shadows
+    const frontLight = new THREE.DirectionalLight("#ffffff", 1.5);
+    frontLight.position.set(0, 8, 12);
+    scene.add(frontLight);
+
+    // 4 central PointLights hanging from ceiling center — brighten middle of room
+    const centralPositions: [number, number, number][] = [
+      [0, 4, 0], [3, 4, 3], [-3, 4, 3], [0, 4, -3]
+    ];
+    centralPositions.forEach((pos) => {
+      const pt = new THREE.PointLight("#fff5e0", 2.5, 18);
+      pt.position.set(...pos);
+      scene.add(pt);
+    });
+
+    // Camera-follow light — always see clearly while walking
+    const camLight = new THREE.PointLight("#fff8f0", 1.2, 14);
     scene.add(camLight);
+
+    // 8 SpotLights around outer perimeter aimed at wall photos
+    const spotRadius = 7.5;
+    const spotHeight = 5.5;
+    const spotTargetRadius = 8.5;
+    const spotConfigs = [0, 45, 90, 135, 180, 225, 270, 315];
+
+    spotConfigs.forEach((deg) => {
+      const rad = (deg * Math.PI) / 180;
+      const spot = new THREE.SpotLight("#fff5e8", 15.0);
+      spot.position.set(
+        Math.sin(rad) * spotRadius,
+        spotHeight,
+        Math.cos(rad) * spotRadius
+      );
+      spot.angle = Math.PI / 6;
+      spot.penumbra = 0.4;
+      spot.decay = 1.2;
+      spot.distance = 14;
+
+      const target = new THREE.Object3D();
+      target.position.set(
+        Math.sin(rad) * spotTargetRadius,
+        1.5,
+        Math.cos(rad) * spotTargetRadius
+      );
+      scene.add(target);
+      spot.target = target;
+      scene.add(spot);
+    });
 
     // Setup texture loader & list to keep track of active video tags
     const textureLoader = new THREE.TextureLoader();
@@ -216,59 +266,59 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "video",
         url: "/BaoTang3D/pic_and_video/Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang, 2-1951.mp4",
-        details: "Đoạn phim tư liệu chân thực quay lại bối cảnh đại biểu thảo luận, biểu quyết và sinh hoạt tại chiến khu Việt Bắc trong những ngày Đại hội diễn ra."
+        details: "Đoạn phim tư liệu lịch sử vô cùng quý giá ghi lại không khí khẩn trương, trang nghiêm của Đại hội đại biểu toàn quốc lần thứ II của Đảng tại xã Vinh Quang, Chiêm Hóa, Tuyên Quang (2/1951). Đây là Đại hội đầu tiên được tổ chức ở trong nước sau ngày cách mạng thành công và giành độc lập. Thước phim ghi lại chân thực cảnh các đại biểu từ khắp mọi miền Tổ quốc vượt qua đèo dốc hiểm trở về dự Đại hội, hình ảnh Chủ tịch Hồ Chí Minh đọc Báo cáo Chính trị vạch rõ đường lối tiến tới kháng chiến thắng lợi, cùng các phiên thảo luận ngoài trời và hoạt động sinh hoạt giản dị, chan hòa giữa núi rừng chiến khu Việt Bắc."
       },
       {
         title: "Phim tư liệu Chiến thắng Điện Biên Phủ (1954)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "video",
         url: "/BaoTang3D/pic_and_video/(387) Chiến thắng Điện Biên Phủ 1954 - YouTube.mp4",
-        details: "Thước phim chân thực ghi lại khí thế hào hùng của quân dân ta: kéo pháo qua đèo, đào hào bao vây và đợt tổng công kích cuối cùng vào hầm chỉ huy của giặc."
+        details: "Thước phim thời sự chiến trường quý giá tái hiện sinh động 56 ngày đêm 'khoét núi, ngủ hầm, mưa dầm, cơm vắt' đầy gian khổ nhưng vô cùng anh dũng của quân và dân ta trong chiến dịch Điện Biên Phủ lịch sử (1954). Đoạn phim ghi lại cảnh hàng vạn dân công hỏa tuyến thồ hàng, tải đạn qua đèo cao vực sâu, cảnh bộ đội ta kiên cường kéo pháo bằng sức người vào trận địa, đào hàng trăm km đường hào siết chặt vòng vây địch, và đỉnh điểm là đợt tổng công kích chiều ngày 7/5/1954 khi lá cờ Quyết chiến Quyết thắng tung bay trên nóc hầm chỉ huy De Castries, chấm dứt hoàn toàn ách đô hộ của thực dân Pháp tại Đông Dương."
       },
       {
         title: "Phim tư liệu Phong trào Đồng Khởi (1960)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "video",
         url: "/BaoTang3D/pic_and_video/(387) Phong trào Đồng Khởi - Bước ngoặt của cách mạng miền Nam - YouTube.mp4",
-        details: "Bùng nổ từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam sang thế tiến công."
+        details: "Đoạn phim tư liệu ghi lại cao trào của phong trào Đồng Khởi (1960) khởi đầu từ Bến Tre dưới sự lãnh đạo của Đảng và nữ tướng Nguyễn Thị Định. Thước phim phản ánh sinh động hình ảnh 'Đội quân tóc dài' hùng hậu đấu tranh trực diện với chính quyền Mỹ - Diệm, các cuộc mít tinh biểu tình rầm rộ của quần chúng nhân dân đòi quyền tự do dân sinh, phá thế kìm kẹp của địch. Phong trào đã nhanh chóng lan rộng khắp Nam Bộ và Nam Trung Bộ, làm tan rã hệ thống chính quyền cơ sở của địch ở nhiều thôn xã, thiết lập quyền làm chủ của nhân dân và đánh dấu bước chuyển mình của cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công."
       },
       {
         title: "Phim tư liệu Chiến Tranh Đặc Biệt (1961)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "video",
         url: "/BaoTang3D/pic_and_video/(387) Chiến Tranh Đặc Biệt 1961 - YouTube.mp4",
-        details: "Thước phim tư liệu về thời kỳ chống chiến lược Chiến tranh đặc biệt của đế quốc Mỹ ở miền Nam Việt Nam (1961 - 1965)."
+        details: "Thước phim phóng sự chiến trường phản ánh cuộc chiến cam go của quân dân miền Nam chống lại chiến lược 'Chiến tranh đặc biệt' (1961-1965) của đế quốc Mỹ. Đoạn phim chỉ rõ bản chất tàn bạo của các thủ đoạn dồn dân lập 'Ấp chiến lược' (coi đây là xương sống của chiến lược), sử dụng các chiến thuật quân sự hiện đại như 'trực thăng vận' và 'thiết xa vận'. Qua đó, thước phim cũng tôn vinh ý chí quật cường của quân và dân ta trong việc phá ấp chiến lược, kiên trì bám đất đấu tranh chính trị kết hợp đấu tranh vũ trang để từng bước làm phá sản âm mưu thâm độc của kẻ thù."
       }
     ];
 
     const inside001ExhibitsData = [
       {
-        title: "Bản đồ Cách mạng hai miền (1954 - 1975)",
+        title: "Vĩ tuyến 17 — Ranh giới chia cắt hai miền",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
-        url: imgVietnamMap,
-        details: "Việt Nam tạm thời chia cắt thành hai miền tại vĩ tuyến 17. Đảng đề ra hai nhiệm vụ chiến lược song song: xây dựng miền Bắc làm hậu phương và giải phóng miền Nam."
+        url: imgVT17_NamBac,
+        details: "Bức ảnh chụp dòng sông Bến Hải và cầu Hiền Lương tại vĩ tuyến 17 - ranh giới tạm thời chia cắt đất nước thành hai miền Nam - Bắc theo Hiệp định Giơ-ne-vơ 1954. Sự chia cắt đau thương kéo dài hơn 20 năm đã đặt ra cho cách mạng Việt Nam một yêu cầu lịch sử mới chưa từng có tiền lệ. Trước tình hình đó, Đảng đã đề ra hai nhiệm vụ chiến lược song hành: xây dựng chủ nghĩa xã hội ở miền Bắc để làm hậu phương lớn vững mạnh cho cả nước, và tiến hành cách mạng dân tộc dân chủ nhân dân ở miền Nam để đánh đuổi đế quốc Mỹ xâm lược, hoàn thành thống nhất nước nhà."
       },
       {
         title: "Hội nghị Trung ương lần thứ 15 (1-1959)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgNQ15_HoiNghi,
-        details: "Hội nghị quan trọng vạch ra con đường cách mạng miền Nam: sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để đánh đổ Mỹ - Diệm."
+        details: "Bức ảnh tư liệu lịch sử về Hội nghị Ban Chấp hành Trung ương Đảng lần thứ 15 (khoá II) họp vào tháng 1-1959. Đây là hội nghị có ý nghĩa lịch sử đặc biệt quan trọng, vạch ra phương hướng phát triển cho cách mạng miền Nam Việt Nam sau nhiều năm bị khủng bố dưới thời Mỹ - Diệm. Nghị quyết Trung ương 15 khẳng định con đường phát triển cơ bản của cách mạng miền Nam là khởi nghĩa giành chính quyền về tay nhân dân, sử dụng bạo lực cách mạng để đánh đổ chính quyền độc tài tay sai, kết hợp linh hoạt giữa đấu tranh chính trị với đấu tranh quân sự."
       },
       {
         title: "Phong trào Đồng khởi (1960)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgDongKhoi,
-        details: "Bùng nổ từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam sang thế tiến công."
+        details: "Bức ảnh tư liệu lịch sử ghi lại khí thế sục sôi của quần chúng nhân dân Nam Bộ trong phong trào Đồng khởi năm 1960. Từ những cuộc nổi dậy lẻ tẻ và tiêu biểu nhất là cuộc nổi dậy tại ba xã Định Thủy, Phước Hiệp, Bình Khánh (huyện Mỏ Cày, tỉnh Bến Tre), phong trào đã bùng lên như triều dâng thác đổ khắp Nam Bộ và Tây Nguyên. Bằng sự kết hợp khéo léo giữa đấu tranh vũ trang tự vệ và các mũi giáp công chính trị của binh vận, nhân dân ta đã đập tan từng mảng lớn chính quyền tay sai địch ở nông thôn, mở ra bước ngoặt quyết định đưa cách mạng miền Nam bước sang giai đoạn mới."
       },
       {
         title: "Đại hội đại biểu toàn quốc lần thứ III (9-1960)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgDaihoi3_1,
-        details: "Đại hội xác định đường lối chung của cách mạng cả nước: kết hợp xây dựng CNXH ở miền Bắc và đấu tranh giải phóng dân tộc ở miền Nam."
+        details: "Hình ảnh ghi lại không khí làm việc trang nghiêm tại Đại hội đại biểu toàn quốc lần thứ III của Đảng, họp tại Hà Nội vào tháng 9-1960. Đại hội diễn ra trong thời điểm miền Bắc đã hoàn thành thắng lợi công cuộc khôi phục kinh tế và miền Nam đang dấy lên phong trào Đồng khởi mạnh mẽ. Đại hội đã xác định đường lối chiến lược cách mạng của cả nước: khẳng định cách mạng xã hội chủ nghĩa ở miền Bắc có vai trò quyết định nhất đối với sự phát triển của toàn bộ cách mạng Việt Nam, cách mạng dân tộc dân chủ nhân dân ở miền Nam có vai trò quyết định trực tiếp đối với sự nghiệp giải phóng miền Nam, thống nhất đất nước."
       }
     ];
 
@@ -278,84 +328,84 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "image",
         url: imgDaihoi2PhatBieu,
-        details: "Đại hội II của Đảng diễn ra tại chiến khu Việt Bắc, quyết định đưa Đảng ra hoạt động công khai dưới tên gọi Đảng Lao động Việt Nam để trực tiếp lãnh đạo kháng chiến."
+        details: "Bức ảnh chụp Chủ tịch Hồ Chí Minh đọc Báo cáo Chính trị tại Đại hội đại biểu toàn quốc lần thứ II của Đảng diễn ra tại chiến khu Việt Bắc (Chiêm Hóa, Tuyên Quang) từ ngày 11 đến 19-2-1951. Đại hội quyết định đưa Đảng ra hoạt động công khai dưới tên gọi Đảng Lao động Việt Nam, xây dựng Đảng vững mạnh về chính trị, tư tưởng và tổ chức để trực tiếp gánh vác sứ mệnh lịch sử chèo lái con thuyền kháng chiến chống thực dân Pháp xâm lược của toàn dân tộc đi đến thắng lợi cuối cùng."
       },
       {
         title: "Toàn cảnh hội trường Đại hội II",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "image",
         url: imgDaihoi2ToanCanh,
-        details: "Toàn cảnh hội trường làm việc giản dị bằng tranh tre nứa lá tại chiến khu Việt Bắc, thể hiện tinh thần vượt khó kháng chiến thắng lợi của Đảng."
+        details: "Bức ảnh ghi lại toàn cảnh hội trường giản dị của Đại hội II được dựng hoàn toàn bằng các vật liệu tự nhiên như tranh, tre, nứa, lá giữa lòng rừng sâu chiến khu Việt Bắc. Dù trong điều kiện kháng chiến vô cùng khó khăn gian khổ, thiếu thốn trăm bề và luôn đối mặt với hiểm họa ném bom của máy bay Pháp, đại hội vẫn được tổ chức chu đáo, quy tụ đầy đủ các đại biểu đại diện cho ý chí, khát vọng tự do của quân và dân khắp mọi miền đất nước, thể hiện tinh thần cách mạng quật khởi vượt mọi gian nan."
       },
       {
         title: "Bộ Chỉ huy chiến dịch Điện Biên Phủ",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "image",
         url: imgDBP_HopBan,
-        details: "Đại tướng Võ Nguyên Giáp cùng Bộ chỉ huy họp bàn kế hoạch tác chiến cho chiến dịch lịch sử Điện Biên Phủ với phương châm 'đánh chắc, tiến chắc'."
+        details: "Bức ảnh lịch sử vô giá ghi lại cuộc họp quyết định của Bộ Chỉ huy chiến dịch Điện Biên Phủ tại lán chiến khu Mường Phăng. Dưới sự chủ trì của Đại tướng Võ Nguyên Giáp, Bộ chỉ huy đã có quyết định thay đổi phương châm tác chiến mang tính lịch sử từ 'Đánh nhanh, thắng nhanh' sang 'Đánh chắc, tiến chắc'. Quyết định táo bạo và vô cùng sáng suốt này thể hiện tư duy quân sự thiên tài, tinh thần trách nhiệm tối cao trước xương máu chiến sĩ, bảo đảm chắc chắn thắng lợi cho chiến dịch lịch sử chấn động địa cầu."
       },
       {
         title: "Chiến dịch Điện Biên Phủ (1954)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "image",
         url: imgDBP_CamCo,
-        details: "Chiến dịch Điện Biên Phủ kết thúc thắng lợi rực rỡ, đập tan tập đoàn cứ điểm mạnh nhất Đông Dương của thực dân Pháp, tạo tiếng vang chấn động địa cầu."
+        details: "Khoảnh khắc lịch sử kinh điển khi lá cờ 'Quyết chiến Quyết thắng' đỏ tươi của Quân đội nhân dân Việt Nam tung bay ngạo nghễ trên nóc hầm chỉ huy của tướng De Castries vào chiều ngày 7-5-1954. Chiến thắng Điện Biên Phủ là thắng lợi vĩ đại nhất của quân và dân ta trong cuộc kháng chiến chống Pháp, đập tan hoàn toàn kế hoạch Navarre đầy tham vọng của thực dân Pháp có đế quốc Mỹ hậu thuẫn, khẳng định sức mạnh vô địch của chiến tranh nhân dân Việt Nam."
       },
       {
         title: "Toàn cảnh Hội nghị Giơnevơ (1954)",
         part: "Phần I · Lịch sử giai đoạn 1930 - 1954",
         type: "image",
         url: imgGVR_HoiNghi,
-        details: "Quang cảnh phòng họp hội nghị đa phương tại Giơnevơ bàn về việc lập lại hòa bình ở Đông Dương sau thắng lợi quân sự của Việt Nam."
+        details: "Bức ảnh tư liệu chụp toàn cảnh phiên họp khoáng đại của Hội nghị Giơ-ne-vơ (Thụy Sĩ) năm 1954 về việc lập lại hòa bình ở Đông Dương. Thắng lợi quân sự vang dội từ Điện Biên Phủ đã tạo ra ưu thế đàm phán quyết định cho đoàn đại biểu Việt Nam Dân chủ Cộng hòa do đồng chí Phạm Văn Đồng dẫn đầu. Hiệp định ký kết ngày 21-7-1954 đã chính thức công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của ba nước Đông Dương, chấm dứt hoàn toàn sự thống trị của thực dân Pháp."
       },
       {
         title: "Chiến thắng Ấp Bắc (1963)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgApBac,
-        details: "Chiến thắng vang dội mở đầu cho phong trào tiêu diệt các chiến thuật 'trực thăng vận' và 'thiết xa vận' của Mỹ, chứng minh quân dân miền Nam hoàn toàn có thể đánh bại quân Mỹ."
+        details: "Bức ảnh tư liệu về chiến thắng Ấp Bắc (Mỹ Tho, nay thuộc Tiền Giang) ngày 2-1-1963. Trận đánh quy mô nhỏ nhưng có ý nghĩa chiến lược cực kỳ to lớn, mở đầu cho khả năng đánh bại các chiến thuật quân sự hiện đại 'trực thăng vận' và 'thiết xa vận' của quân đội Mỹ và tay sai. Chiến thắng Ấp Bắc đã củng cố niềm tin mãnh liệt cho quân dân miền Nam, chứng minh lực lượng vũ trang cách mạng dù trang bị thô sơ nhưng có thể đánh bại quân đội tay sai thiện chiến có cố vấn Mỹ trực tiếp chỉ huy."
       },
       {
         title: "Chiến thắng Bình Giã (1964)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgBinhGia,
-        details: "Chiến thắng tại Bình Giã (Bà Rịa) đã đập tan xương sống của chiến lược 'Chiến tranh đặc biệt', tiêu diệt nhiều tiểu đoàn chủ lực tinh nhuệ của ngụy."
+        details: "Hình ảnh tư liệu lịch sử ghi lại chiến thắng Bình Giã (Bà Rịa) diễn ra từ cuối năm 1964 đến đầu năm 1965. Đây là một chiến dịch tiến công quân sự lớn của Quân Giải phóng miền Nam Việt Nam, tiêu diệt nhiều tiểu đoàn chủ lực ngụy có sự yểm trợ mạnh của trực thăng và xe bọc thép Mỹ. Chiến thắng Bình Giã cùng với chiến thắng Ấp Bắc đã góp phần làm lung lay tận gốc và đập tan hoàn toàn chiến lược 'Chiến tranh đặc biệt' của đế quốc Mỹ ở miền Nam."
       },
       {
         title: "Chiến thắng Đồng Xoài (1965)",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgDongXoai,
-        details: "Trận tiến công quy mô lớn góp phần làm sụp đổ hoàn toàn chiến lược 'Chiến tranh đặc biệt' của Mỹ, khẳng định sự trưởng thành vượt bậc của Quân Giải phóng."
+        details: "Bức ảnh tư liệu về chiến thắng Đồng Xoài (Bình Phước) diễn ra vào tháng 6-1965. Trận đánh thể hiện bước phát triển vượt bậc về trình độ tác chiến tập trung và khả năng công kiên liên tục của Quân Giải phóng miền Nam Việt Nam. Chiến thắng vang dội này cùng với Bình Giã, Ba Gia đã trực tiếp đẩy ngụy quyền Sài Gòn vào cuộc khủng hoảng trầm trọng, báo hiệu sự sụp đổ hoàn toàn của chiến lược 'Chiến tranh đặc biệt', buộc Mỹ phải thay đổi chiến lược sang 'Chiến tranh cục bộ'."
       },
       {
         title: "Phong trào 'Ba sẵn sàng' lịch sử",
         part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
         url: imgBaSanSang,
-        details: "Phong trào thi đua yêu nước sục sôi của thanh niên miền Bắc sẵn sàng chiến đấu, sẵn sàng gia nhập quân đội và sẵn sàng đi bất cứ nơi đâu Tổ quốc cần."
+        details: "Bức ảnh tư liệu ghi lại lễ ra quân rầm rộ của thanh niên Thủ đô hưởng ứng phong trào thi đua yêu nước 'Ba sẵn sàng' khởi xướng từ Hà Nội vào tháng 8-1964. Phong trào nhanh chóng lan rộng khắp miền Bắc với khẩu hiệu: Sẵn sàng chiến đấu và chiến đấu dũng cảm; Sẵn sàng gia nhập các lực lượng vũ trang; Sẵn sàng đi bất cứ nơi đâu, làm bất cứ việc gì mà Tổ quốc cần. Hàng triệu thanh niên đã hăng hái ký tên tình nguyện bằng máu, thể hiện khí thế sục sôi vươn mình ra tiền tuyến giải phóng miền Nam."
       },
       {
-        title: "Đột phá giao thông & Tốc độ cao",
-        part: "Ví dụ thực tiễn · Đất nước đổi mới",
+        title: "Vượt sông tiến về phía trước",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
-        url: imgVietnamHighwayTraffic,
-        details: "Hạ tầng giao thông Bắc - Nam đột phá mạnh mẽ thể hiện tiềm lực và khát vọng phát triển vượt trội của nước nhà trong kỷ nguyên đổi mới."
+        url: imgVuotSong,
+        details: "Bức ảnh đầy xúc cảm ghi lại hình ảnh những chiến sĩ bộ đội vượt qua những con sông dữ dội dưới làn mưa bom bão đạn của kẻ thù trong các chiến dịch lịch sử giải phóng miền Nam. Vượt qua những rào cản địa hình địa vật hiểm trở khắc nghiệt, mỗi bước tiến của người lính đều được đùm bọc bởi tấm lòng của nhân dân, thể hiện tinh thần quyết chiến quyết thắng, vượt mọi gian khổ hy sinh vì độc lập dân tộc và ngày hội thống nhất non sông."
       },
       {
-        title: "Đường sắt tốc độ cao Bắc - Nam",
-        part: "Ví dụ thực tiễn · Hướng tới tương lai",
+        title: "Mặt trận Giải phóng miền Nam Việt Nam",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
-        url: imgVietnamTrain,
-        details: "Dự án đường sắt tốc độ cao kết nối hai miền Tổ quốc nhanh chóng, an toàn, thể hiện tầm nhìn thế kỷ và quyết tâm vươn mình của quốc gia."
+        url: imgMTGPMN,
+        details: "Bức ảnh ghi lại ngày ra mắt của Ủy ban Trung ương Mặt trận Dân tộc Giải phóng miền Nam Việt Nam, thành lập ngày 20-12-1960 tại vùng giải phóng Tây Ninh. Dưới ngọn cờ nửa đỏ nửa xanh với ngôi sao vàng ở giữa, Mặt trận đã tập hợp rộng rãi mọi tầng lớp nhân dân, các đảng phái, đoàn thể, tôn giáo và nhân sĩ yêu nước ở miền Nam để tiến hành cuộc kháng chiến chống Mỹ cứu nước, tạo ra sức mạnh đại đoàn kết toàn dân tộc vững chắc."
       },
       {
-        title: "Trường phái Ngoại giao cây tre",
-        part: "Ví dụ thực tiễn · Kế thừa lịch sử",
+        title: "Phong trào 'Ba đảm nhiệm' của phụ nữ",
+        part: "Phần II · Lịch sử giai đoạn 1954 - 1975",
         type: "image",
-        url: imgToLamUN,
-        details: "Bài học độc lập, tự chủ từ quá khứ được phát triển thành học thuyết 'Ngoại giao cây tre Việt Nam' thời đại mới: mềm dẻo về phương pháp nhưng kiên định về nguyên tắc."
+        url: imgBaDamNhiem,
+        details: "Hình ảnh tư liệu ấm áp về phong trào thi đua 'Ba đảm nhiệm' (sau đổi tên là 'Ba đảm đang') của phụ nữ Việt Nam được phát động từ tháng 3-1965. Phong trào kêu gọi phụ nữ miền Bắc đảm nhiệm sản xuất và công tác thay thế nam giới ra tiền tuyến; đảm nhiệm gia đình để chồng con yên tâm chiến đấu; và sẵn sàng phục vụ chiến đấu khi cần thiết. Hàng triệu người mẹ, người chị kiên trung đã trở thành những chiếc cột đỡ vững vàng ở hậu phương lớn, đóng góp to lớn vào chiến thắng chung của cả dân tộc."
       }
     ];
 
@@ -580,12 +630,25 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
               setupSlotsForMesh(mesh, outsideExhibitsData, "outside");
               mesh.visible = false;
             } else if (mesh.material) {
-              // Adjust other generic materials
+              // Override wall/ceiling colors to warm golden-brown
               const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
               materials.forEach((mat) => {
                 if (mat instanceof THREE.MeshStandardMaterial) {
-                  mat.roughness = Math.max(mat.roughness, 0.45);
-                  mat.metalness = Math.min(mat.metalness, 0.5);
+                  const c = mat.color;
+                  const hsl = { h: 0, s: 0, l: 0 };
+                  c.getHSL(hsl);
+                  // Apply golden color to everything except near-black objects
+                  // (pitch-black items like cables/metal details stay dark)
+                  if (hsl.l > 0.05) {
+                    mat.color.set("#c8a040"); // Warm golden yellow for walls + ceiling
+                    mat.roughness = 0.75;
+                    mat.metalness = 0.05;
+                  } else {
+                    // Keep near-black surfaces unchanged
+                    mat.roughness = Math.max(mat.roughness, 0.45);
+                    mat.metalness = Math.min(mat.metalness, 0.5);
+                  }
+                  mat.needsUpdate = true;
                 }
               });
             }
@@ -741,10 +804,10 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#1e1510",
+        background: "#c9b99a", // Beige to match 3D scene background
         display: "flex",
         flexDirection: "column",
-        color: "#fff",
+        color: "#2b1e15",
         fontFamily: C.sans,
       }}
     >
@@ -759,7 +822,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
           left: 0,
           right: 0,
           padding: "16px 24px",
-          background: "linear-gradient(to bottom, rgba(30,21,16,0.85) 0%, rgba(30,21,16,0) 100%)",
+          background: "linear-gradient(to bottom, rgba(180,150,110,0.92) 0%, rgba(180,150,110,0) 100%)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -768,11 +831,11 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         }}
       >
         <div style={{ pointerEvents: "auto" }}>
-          <h2 style={{ fontFamily: C.serif, fontSize: 24, fontWeight: 900, color: C.accent, margin: 0, textShadow: "0 2px 4px rgba(0,0,0,0.5)" }}>
+          <h2 style={{ fontFamily: C.serif, fontSize: 24, fontWeight: 900, color: C.brown, margin: 0, textShadow: "0 1px 3px rgba(255,255,255,0.4)" }}>
             Bảo Tàng Lịch Sử 3D
           </h2>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.7)", margin: "4px 0 0 0" }}>
-            Trực quan hoá tư liệu Điện Biên Phủ & Hiệp định Giơnevơ
+          <p style={{ fontSize: 13, color: "rgba(62,40,20,0.85)", margin: "4px 0 0 0" }}>
+            Tư liệu ảnh &amp; phim lịch sử Đảng Cộng sản Việt Nam (1945–1975)
           </p>
         </div>
 

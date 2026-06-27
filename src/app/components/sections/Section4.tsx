@@ -5,6 +5,13 @@ import { MagazinePullQuote } from "@/app/components/ui/MagazinePullQuote";
 import { DottedRule } from "@/app/components/ui/DottedRule";
 import { ArticleHeader } from "@/app/components/ui/ArticleHeader";
 import { MagazinePage } from "@/app/components/ui/MagazinePage";
+import { Polaroid } from "@/app/components/ui/Polaroid";
+import {
+  imgDBP_HopBan,
+  imgDBP_CamCo,
+  imgGVR_HoiNghi,
+  imgBoTuLenh,
+} from "@/assets/images";
 
 function RibbonHeader({ label }: { label: string }) {
   return (
@@ -47,6 +54,7 @@ export function Section4() {
           intro="Đánh giá tính sáng tạo của phương châm chiến lược tại Điện Biên Phủ từ góc nhìn học thuật khách quan — vượt qua thiên kiến kết quả để nhìn nhận đúng bản chất của quyết định lịch sử."
         />
       </Reveal>
+
 
       {/* Scenario Box (Hero Question Hook) */}
       <Reveal effect="fade-down">
@@ -169,23 +177,78 @@ export function Section4() {
               Sự sáng tạo không nằm ở việc chọn phương án "an toàn", mà nằm ở khả năng đảo ngược tư duy chiến thuật ngay tại thời điểm áp lực nhất.
             </p>
           </Reveal>
-          {[
-            { num: "01", title: "Sự thấu hiểu bản chất kẻ thù", body: "Tại Điện Biên Phủ, thực dân Pháp đã xây dựng một tập đoàn cứ điểm \"không thể công phá\" với hỏa lực cực mạnh, hệ thống sân bay và sự hỗ trợ từ không quân. \"Đánh nhanh, thắng nhanh\" – phương án ban đầu – giả định rằng ta có thể dùng sức mạnh đột phá để kết thúc trận đánh trong vài đêm. Nhưng khi trinh sát kỹ lưỡng, Bộ Chỉ huy nhận ra rằng nếu đánh nhanh, ta sẽ mất đi lợi thế duy nhất: sự bảo toàn lực lượng để duy trì chiến tranh lâu dài." },
-            { num: "02", title: "Chuyển hóa thế trận", body: "Việc chuyển sang \"đánh chắc, tiến chắc\" chính là quá trình biến một trận quyết chiến chiến lược thành một cuộc vây ép kéo dài. Thay vì dùng lực lượng tấn công trực diện vào hỏa lực mạnh, ta dùng chiến thuật \"bóc vỏ\" từng cứ điểm, cắt đứt đường tiếp viện, làm tê liệt tâm lý và hậu cần của đối phương. Đây là cách làm cho địch \"yếu đi\" trước khi ta \"mạnh lên\"." },
-            { num: "03", title: "Huy động sức mạnh toàn dân", body: "Nghệ thuật quân sự Việt Nam không chỉ là đánh giặc bằng vũ khí, mà là đánh bằng hậu cần và ý chí. \"Đánh chắc, tiến chắc\" cho phép huy động hàng chục vạn dân công, mở đường, tiếp tế trong thời gian dài – điều mà một trận \"đánh nhanh\" không bao giờ thực hiện được. Đây là sự kết hợp giữa quân sự chuyên nghiệp và sức mạnh dân tộc." },
-          ].map((pt, i) => (
-            <Reveal key={i} delay={i * 60}>
-              <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 12 }}>
-                <div style={{ display: "flex", gap: 12 }}>
-                  <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
-                  <div>
-                    <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
-                  </div>
+
+          {/* Mục 01 — Sự thấu hiểu bản chất kẻ thù */}
+          <Reveal delay={0}>
+            <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 0 }}>
+              <div style={{ display: "flex", gap: 12 }}>
+                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>01</span>
+                <div>
+                  <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>Sự thấu hiểu bản chất kẻ thù</p>
+                  <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0" }}>
+                    Tại Điện Biên Phủ, thực dân Pháp đã xây dựng một tập đoàn cứ điểm "không thể công phá" với hỏa lực cực mạnh, hệ thống sân bay và sự hỗ trợ từ không quân. "Đánh nhanh, thắng nhanh" – phương án ban đầu – giả định rằng ta có thể dùng sức mạnh đột phá để kết thúc trận đánh trong vài đêm. Nhưng khi trinh sát kỹ lưỡng, Bộ Chỉ huy nhận ra rằng nếu đánh nhanh, ta sẽ mất đi lợi thế duy nhất: sự bảo toàn lực lượng để duy trì chiến tranh lâu dài.
+                  </p>
+                  {/* Ảnh minh họa: Bộ Chỉ huy họp bàn */}
+                  <Polaroid
+                    src={imgDBP_HopBan}
+                    alt="Bộ Chỉ huy họp bàn"
+                    caption='Bộ Chỉ huy họp bàn, quyết định chuyển phương châm sang "đánh chắc, tiến chắc"'
+                    rotate={-1.5}
+                    darkCaption
+                    height={130}
+                  />
                 </div>
               </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          {/* Mục 02 — Chuyển hóa thế trận */}
+          <Reveal delay={60}>
+            <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 0 }}>
+              <div style={{ display: "flex", gap: 12 }}>
+                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>02</span>
+                <div>
+                  <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>Chuyển hóa thế trận</p>
+                  <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0" }}>
+                    Việc chuyển sang "đánh chắc, tiến chắc" chính là quá trình biến một trận quyết chiến chiến lược thành một cuộc vây ép kéo dài. Thay vì dùng lực lượng tấn công trực diện vào hỏa lực mạnh, ta dùng chiến thuật "bóc vỏ" từng cứ điểm, cắt đứt đường tiếp viện, làm tê liệt tâm lý và hậu cần của đối phương. Đây là cách làm cho địch "yếu đi" trước khi ta "mạnh lên".
+                  </p>
+                  {/* Ảnh minh họa: Bộ Tư lệnh dã chiến */}
+                  <Polaroid
+                    src={imgBoTuLenh}
+                    alt="Bộ Tư lệnh chiến dịch"
+                    caption="Đại tướng Võ Nguyên Giáp cùng Bộ Tư lệnh tại sở chỉ huy dã chiến Mường Phăng"
+                    rotate={1.2}
+                    darkCaption
+                    height={130}
+                  />
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Mục 03 — Huy động sức mạnh toàn dân */}
+          <Reveal delay={120}>
+            <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 12 }}>
+              <div style={{ display: "flex", gap: 12 }}>
+                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.red, opacity: 0.3, lineHeight: 1, flexShrink: 0 }}>03</span>
+                <div>
+                  <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>Huy động sức mạnh toàn dân</p>
+                  <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0" }}>
+                    Nghệ thuật quân sự Việt Nam không chỉ là đánh giặc bằng vũ khí, mà là đánh bằng hậu cần và ý chí. "Đánh chắc, tiến chắc" cho phép huy động hàng chục vạn dân công, mở đường, tiếp tế trong thời gian dài – điều mà một trận "đánh nhanh" không bao giờ thực hiện được. Đây là sự kết hợp giữa quân sự chuyên nghiệp và sức mạnh dân tộc.
+                  </p>
+                  {/* Ảnh minh họa: Cắm cờ chiến thắng */}
+                  <Polaroid
+                    src={imgDBP_CamCo}
+                    alt="Cắm cờ chiến thắng Điện Biên Phủ"
+                    caption="Bộ đội cắm cờ 'Quyết chiến quyết thắng' trên nóc hầm De Castries — 17h30, 7/5/1954"
+                    rotate={-1}
+                    darkCaption
+                    height={130}
+                  />
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
 
         {/* Dotted separator */}
@@ -205,20 +268,41 @@ export function Section4() {
             <p style={{ fontFamily: C.body, fontSize: 18.5, color: C.dark, opacity: 0.9, margin: "16px 0 16px" }}>
               Tuy nhiên, việc đề cao "đánh chắc, tiến chắc" không chỉ dựa vào kết quả, mà dựa trên các giá trị bền vững sau:
             </p>
-            {[
-              { num: "01", title: "Tránh sự mạo hiểm phiêu lưu", body: "Nếu thực hiện \"đánh nhanh\" và thất bại, toàn bộ chủ lực của Quân đội nhân dân Việt Nam có nguy cơ bị tiêu diệt hoặc tổn thất quá lớn, dẫn đến đổ vỡ toàn bộ cục diện chiến trường Đông Dương. \"Đánh chắc, tiến chắc\" là sự chọn lựa trách nhiệm với sinh mạng binh sĩ và vận mệnh dân tộc." },
-              { num: "02", title: "Tính kế thừa và phát triển", body: "\"Đánh chắc, tiến chắc\" không phải là \"đánh chậm\". Đó là sự vận dụng linh hoạt tư tưởng \"trường kỳ kháng chiến\" của Chủ tịch Hồ Chí Minh vào một trận đánh cụ thể. Nó khẳng định rằng nghệ thuật quân sự Việt Nam không chạy theo lối đánh áp đặt, mà là lối đánh biết người biết ta." },
-            ].map((pt, i) => (
-              <div key={i} style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 12 }}>
-                <div style={{ display: "flex", gap: 12 }}>
-                  <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.accent, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>{pt.num}</span>
-                  <div>
-                    <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>{pt.title}</p>
-                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>{pt.body}</p>
-                  </div>
+
+            {/* Mục 01R — Tránh sự mạo hiểm phiêu lưu */}
+            <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 0 }}>
+              <div style={{ display: "flex", gap: 12 }}>
+                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.accent, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>01</span>
+                <div>
+                  <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>Tránh sự mạo hiểm phiêu lưu</p>
+                  <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0" }}>
+                    Nếu thực hiện "đánh nhanh" và thất bại, toàn bộ chủ lực của Quân đội nhân dân Việt Nam có nguy cơ bị tiêu diệt hoặc tổn thất quá lớn, dẫn đến đổ vỡ toàn bộ cục diện chiến trường Đông Dương. "Đánh chắc, tiến chắc" là sự chọn lựa trách nhiệm với sinh mạng binh sĩ và vận mệnh dân tộc.
+                  </p>
+                  {/* Ảnh minh họa: Hội nghị Giơ-ne-vơ — kết quả ngoại giao từ chiến thắng quân sự */}
+                  <Polaroid
+                    src={imgGVR_HoiNghi}
+                    alt="Hội nghị Giơ-ne-vơ 1954"
+                    caption="Hội nghị Giơ-ne-vơ 1954 — thắng lợi ngoại giao chỉ có được nhờ chiến thắng Điện Biên Phủ"
+                    rotate={1.8}
+                    darkCaption
+                    height={130}
+                  />
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Mục 02R — Tính kế thừa và phát triển */}
+            <div style={{ borderTop: `1px dotted rgba(122,26,28,0.25)`, paddingTop: 12, paddingBottom: 12 }}>
+              <div style={{ display: "flex", gap: 12 }}>
+                <span style={{ fontFamily: C.serif, fontWeight: 900, fontSize: 24, color: C.accent, opacity: 0.5, lineHeight: 1, flexShrink: 0 }}>02</span>
+                <div>
+                  <p style={{ fontFamily: C.serif, fontSize: 18.5, fontWeight: 700, color: C.dark, margin: "0 0 4px 0" }}>Tính kế thừa và phát triển</p>
+                  <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0 }}>
+                    "Đánh chắc, tiến chắc" không phải là "đánh chậm". Đó là sự vận dụng linh hoạt tư tưởng "trường kỳ kháng chiến" của Chủ tịch Hồ Chí Minh vào một trận đánh cụ thể. Nó khẳng định rằng nghệ thuật quân sự Việt Nam không chạy theo lối đánh áp đặt, mà là lối đánh biết người biết ta.
+                  </p>
+                </div>
+              </div>
+            </div>
           </Reveal>
         </div>
       </div>
