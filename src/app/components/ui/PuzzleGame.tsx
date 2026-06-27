@@ -43,15 +43,25 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
         isCorrect = true;
       }
     } else if (q.type === "image") {
-      // answer là text do người chơi gõ
-      // So sánh không phân biệt hoa thường và loại bỏ khoảng trắng dư thừa
-      const normalizedSubmit = submittedAnswer.trim().toLowerCase();
-      const normalizedAnswer = q.answer.trim().toLowerCase();
+      // Helper function to remove Vietnamese diacritics and punctuation
+      const normalizeStr = (str: string) => {
+        return str
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // remove accents
+          .replace(/đ/g, "d").replace(/Đ/g, "D")
+          .replace(/[^a-zA-Z0-9\s]/g, " ") // replace punctuation (like dashes) with space
+          .trim()
+          .replace(/\s+/g, " ") // collapse multiple spaces
+          .toLowerCase();
+      };
+
+      const normalizedSubmit = normalizeStr(submittedAnswer);
+      const normalizedAnswer = normalizeStr(q.answer);
       
-      // Cho phép khớp một phần nếu người chơi gõ gần đúng (tuỳ chọn)
+      // Cho phép khớp một phần hoặc khớp chính xác không dấu
       if (normalizedSubmit === normalizedAnswer || normalizedAnswer.includes(normalizedSubmit)) {
-         // Yêu cầu người chơi gõ phải dài ít nhất 4 ký tự để tránh trick
-         if (normalizedSubmit.length > 4) {
+         // Yêu cầu người chơi gõ phải dài ít nhất 4 ký tự
+         if (normalizedSubmit.length >= 4) {
            isCorrect = true;
          }
       }
