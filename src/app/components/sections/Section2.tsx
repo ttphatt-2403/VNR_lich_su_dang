@@ -204,20 +204,31 @@ export function Section2() {
               1.1. Khôi phục kinh tế, cải tạo XHCN ở miền Bắc và chuyển <br />
               cách mạng miền Nam sang thế tiến công (1954-1960)
             </h2>
-            <p
-              style={{
-                fontFamily: C.body,
-                fontSize: 18.5,
-                lineHeight: 1.7,
-                color: C.dark,
-                opacity: 0.9,
-                margin: 0,
-                maxWidth: 620,
-              }}
-            >
-              Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau:{" "}
-              <strong>miền Bắc hoàn toàn giải phóng</strong>, <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
-            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 24, alignItems: "center", marginBottom: 12 }}>
+              <p
+                style={{
+                  fontFamily: C.body,
+                  fontSize: 18.5,
+                  lineHeight: 1.7,
+                  color: C.dark,
+                  opacity: 0.9,
+                  margin: 0,
+                }}
+              >
+                Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau:{" "}
+                <strong>miền Bắc hoàn toàn giải phóng</strong>, <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
+              </p>
+              <div style={{ border: `1.5px solid ${C.red}`, padding: 4, background: "#fff", boxShadow: "0 4px 12px rgba(62,47,28,0.08)" }}>
+                <img
+                  src={imgVT17_ToanCanh}
+                  alt="Vĩ tuyến 17"
+                  style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                />
+                <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.red, textAlign: "center", marginTop: 4, fontWeight: 700, lineHeight: 1.2 }}>
+                  Vĩ tuyến 17 - Giới tuyến quân sự tạm thời (1954)
+                </div>
+              </div>
+            </div>
           </div>
         </Reveal>
 
@@ -276,9 +287,19 @@ export function Section2() {
                   >
                     Khôi phục kinh tế (1954-1957):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
                     Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi.
                   </p>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginBottom: 12 }}>
+                    <img
+                      src={imgBacHo_BHH_2}
+                      alt="Khôi phục sản xuất"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Chủ tịch Hồ Chí Minh thăm công trường khôi phục sản xuất nông nghiệp miền Bắc.
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -539,14 +560,26 @@ export function Section2() {
                   >
                     Phong trào Đồng khởi (1960):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
                     Bắt đầu từ Bến Tre, phong trào lan rộng khắp miền Nam, làm tan rã cơ cấu chính quyền cơ sở của địch, chuyển cách mạng miền Nam từ thế giữ gìn lực lượng sang thế tiến công. Mặt trận Dân tộc giải phóng miền Nam Việt Nam ra đời (20-12-1960).
                   </p>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)" }}>
+                    <img
+                      src={imgDongKhoi}
+                      alt="Phong trào Đồng Khởi"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Nhân dân miền Nam nổi dậy đấu tranh trong phong trào Đồng khởi (1960).
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
-          </div>
         </div>
+      </div>
+
+
 
         {/* Bottom Section Grid: Dấu ấn | Bắc-Hưng-Hải */}
         <div
