@@ -147,8 +147,8 @@ export function Section2() {
   const [activeSouthernSlide, setActiveSouthernSlide] = useState(0);
 
   const southernSlides = [
-    { src: imgApBac, caption: "Chiến thuật \"trực thăng vận\" của Mỹ trong trận Ấp Bắc." },
-    { src: imgBinhGia, caption: "Cờ \"Quyết chiến Quyết thắng\" tung bay trong chiến dịch Bình Giã (1964)." },
+    { src: imgApBac, caption: <>Chiến thuật <strong>"trực thăng vận"</strong> của Mỹ trong trận Ấp Bắc.</> },
+    { src: imgBinhGia, caption: <>Cờ <strong>"Quyết chiến Quyết thắng"</strong> tung bay trong chiến dịch Bình Giã (1964).</> },
     { src: imgDongXoai, caption: "Đ/c Lê Trọng Tấn (Tư lệnh kiêm Chính ủy trong Chiến dịch Đồng Xoài) nghiên cứu tình hình chiến trường miền Nam, năm 1965." },
     { src: imgBoTuLenh, caption: "Bộ Tư lệnh Quân Giải phóng miền Nam đi khảo sát chiến trường, năm 1965." },
     { src: imgVuotSong, caption: "Tư lệnh và Chính ủy Chiến dịch Đồng Xoài vượt sông ra trận địa, năm 1965." }
@@ -701,7 +701,7 @@ export function Section2() {
               }}
             >
               1.2. Xây dựng chủ nghĩa xã hội ở miền Bắc và đánh bại <br />
-              chiến lược "Chiến tranh đặc biệt" ở miền Nam (1961-1965)
+              chiến lược <strong>"Chiến tranh đặc biệt"</strong> ở miền Nam (1961-1965)
             </h2>
             <p
               style={{
@@ -862,7 +862,7 @@ export function Section2() {
                     Kế hoạch 5 năm lần thứ nhất (1961-1965):
                   </h4>
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                    Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như "Mỗi người làm việc bằng hai" dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
+                    Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như <strong>"Mỗi người làm việc bằng hai"</strong> dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
                   </p>
                   {/* Ba đảm nhiệm */}
                   <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
@@ -872,7 +872,7 @@ export function Section2() {
                       style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
-                      Học sinh trường cấp III Yên Hòa, Hà Nội đăng ký phong trào "Ba đảm nhiệm", sau này là phong trào phụ nữ "Ba đảm đang".
+                      Học sinh trường cấp III Yên Hòa, Hà Nội đăng ký phong trào <strong>"Ba đảm nhiệm"</strong>, sau này là phong trào phụ nữ <strong>"Ba đảm đang"</strong>.
                     </div>
                   </div>
 
@@ -884,7 +884,7 @@ export function Section2() {
                       style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
-                      Tiễn đưa thanh niên "Ba sẵn sàng" của khu Đống Đa (Hà Nội) lên đường nhập ngũ, tháng 8/1964, sau khi Mỹ mở rộng đánh phá bằng không quân ra miền Bắc.
+                      Tiễn đưa thanh niên <strong>"Ba sẵn sàng"</strong> của khu Đống Đa (Hà Nội) lên đường nhập ngũ, tháng 8/1964, sau khi Mỹ mở rộng đánh phá bằng không quân ra miền Bắc.
                     </div>
                   </div>
                 </div>
@@ -933,11 +933,11 @@ export function Section2() {
                     Đánh bại Chiến tranh đặc biệt:
                   </h4>
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
-                    Mỹ thực hiện công thức "cố vấn, vũ khí Mỹ và quân chủ lực Việt Nam Cộng hòa" cùng quốc sách "ấp chiến lược".
+                    Mỹ thực hiện công thức <strong>"cố vấn, vũ khí Mỹ và quân chủ lực Việt Nam Cộng hòa"</strong> cùng quốc sách <strong>"ấp chiến lược"</strong>.
                     <br />
-                    Đảng chỉ đạo giữ vững thế tiến công, đánh địch bằng "ba mũi giáp công" (quân sự, chính trị, binh vận) trên cả "ba vùng chiến lược" (đô thị, nông thôn đồng bằng, miền núi).
+                    Đảng chỉ đạo giữ vững thế tiến công, đánh địch bằng <strong>"ba mũi giáp công"</strong> (quân sự, chính trị, binh vận) trên cả <strong>"ba vùng chiến lược"</strong> (đô thị, nông thôn đồng bằng, miền núi).
                     <br />
-                    Chiến thắng Ấp Bắc (1963) và các chiến dịch Bình Giã, Ba Gia, Đồng Xoài (1964-1965) đã làm phá sản hoàn toàn chiến lược "Chiến tranh đặc biệt" của Mỹ.
+                    Chiến thắng Ấp Bắc (1963) và các chiến dịch Bình Giã, Ba Gia, Đồng Xoài (1964-1965) đã làm phá sản hoàn toàn chiến lược <strong>"Chiến tranh đặc biệt"</strong> của Mỹ.
                   </p>
                   {/* Premium SlideShow/Carousel for Southern Campaign Images */}
                   <div
