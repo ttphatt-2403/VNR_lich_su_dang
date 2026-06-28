@@ -43,25 +43,7 @@ export function MagazinePage({ id, pageNum, children }: MagazinePageProps) {
           {/* Page Content */}
           <div style={{ flex: 1 }}>{children}</div>
 
-          {/* Bottom Page Footer */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingTop: 8,
-              borderTop: `1.5px solid ${C.red}`,
-              marginTop: 32,
-              fontFamily: C.sans,
-              fontSize: 12,
-              fontWeight: 800,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: C.red,
-            }}
-          >
-            <span>Trang {pageNum}</span>
-          </div>
+
         </div>
       </article>
     </Reveal>

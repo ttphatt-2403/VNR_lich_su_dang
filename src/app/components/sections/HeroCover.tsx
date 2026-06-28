@@ -398,9 +398,9 @@ export function HeroCover() {
               letterSpacing: "0.08em",
             }}
           >
-            <span>Trang bìa đặc biệt</span>
+            <span></span>
             <span>Bản quyền lưu hành nội bộ</span>
-            <span>Trang 21</span>
+            <span></span>
           </div>
         </div>
       </div>

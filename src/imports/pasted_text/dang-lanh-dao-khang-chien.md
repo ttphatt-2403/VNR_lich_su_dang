@@ -2,7 +2,7 @@ Chương 2: Đảng lãnh đạo hai cuộc kháng chiến, hoàn thành giải 
  II. Lãnh đạo xây dựng chủ nghĩa xã hội ở miền Bắc và kháng chiến chống đế quốc Mỹ xâm lược, giải phóng miền Nam, thống nhất đất nước (1954 - 1975)
 1. Sự lãnh đạo của Đảng đối với cách mạng hai miền Nam - Bắc (1954 - 1965)
 1.1. Cách mạng hai miền giai đoạn 1954 - 1960
-Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau: miền Bắc hoàn toàn giải phóng, miền Nam trở thành thuộc địa kiểu mới của đế quốc Mỹ.
+Sau Hiệp định Giơnevơ năm 1954, Việt Nam tạm thời bị chia cắt thành hai miền tại vĩ tuyến 17, thuộc tỉnh Quảng Trị. Miền Bắc được hoàn toàn giải phóng và tiến lên xây dựng chủ nghĩa xã hội. Trong khi đó, miền Nam trở thành thuộc địa kiểu mới của đế quốc Mỹ.
 
 Vĩ tuyến 17 (Quảng Trị) trở thành giới tuyến tạm thời chia cắt hai miền.
 Tại miền Bắc:

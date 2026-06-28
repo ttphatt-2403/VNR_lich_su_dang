@@ -2,9 +2,6 @@ import { useState } from "react";
 import { C } from "@/tokens";
 import {
   P2_MILESTONES,
-  P2_LESSONS,
-  P3_APPLICATIONS,
-  P3_REFERENCES,
 } from "@/data/content";
 import {
   imgVT17_ToanCanh,
@@ -22,6 +19,7 @@ import {
   imgApBac,
   imgBinhGia,
   imgDongXoai,
+  imgBoTuLenh,
   imgVuotSong,
   imgToLamUN,
   imgDipBottom1,
@@ -37,14 +35,12 @@ import { Reveal } from "@/app/components/ui/Reveal";
 import { Polaroid } from "@/app/components/ui/Polaroid";
 import { DottedRule } from "@/app/components/ui/DottedRule";
 import { TimelineEntry } from "@/app/components/ui/TimelineEntry";
-import { LessonRow } from "@/app/components/ui/LessonRow";
 import { MagazinePage } from "@/app/components/ui/MagazinePage";
 import { ArticleHeader } from "@/app/components/ui/ArticleHeader";
 import {
   FactoryIcon,
   TractorIcon,
   PeopleIcon,
-  SeedlingIcon,
   GroupIcon,
   GearIcon,
   StarIcon,
@@ -148,6 +144,15 @@ const getFourNoIcon = (idx: number, isHovered: boolean) => {
 export function Section2() {
   const [hoveredFourNo, setHoveredFourNo] = useState<number | null>(null);
   const [hoveredFlag, setHoveredFlag] = useState<number | null>(null);
+  const [activeSouthernSlide, setActiveSouthernSlide] = useState(0);
+
+  const southernSlides = [
+    { src: imgApBac, caption: "Chiến thuật \"trực thăng vận\" của Mỹ trong trận Ấp Bắc." },
+    { src: imgBinhGia, caption: "Cờ \"Quyết chiến Quyết thắng\" tung bay trong chiến dịch Bình Giã (1964)." },
+    { src: imgDongXoai, caption: "Đ/c Lê Trọng Tấn (Tư lệnh kiêm Chính ủy trong Chiến dịch Đồng Xoài) nghiên cứu tình hình chiến trường miền Nam, năm 1965." },
+    { src: imgBoTuLenh, caption: "Bộ Tư lệnh Quân Giải phóng miền Nam đi khảo sát chiến trường, năm 1965." },
+    { src: imgVuotSong, caption: "Tư lệnh và Chính ủy Chiến dịch Đồng Xoài vượt sông ra trận địa, năm 1965." }
+  ];
 
   return (
     <>
@@ -215,8 +220,9 @@ export function Section2() {
                   margin: 0,
                 }}
               >
-                Sau Hiệp định Giơnevơ năm 1954, Việt Nam bị chia làm hai miền với hai chế độ chính trị khác nhau:{" "}
-                <strong>miền Bắc hoàn toàn giải phóng</strong>, <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
+                Sau Hiệp định Giơnevơ năm 1954, Việt Nam tạm thời bị chia cắt thành hai miền tại vĩ tuyến 17, thuộc tỉnh Quảng Trị.{" "}
+                <strong>Miền Bắc được hoàn toàn giải phóng</strong> và tiến lên xây dựng chủ nghĩa xã hội. Trong khi đó,{" "}
+                <strong>miền Nam</strong> trở thành thuộc địa kiểu mới của đế quốc Mỹ.
               </p>
               <div style={{ border: `1.5px solid ${C.red}`, padding: 4, background: "#fff", boxShadow: "0 4px 12px rgba(62,47,28,0.08)" }}>
                 <img
@@ -225,7 +231,7 @@ export function Section2() {
                   style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                 />
                 <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.red, textAlign: "center", marginTop: 4, fontWeight: 700, lineHeight: 1.2 }}>
-                  Vĩ tuyến 17 - Giới tuyến quân sự tạm thời (1954)
+                  Vĩ tuyến 17 (Quảng Trị) trở thành giới tuyến tạm thời chia cắt hai miền.
                 </div>
               </div>
             </div>
@@ -290,7 +296,7 @@ export function Section2() {
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
                     Nhiệm vụ trọng tâm là hàn gắn vết thương chiến tranh và phục hồi sản xuất nông nghiệp. Đảng đã lãnh đạo nhân dân đấu tranh đòi đối phương rút quân đúng lịch trình và ổn định tình hình chính trị - xã hội. Đến năm 1957, sản xuất nông nghiệp miền Bắc đã đạt mức cao nhất thời Pháp thuộc, nạn đói bị đẩy lùi.
                   </p>
-                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginBottom: 12 }}>
+                  {/* <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginBottom: 12 }}>
                     <img
                       src={imgBacHo_BHH_2}
                       alt="Khôi phục sản xuất"
@@ -299,7 +305,7 @@ export function Section2() {
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
                       Chủ tịch Hồ Chí Minh thăm công trường khôi phục sản xuất nông nghiệp miền Bắc.
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Reveal>
@@ -383,9 +389,19 @@ export function Section2() {
                   >
                     Cải tạo xã hội chủ nghĩa (1958-1960):
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
                     Miền Bắc chuyển sang giai đoạn cải tạo kinh tế cá thể của nông dân, thợ thủ công và tư bản tư doanh, xây dựng quan hệ sản xuất mới dựa trên sở hữu toàn dân và tập thể.
                   </p>
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginBottom: 12 }}>
+                    <img
+                      src={imgBacHo_BHH_1}
+                      alt="Thủy nông Bắc Hưng Hải"
+                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Chủ tịch Hồ Chí Minh thăm công trình thủy nông Bắc-Hưng-Hải (1958)
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -524,7 +540,7 @@ export function Section2() {
                     <img
                       src="/section2_images/hoi_nghi_tw15.jpg"
                       alt="Hội nghị Trung ương lần thứ 15"
-                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                      style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
                       Hội nghị Trung ương lần thứ 15 (khóa II) do Chủ tịch Hồ Chí Minh chủ trì, họp tại Hà Nội vào tháng 1-1959.
@@ -577,17 +593,17 @@ export function Section2() {
                     <img
                       src={imgDongKhoi}
                       alt="Phong trào Đồng Khởi"
-                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                      style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
-                      Nhân dân miền Nam nổi dậy đấu tranh trong phong trào Đồng khởi (1960).
+                      Phong trào Đồng Khởi bùng nổ tại tỉnh Bến Tre, bắt đầu từ ngày 17/1/1960.
                     </div>
                   </div>
                   <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
                     <img
                       src="/section2_images/mat_tran_dtgp.jpg"
                       alt="Mặt trận Dân tộc giải phóng miền Nam"
-                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                      style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
                       Ngày 20-12-1960, các thành viên của Ủy ban Trung ương Mặt trận Dân tộc Giải phóng miền Nam Việt Nam tuyên thệ trong Lễ thành lập Mặt trận.
@@ -601,142 +617,7 @@ export function Section2() {
 
 
 
-        {/* Bottom Section Grid: Dấu ấn | Bắc-Hưng-Hải */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.1fr 0.9fr",
-            gap: 28,
-            alignItems: "end",
-            borderTop: `1.5px solid rgba(122,26,28,0.25)`,
-            paddingTop: 24,
-          }}
-        >
-          {/* Left: Dấu ấn timeline */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div
-              style={{
-                background: C.red,
-                color: "#fff",
-                padding: "6px 14px",
-                fontFamily: C.sans,
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                marginBottom: 16,
-                alignSelf: "start",
-                clipPath: "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
-              }}
-            >
-              Dấu ấn giai đoạn 1954 - 1960
-            </div>
 
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 16,
-                position: "relative",
-                paddingLeft: 10,
-              }}
-            >
-              {/* Vertical connector line */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: 21,
-                  top: 10,
-                  bottom: 10,
-                  width: 1.5,
-                  borderLeft: `1.5px dashed ${C.red}`,
-                  opacity: 0.4,
-                }}
-              />
-
-              {/* Point 1 */}
-              <div style={{ display: "flex", gap: 14, alignItems: "center", position: "relative", zIndex: 1 }}>
-                <div
-                  style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: "50%",
-                    border: `1.5px solid ${C.red}`,
-                    background: C.bg,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: C.red,
-                    flexShrink: 0,
-                  }}
-                >
-                  <SeedlingIcon size={12} color={C.red} />
-                </div>
-                <span style={{ fontFamily: C.body, fontSize: 18, color: C.dark, opacity: 0.9 }}>
-                  Kinh tế phục hồi và phát triển, đặc biệt là nông nghiệp.
-                </span>
-              </div>
-
-              {/* Point 2 */}
-              <div style={{ display: "flex", gap: 14, alignItems: "center", position: "relative", zIndex: 1 }}>
-                <div
-                  style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: "50%",
-                    border: `1.5px solid ${C.red}`,
-                    background: C.bg,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: C.red,
-                    flexShrink: 0,
-                  }}
-                >
-                  <GroupIcon size={12} color={C.red} />
-                </div>
-                <span style={{ fontFamily: C.body, fontSize: 18, color: C.dark, opacity: 0.9 }}>
-                  Cải cách ruộng đất xóa bỏ chế độ phong kiến, tạo cơ sở phát triển.
-                </span>
-              </div>
-
-              {/* Point 3 */}
-              <div style={{ display: "flex", gap: 14, alignItems: "center", position: "relative", zIndex: 1 }}>
-                <div
-                  style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: "50%",
-                    border: `1.5px solid ${C.red}`,
-                    background: C.bg,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: C.red,
-                    flexShrink: 0,
-                  }}
-                >
-                  <GearIcon size={12} color={C.red} />
-                </div>
-                <span style={{ fontFamily: C.body, fontSize: 18, color: C.dark, opacity: 0.9 }}>
-                  Xây dựng nền tảng cho chủ nghĩa xã hội ở miền Bắc.
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Bắc-Hưng-Hải Polaroid */}
-          <div>
-            <Polaroid
-              src={imgBacHo_BHH_1}
-              alt="Bác Hồ tại Bắc Hưng Hải"
-              caption="Chủ tịch Hồ Chí Minh thăm công trình thủy nông Bắc-Hưng-Hải (1958)"
-              rotate={1}
-              darkCaption
-              height={140}
-            />
-          </div>
-        </div>
 
         {/* Bottom Crimson Banner strip */}
         <div
@@ -761,6 +642,7 @@ export function Section2() {
               lineHeight: 1.5,
               margin: 0,
               textTransform: "uppercase",
+              color: C.accent,
             }}
           >
             GIAI ĐOẠN 1954 - 1960 LÀ THỜI KỲ ĐẦY THỬ THÁCH NHƯNG CŨNG HẾT SỨC VẺ VANG CỦA CÁCH MẠNG MIỀN BẮC, ĐẶT NỀN MÓNG VỮNG CHẮC CHO SỰ NGHIỆP GIẢI PHÓNG MIỀN NAM, THỐNG NHẤT ĐẤT NƯỚC.
@@ -834,10 +716,97 @@ export function Section2() {
             >
               Đại hội đại biểu toàn quốc lần thứ III (9-1960) đã hoàn chỉnh đường lối chiến lược chung cho cách mạng cả nước.
             </p>
+            
           </div>
         </Reveal>
 
-        {/* Grid layout */}
+        {/* 2-Column Grid: Image and Đường lối chung */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1.1fr",
+            gap: 28,
+            alignItems: "start",
+            marginBottom: 32,
+          }}
+        >
+          {/* Left Column: Bác Hồ / Đại hội III image */}
+          <Reveal effect="fade-left">
+            <div
+              style={{
+                border: "1px solid rgba(0,0,0,0.06)",
+                padding: "5px",
+                background: "#fff",
+                boxShadow: "0 6px 15px rgba(0,0,0,0.08)",
+              }}
+            >
+              <img
+                src="/section2_images/dai_hoi_3.jpg"
+                alt="Đại hội Đảng III"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  filter: "sepia(0.2) contrast(1.05) brightness(0.95)",
+                }}
+              />
+              <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                Chủ tịch Hồ Chí Minh và các đồng chí Lê Duẩn, Trường Chinh tại Đại hội đại biểu toàn quốc lần thứ III của Đảng họp tại Thủ đô Hà Nội từ ngày 5 đến 10-9-1960.
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Right Column: Đường lối chung & Hai chiến lược */}
+          <Reveal effect="fade-right" delay={50}>
+            <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start" }}>
+              <div
+                className="circle-badge"
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: "50%",
+                  border: `2px solid ${C.red}`,
+                  background: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <GearIcon size={26} color={C.red} />
+              </div>
+              <div>
+                <h4
+                  style={{
+                    fontFamily: C.serif,
+                    fontSize: 18,
+                    fontWeight: 700,
+                    color: C.red,
+                    textTransform: "uppercase",
+                    margin: "0 0 6px 0",
+                  }}
+                >
+                  Đường lối chung &amp; Hai chiến lược:
+                </h4>
+                <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  Thực hiện đồng thời hai chiến lược cách mạng: cách mạng XHCN ở miền Bắc và cách mạng dân tộc dân chủ nhân dân ở miền Nam.
+                  <br />
+                  • <strong>Miền Bắc:</strong> Giữ vai trò quyết định nhất đối với sự phát triển của toàn bộ cách mạng Việt Nam.
+                  <br />
+                  • <strong>Miền Nam:</strong> Giữ vai trò quyết định trực tiếp đối với sự nghiệp giải phóng miền Nam.
+                  <br />
+                  • <strong>Mục tiêu chung:</strong> Giải phóng miền Nam, hòa bình thống nhất đất nước.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <DottedRule my={24} />
+
+        {/* Grid layout for Tại miền Bắc and Tại miền Nam */}
         <div
           style={{
             display: "grid",
@@ -847,7 +816,7 @@ export function Section2() {
             marginBottom: 28,
           }}
         >
-          {/* Left column */}
+          {/* Left column — Tại miền Bắc */}
           <div
             style={{
               borderRight: `1px dotted rgba(122,26,28,0.25)`,
@@ -857,55 +826,6 @@ export function Section2() {
             <Reveal effect="fade-left">
               <RibbonHeader label="Tại miền Bắc" />
             </Reveal>
-
-            {/* Đường lối chung */}
-            <Reveal effect="fade-left" delay={50}>
-              <div className="circle-badge-container" style={{ display: "flex", gap: 16, alignItems: "start", marginBottom: 20 }}>
-                <div
-                  className="circle-badge"
-                  style={{
-                    width: 56,
-                    height: 56,
-                    borderRadius: "50%",
-                    border: `2px solid ${C.red}`,
-                    background: "#fff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                    boxShadow: "0 4px 10px rgba(122, 26, 28, 0.1)",
-                    transition: "all 0.3s ease",
-                  }}
-                >
-                  <GearIcon size={26} color={C.red} />
-                </div>
-                <div>
-                  <h4
-                    style={{
-                      fontFamily: C.serif,
-                      fontSize: 18,
-                      fontWeight: 700,
-                      color: C.red,
-                      textTransform: "uppercase",
-                      margin: "0 0 6px 0",
-                    }}
-                  >
-                    Đường lối chung &amp; Hai chiến lược:
-                  </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                    Thực hiện đồng thời hai chiến lược cách mạng: cách mạng XHCN ở miền Bắc và cách mạng dân tộc dân chủ nhân dân ở miền Nam.
-                    <br />
-                    • <strong>Miền Bắc:</strong> Giữ vai trò quyết định nhất đối với sự phát triển của toàn bộ cách mạng Việt Nam.
-                    <br />
-                    • <strong>Miền Nam:</strong> Giữ vai trò quyết định trực tiếp đối với sự nghiệp giải phóng miền Nam.
-                    <br />
-                    • <strong>Mục tiêu chung:</strong> Giải phóng miền Nam, hòa bình thống nhất đất nước.
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <DottedRule my={16} />
 
             {/* Kế hoạch 5 năm */}
             <Reveal effect="fade-left" delay={100}>
@@ -944,14 +864,27 @@ export function Section2() {
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
                     Nhằm xây dựng bước đầu cơ sở vật chất - kỹ thuật cho CNXH. Các phong trào thi đua như "Mỗi người làm việc bằng hai" dấy lên mạnh mẽ. Miền Bắc bắt đầu chi viện lớn về người và của cho miền Nam qua đường Trường Sơn và đường Hồ Chí Minh trên biển.
                   </p>
+                  {/* Ba đảm nhiệm */}
                   <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
                     <img
                       src="/section2_images/ba_dam_nhiem.jpg"
                       alt="Phong trào Ba đảm nhiệm"
-                      style={{ width: "100%", height: 110, objectFit: "cover", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                      style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
                     />
                     <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
                       Học sinh trường cấp III Yên Hòa, Hà Nội đăng ký phong trào "Ba đảm nhiệm", sau này là phong trào phụ nữ "Ba đảm đang".
+                    </div>
+                  </div>
+
+                  {/* Ba sẵn sàng */}
+                  <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
+                    <img
+                      src={imgBaSanSang}
+                      alt="Phong trào Ba sẵn sàng"
+                      style={{ width: "100%", height: "auto", display: "block", filter: "sepia(0.2) contrast(1.05) brightness(0.95)" }}
+                    />
+                    <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
+                      Tiễn đưa thanh niên "Ba sẵn sàng" của khu Đống Đa (Hà Nội) lên đường nhập ngũ, tháng 8/1964, sau khi Mỹ mở rộng đánh phá bằng không quân ra miền Bắc.
                     </div>
                   </div>
                 </div>
@@ -999,117 +932,167 @@ export function Section2() {
                   >
                     Đánh bại Chiến tranh đặc biệt:
                   </h4>
-                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
+                  <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: "0 0 10px 0" }}>
                     Mỹ thực hiện công thức "cố vấn, vũ khí Mỹ và quân chủ lực Việt Nam Cộng hòa" cùng quốc sách "ấp chiến lược".
                     <br />
                     Đảng chỉ đạo giữ vững thế tiến công, đánh địch bằng "ba mũi giáp công" (quân sự, chính trị, binh vận) trên cả "ba vùng chiến lược" (đô thị, nông thôn đồng bằng, miền núi).
                     <br />
                     Chiến thắng Ấp Bắc (1963) và các chiến dịch Bình Giã, Ba Gia, Đồng Xoài (1964-1965) đã làm phá sản hoàn toàn chiến lược "Chiến tranh đặc biệt" của Mỹ.
                   </p>
+                  {/* Premium SlideShow/Carousel for Southern Campaign Images */}
+                  <div
+                    style={{
+                      border: "1px solid rgba(122,26,28,0.15)",
+                      padding: 6,
+                      background: "#fff",
+                      boxShadow: "0 6px 18px rgba(122,26,28,0.06)",
+                      marginTop: 16,
+                      borderRadius: 4,
+                      position: "relative",
+                      overflow: "hidden"
+                    }}
+                  >
+                    {/* Main Image Viewport */}
+                    <div
+                      style={{
+                        width: "100%",
+                        height: 240,
+                        background: "#fdfbf7",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        position: "relative",
+                        borderBottom: "1px solid rgba(0,0,0,0.05)"
+                      }}
+                    >
+                      <img
+                        src={southernSlides[activeSouthernSlide].src}
+                        alt="Hình ảnh chiến dịch"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                          objectFit: "contain",
+                          display: "block",
+                          filter: "sepia(0.15) contrast(1.05) brightness(0.98)",
+                          transition: "all 0.3s ease"
+                        }}
+                      />
+
+                      {/* Navigation Arrow Left */}
+                      <button
+                        onClick={() => setActiveSouthernSlide(prev => (prev === 0 ? southernSlides.length - 1 : prev - 1))}
+                        style={{
+                          position: "absolute",
+                          left: 8,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          background: "rgba(255,255,255,0.75)",
+                          border: "1px solid rgba(0,0,0,0.1)",
+                          width: 32,
+                          height: 32,
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
+                          zIndex: 5,
+                          fontSize: 14,
+                          fontWeight: "bold",
+                          color: C.red,
+                          transition: "all 0.2s"
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "#fff")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.75)")}
+                      >
+                        ◀
+                      </button>
+
+                      {/* Navigation Arrow Right */}
+                      <button
+                        onClick={() => setActiveSouthernSlide(prev => (prev === southernSlides.length - 1 ? 0 : prev + 1))}
+                        style={{
+                          position: "absolute",
+                          right: 8,
+                          top: "50%",
+                          transform: "translateY(-50%)",
+                          background: "rgba(255,255,255,0.75)",
+                          border: "1px solid rgba(0,0,0,0.1)",
+                          width: 32,
+                          height: 32,
+                          borderRadius: "50%",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          boxShadow: "0 2px 5px rgba(0,0,0,0.15)",
+                          zIndex: 5,
+                          fontSize: 14,
+                          fontWeight: "bold",
+                          color: C.red,
+                          transition: "all 0.2s"
+                        }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "#fff")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.75)")}
+                      >
+                        ▶
+                      </button>
+                    </div>
+
+                    {/* Active Caption Block */}
+                    <div
+                      style={{
+                        padding: "10px 12px 6px 12px",
+                        background: "#fff",
+                        minHeight: 46,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <div style={{ fontSize: 10, fontFamily: C.sans, color: C.muted, textAlign: "center", fontStyle: "italic", lineHeight: 1.4 }}>
+                        {southernSlides[activeSouthernSlide].caption}
+                      </div>
+                    </div>
+
+                    {/* Navigation Dots Indicator */}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: 6,
+                        paddingBottom: 8,
+                        background: "#fff"
+                      }}
+                    >
+                      {southernSlides.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveSouthernSlide(idx)}
+                          style={{
+                            width: 8,
+                            height: 8,
+                            borderRadius: "50%",
+                            border: "none",
+                            background: activeSouthernSlide === idx ? C.red : "rgba(122,26,28,0.2)",
+                            cursor: "pointer",
+                            padding: 0,
+                            transition: "all 0.2s"
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </Reveal>
 
-            {/* Bác Hồ / Đại hội III image */}
-            <div
-              style={{
-                border: "1px solid rgba(0,0,0,0.06)",
-                padding: "5px",
-                background: "#fff",
-                boxShadow: "0 6px 15px rgba(0,0,0,0.08)",
-              }}
-            >
-              <img
-                src="/section2_images/dai_hoi_3.jpg"
-                alt="Đại hội Đảng III"
-                style={{
-                  width: "100%",
-                  height: 120,
-                  objectFit: "cover",
-                  display: "block",
-                  filter: "sepia(0.2) contrast(1.05) brightness(0.95)",
-                }}
-              />
-              <div style={{ fontSize: 9.5, fontFamily: C.sans, color: C.muted, textAlign: "center", marginTop: 4, fontStyle: "italic" }}>
-                Chủ tịch Hồ Chí Minh và các đồng chí Lê Duẩn, Trường Chinh tại Đại hội đại biểu toàn quốc lần thứ III của Đảng họp tại Thủ đô Hà Nội từ ngày 5 đến 10-9-1960.
-              </div>
-            </div>
+
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1.15fr 0.85fr",
-            gap: 28,
-            alignItems: "end",
-            borderTop: `1.5px solid rgba(122,26,28,0.25)`,
-            paddingTop: 24,
-          }}
-        >
-          {/* Lessons list */}
-          <div>
-            <div
-              style={{
-                background: C.red,
-                color: "#fff",
-                padding: "6px 14px",
-                fontFamily: C.sans,
-                fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                marginBottom: 16,
-                alignSelf: "start",
-                clipPath: "polygon(0 0, 100% 0, 95% 100%, 0 100%)",
-              }}
-            >
-              Bốn bài học chiến lược
-            </div>
-            <div style={{ maxWidth: "100%" }}>
-              {P2_LESSONS.map((l, i) => (
-                <LessonRow key={i} num={l.num} title={l.title} desc={l.desc} />
-              ))}
-            </div>
-          </div>
 
-          {/* Right: Polaroids of battles */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-            <Polaroid
-              src="/section2_images/truc_thang_van.jpg"
-              alt="Chiến thuật trực thăng vận"
-              caption="Chiến thuật 'trực thăng vận' (Ấp Bắc)"
-              rotate={-1.5}
-              darkCaption
-              height={140}
-            />
-            <Polaroid
-              src="/section2_images/co_binh_gia.jpg"
-              alt="Cờ chiến thắng Bình Giã"
-              caption="Cờ Quyết chiến Quyết thắng (Bình Giã)"
-              rotate={1.5}
-              darkCaption
-              height={140}
-            />
-            <Polaroid
-              src="/section2_images/le_trong_tan.jpg"
-              alt="Lê Trọng Tấn"
-              caption="Đ/c Lê Trọng Tấn nghiên cứu chiến trường (1965)"
-              rotate={-1}
-              darkCaption
-              height={140}
-            />
-            <Polaroid
-              src="/section2_images/vuot_song_dong_xoai.jpg"
-              alt="Đồng Xoài"
-              caption="Vượt sông ra trận địa (Đồng Xoài, 1965)"
-              rotate={2}
-              darkCaption
-              height={140}
-            />
-          </div>
-        </div>
 
         {/* Bottom Banner */}
         <div
@@ -1134,6 +1117,7 @@ export function Section2() {
               lineHeight: 1.5,
               margin: 0,
               textTransform: "uppercase",
+              color: C.accent,
             }}
           >
             ĐƯỜNG LỐI HAI CHIẾN LƯỢC LÀ SÁNG TẠO ĐỘC ĐÁO CỦA ĐẢNG, GIÚP HUY ĐỘNG SỨC MẠNH TOÀN DIỆN CỦA HẬU PHƯƠNG MIỀN BẮC CHI VIỆN CHO TIỀN TUYẾN MIỀN NAM.
@@ -1520,7 +1504,7 @@ export function Section2() {
                   {/* Brown Bamboo Quote Block */}
                   <Reveal effect="fade-right" delay={100}>
                     <div style={{
-                      background: "#7a5835", // Lighter warm brown
+                      background: "#957554", // Even lighter warm brown
                       color: "#fff",
                       padding: "20px 24px",
                       position: "relative",
@@ -1580,585 +1564,12 @@ export function Section2() {
 
             </div>
 
-            {/* Bottom Page Footer — Brown themed */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                paddingTop: 8,
-                borderTop: `1.5px solid ${C.brown}`,
-                marginTop: 32,
-                fontFamily: C.sans,
-                fontSize: 12,
-                fontWeight: 800,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: C.brown,
-              }}
-            >
-              <span>Trang 26</span>
-            </div>
+
           </div>
         </article>
       </Reveal>
 
-      {/* ─────────────────────────────────────────────────────────────────────────────
-          PAGE 27 — ĐỘT PHÁ HẠ TẦNG GIAO THÔNG TRÊN TRỤC BẮC – NAM
-          ─── NỀN BẢN VẼ / BE (Ivory/Beige themed matching style of Page 26) ────── */}
-      <Reveal effect="scale-up" duration={950}>
-        <article
-          className="magazine-page-shadow section-container"
-          style={{
-            width: "100%",
-            maxWidth: 960,
-            margin: "64px auto",
-            background: "#f5eedc", // Warm ivory/be background matching page 26
-            color: C.dark,
-            border: `1.5px solid rgba(100,70,34,0.30)`, // Brown border
-            position: "relative",
-            display: "flex",
-            flexDirection: "column",
-            transition: "box-shadow 0.4s ease, transform 0.4s ease",
-          }}
-        >
-          <div
-            style={{
-              margin: "16px",
-              padding: "24px 28px",
-              border: `1px solid rgba(100,70,34,0.28)`,
-              outline: `3px double rgba(100,70,34,0.22)`,
-              outlineOffset: "-6px",
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div style={{ flex: 1 }}>
-              {/* Header Container with Overlap & Soft Gradient Blend */}
-              <div style={{
-                position: "relative",
-                margin: "-24px -28px 24px -28px", // Pull flush to top, left, and right borders of the double frame
-                minHeight: 250,
-                display: "flex",
-                borderBottom: `1px solid rgba(100,70,34,0.20)`,
-                background: "#f5eedc", // Ensure beige base matches the page background
-                overflow: "hidden"
-              }}>
-                {/* Right Image (covers right 55% of width) */}
-                <div style={{
-                  position: "absolute",
-                  top: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: "55%",
-                  zIndex: 1
-                }}>
-                  <img
-                    src={imgVietnamTrain}
-                    alt="Tàu cao tốc Bắc Nam"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block"
-                    }}
-                  />
-                </div>
 
-                {/* Soft Gradient Overlay in the middle to blend train image to beige background */}
-                <div style={{
-                  position: "absolute",
-                  top: 0,
-                  bottom: 0,
-                  left: "40%", // Starts slightly before the image boundary
-                  width: "20%", // Span of the soft fade
-                  background: "linear-gradient(to right, #f5eedc 0%, rgba(245,238,220,0.9) 30%, rgba(245,238,220,0.3) 70%, transparent 100%)",
-                  zIndex: 2,
-                  pointerEvents: "none"
-                }} />
-
-                {/* Left Text (covers left 52% of width, overlapping the image fade area) */}
-                <div style={{
-                  position: "relative",
-                  zIndex: 3,
-                  width: "52%",
-                  padding: "24px 0 24px 28px", // Match left padding of parent frame
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  boxSizing: "border-box"
-                }}>
-                  <div style={{
-                    display: "inline-block",
-                    background: C.red, // Red badge to match theme
-                    color: "#fff",
-                    fontFamily: C.sans,
-                    fontSize: 13,
-                    fontWeight: 900,
-                    padding: "2px 8px",
-                    width: "fit-content",
-                    marginBottom: 10
-                  }}>
-                    2.
-                  </div>
-                  <h2 style={{
-                    fontFamily: C.serif,
-                    fontSize: "clamp(22px, 2.5vw, 26px)",
-                    fontWeight: 900,
-                    color: C.dark,
-                    margin: "0 0 2px 0",
-                    textTransform: "uppercase",
-                    letterSpacing: "-0.01em",
-                    lineHeight: 1.15
-                  }}>
-                    2. ĐỘT PHÁ HẠ TẦNG GIAO THÔNG
-                  </h2>
-                  <h2 style={{
-                    fontFamily: C.serif,
-                    fontSize: "clamp(26px, 3.2vw, 32px)",
-                    fontWeight: 900,
-                    color: C.brown, // Golden brown title to match design mockup style
-                    margin: "0 0 16px 0",
-                    textTransform: "uppercase",
-                    letterSpacing: "-0.01em",
-                    lineHeight: 1.1
-                  }}>
-                    trên trục Bắc – nam
-                  </h2>
-                  <p style={{
-                    fontFamily: C.body,
-                    fontSize: 15,
-                    lineHeight: 1.65,
-                    color: C.dark,
-                    opacity: 0.95,
-                    textAlign: "justify",
-                    margin: 0
-                  }}>
-                    Tư duy coi giao thông là hệ thống <strong>“mạch máu”</strong> kết nối quốc gia tiếp tục được thể hiện qua việc đầu tư tuyến đường bộ cao tốc Bắc – Nam phía Đông và đường sắt tốc độ cao trên trục Bắc – Nam.
-                  </p>
-                </div>
-              </div>
-
-              {/* Middle 2 Columns Grid */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 28, marginBottom: 24 }}>
-                {/* Left Column - Cao Tốc */}
-                <div style={{ borderRight: `1px dotted rgba(100,70,34,0.25)`, paddingRight: 24 }}>
-                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: "50%",
-                      background: C.red, display: "flex", alignItems: "center", justifyContent: "center",
-                      flexShrink: 0
-                    }}>
-                      <span style={{ color: "#fff", fontFamily: C.sans, fontWeight: 900, fontSize: 18 }}>A</span>
-                    </div>
-                    <h4 style={{ fontFamily: C.serif, fontSize: 18, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
-                      Tuyến đường bộ cao tốc <br /> Bắc – Nam phía Đông
-                    </h4>
-                  </div>
-                  <p style={{ fontFamily: C.body, fontSize: 18.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
-                    Tuyến cao tốc Bắc – Nam phía Đông được xác định là trục giao thông huyết mạch, có nhiệm vụ kết nối các trung tâm kinh tế, chính trị, khu công nghiệp, cảng biển, cảng hàng không và trung tâm logistics, từ đó tạo động lực phát triển kinh tế – xã hội và góp phần bảo đảm quốc phòng, an ninh quốc gia.
-                    <span style={{ display: "block", fontFamily: C.sans, fontSize: 10.5, color: C.muted, marginTop: 4 }}>
-                      (Báo Điện tử Chính phủ, 2021)
-                    </span>
-                  </p>
-
-                  {/* Connectivity Box */}
-                  <div style={{
-                    background: "rgba(122,26,28,0.03)", // Red theme tint
-                    border: `1.5px solid rgba(122,26,28,0.15)`,
-                    borderRadius: 4,
-                    padding: "12px 14px"
-                  }}>
-                    <p style={{ fontFamily: C.sans, fontSize: 10, fontWeight: 800, textTransform: "uppercase", color: C.red, textAlign: "center", margin: "0 0 12px 0", letterSpacing: "0.05em" }}>
-                      Kết nối toàn diện – Lan tỏa phát triển
-                    </p>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: 4 }}>
-                      {[
-                        {
-                          label: "Trung tâm kinh tế", icon: (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <line x1="18" y1="20" x2="18" y2="10" />
-                              <line x1="12" y1="20" x2="12" y2="4" />
-                              <line x1="6" y1="20" x2="6" y2="14" />
-                            </svg>
-                          )
-                        },
-                        {
-                          label: "Khu công nghiệp", icon: (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" />
-                              <path d="M4 11V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4" />
-                            </svg>
-                          )
-                        },
-                        {
-                          label: "Cảng biển", icon: (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <path d="M2 12h20M12 2v20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10" />
-                            </svg>
-                          )
-                        },
-                        {
-                          label: "Cảng hàng không", icon: (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73" />
-                              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-                            </svg>
-                          )
-                        },
-                        {
-                          label: "Trung tâm logistics", icon: (
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                              <rect x="3" y="3" width="18" height="18" rx="2" />
-                              <line x1="9" y1="3" x2="9" y2="21" />
-                              <line x1="15" y1="3" x2="15" y2="21" />
-                            </svg>
-                          )
-                        }
-                      ].map((item, idx) => (
-                        <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: "19%", textAlign: "center" }}>
-                          <div style={{
-                            width: 32, height: 32, borderRadius: "50%",
-                            background: C.red, border: `1px solid ${C.red}`,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            color: "#fff", marginBottom: 6,
-                            boxShadow: "0 2px 4px rgba(122,26,28,0.15)"
-                          }}>
-                            {item.icon}
-                          </div>
-                          <span style={{ fontFamily: C.sans, fontSize: 8.5, fontWeight: 700, color: C.dark, opacity: 0.9, lineHeight: 1.15 }}>
-                            {item.label.split(" ").slice(0, 2).join(" ")} <br /> {item.label.split(" ").slice(2).join(" ")}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column - Đường Sắt */}
-                <div>
-                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: "50%",
-                      background: C.red, display: "flex", alignItems: "center", justifyContent: "center",
-                      flexShrink: 0
-                    }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2">
-                        <rect x="4" y="3" width="16" height="13" rx="2" />
-                        <path d="M4 11h16M8 11v5M16 11v5" />
-                        <path d="M6 16v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2" />
-                        <circle cx="8" cy="7" r="1" fill="#fff" />
-                        <circle cx="16" cy="7" r="1" fill="#fff" />
-                      </svg>
-                    </div>
-                    <h4 style={{ fontFamily: C.serif, fontSize: 18, fontWeight: 800, color: C.red, textTransform: "uppercase", margin: 0, lineHeight: 1.2 }}>
-                      Dự án đường sắt tốc độ cao <br /> Bắc – Nam
-                    </h4>
-                  </div>
-                  <p style={{ fontFamily: C.body, fontSize: 18.5, lineHeight: 1.55, color: C.dark, opacity: 0.9, textAlign: "justify", margin: "0 0 14px 0" }}>
-                    Nghị quyết số 172/2024/QH15 xác định tuyến đường có chiều dài khoảng 1.541 km, kết nối Hà Nội với Thành phố Hồ Chí Minh. Dự án không chỉ phục vụ nhu cầu vận tải hành khách mà còn được thiết kế theo hướng lưỡng dụng, sẵn sàng phục vụ quốc phòng, an ninh và vận chuyển hàng hóa khi cần thiết.
-                    <span style={{ display: "block", fontFamily: C.sans, fontSize: 10.5, color: C.muted, marginTop: 4 }}>
-                      (Báo Điện tử Chính phủ, 2024)
-                    </span>
-                  </p>
-
-                  {/* Map + Detail grid */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1.15fr 0.85fr", gap: 12, alignItems: "center" }}>
-                    {/* Image Map of Vietnam - Detailed with Hoàng Sa and Trường Sa */}
-                    <div style={{
-                      display: "flex", justifyContent: "center", alignItems: "center",
-                      position: "relative",
-                      width: "100%"
-                    }}>
-                      <img
-                        src={imgVietnamMap}
-                        alt="Bản đồ Việt Nam"
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          maxHeight: 180,
-                          objectFit: "contain",
-                          display: "block",
-                          filter: "drop-shadow(0 3px 6px rgba(100,70,34,0.15))"
-                        }}
-                      />
-                    </div>
-
-                    {/* Detail Card - styling match with Image 1 */}
-                    <div style={{
-                      background: "rgba(122,26,28,0.03)",
-                      border: `1px solid rgba(122,26,28,0.15)`,
-                      borderRadius: 4,
-                      padding: "10px 14px",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center"
-                    }}>
-                      <span style={{ fontFamily: C.sans, fontSize: 9, fontWeight: 800, textTransform: "uppercase", color: C.muted, letterSpacing: "0.02em" }}>Chiều dài tuyến</span>
-                      <span style={{ fontFamily: C.serif, fontSize: 20, fontWeight: 900, color: C.red, margin: "2px 0 8px 0" }}>1.541 km</span>
-
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                        {[
-                          {
-                            text: "Phục vụ vận tải hành khách", icon: (
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                <circle cx="9" cy="7" r="4" />
-                              </svg>
-                            )
-                          },
-                          {
-                            text: "Phát triển hành lang kinh tế Bắc – Nam", icon: (
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <line x1="18" y1="20" x2="18" y2="10" />
-                                <line x1="12" y1="20" x2="12" y2="4" />
-                                <line x1="6" y1="20" x2="6" y2="14" />
-                              </svg>
-                            )
-                          },
-                          {
-                            text: "Lưỡng dụng: phục vụ QP - AN & vận tải", icon: (
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                              </svg>
-                            )
-                          }
-                        ].map((item, idx) => (
-                          <div key={idx} style={{ display: "flex", gap: 6, alignItems: "start" }}>
-                            <div style={{ color: C.red, marginTop: 1.5, flexShrink: 0 }}>
-                              {item.icon}
-                            </div>
-                            <span style={{ fontFamily: C.sans, fontSize: 9.5, color: C.dark, opacity: 0.9, lineHeight: 1.25 }}>
-                              {item.text}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quote full width block - Dark Red Maroon styled matching Image 1 layout */}
-              <div style={{
-                background: "#3e1617", // Dark maroon red matching original
-                color: "#fff",
-                padding: "16px 20px",
-                marginBottom: 24,
-                display: "grid",
-                gridTemplateColumns: "1.45fr 0.55fr",
-                gap: 16,
-                alignItems: "stretch"
-              }}>
-                <div style={{ display: "flex", gap: 12, alignItems: "start", padding: "4px 0" }}>
-                  <span style={{
-                    fontFamily: C.serif, fontSize: 44, color: C.accent, opacity: 0.6,
-                    lineHeight: 1, marginTop: -8, flexShrink: 0
-                  }}>"</span>
-                  <p style={{
-                    fontFamily: C.serif, 
-                    fontSize: 18, 
-                    fontWeight: 600, 
-                    fontStyle: "italic", 
-                    lineHeight: 1.6,
-                    color: "#f5eedc", 
-                    margin: 0, 
-                    textAlign: "justify"
-                  }}>
-                    Như vậy, mặc dù mục đích và hoàn cảnh lịch sử hiện nay khác với thời kỳ kháng chiến, việc phát triển các trục giao thông Bắc – Nam vẫn kế thừa tư duy chiến lược về tăng cường kết nối lãnh thổ, điều phối nguồn lực và củng cố năng lực quốc gia. Nếu các tuyến đường Trường Sơn và đường Hồ Chí Minh trên biển từng phục vụ trực tiếp nhiệm vụ chi viện chiến trường, thì các tuyến giao thông Bắc – Nam hiện nay vừa tạo động lực phát triển kinh tế, vừa góp phần nâng cao khả năng cơ động, ứng phó và bảo vệ Tổ quốc trong tình hình mới.
-                  </p>
-                </div>
-                <div style={{ position: "relative", overflow: "hidden" }}>
-                  <img
-                    src={imgVietnamHighwayBridge}
-                    alt="Cầu cao tốc"
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      minHeight: 100,
-                      objectFit: "cover",
-                      display: "block"
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Bottom 2 columns Grid - Matching Image 1 proportions (landscape road, distributed lists) */}
-              <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.7fr", gap: 24, alignItems: "stretch" }}>
-                {/* Left: Road image with sign overlay */}
-                <div style={{
-                  position: "relative",
-                  border: `1px solid rgba(100,70,34,0.18)`,
-                  padding: 4,
-                  background: "#fff",
-                  boxShadow: "0 4px 10px rgba(100,70,34,0.1)",
-                  display: "flex"
-                }}>
-                  <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
-                    <img
-                      src={imgVietnamHighwayTraffic}
-                      alt="Đường cao tốc Bắc Nam"
-                      style={{ width: "100%", height: 190, objectFit: "cover", display: "block" }}
-                    />
-                    {/* Green Signs Overlay - Styled nicely and centered like Image 1 */}
-                    <div style={{
-                      position: "absolute",
-                      top: 15,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      display: "flex",
-                      gap: 10,
-                      pointerEvents: "none"
-                    }}>
-                      <div style={{
-                        background: "#0f6c3f",
-                        color: "#fff",
-                        border: "1.5px solid #fff",
-                        padding: "4px 8px",
-                        boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
-                        fontFamily: C.sans,
-                        fontSize: 8.5,
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        lineHeight: 1.15
-                      }}>
-                        CAO TỐC<br />BẮC – NAM<br />PHÍA ĐÔNG
-                      </div>
-                      <div style={{
-                        background: "#0f6c3f",
-                        color: "#fff",
-                        border: "1.5px solid #fff",
-                        padding: "4px 8px",
-                        boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
-                        fontFamily: C.sans,
-                        fontSize: 8.5,
-                        fontWeight: "bold",
-                        textAlign: "center",
-                        lineHeight: 1.15,
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}>
-                        <span>KẾT NỐI</span>
-                        <span>PHÁT TRIỂN</span>
-                        <span>BỀN VỮNG</span>
-                      </div>
-                      <div style={{
-                        background: "#0f6c3f",
-                        color: "#fff",
-                        border: "1.5px solid #fff",
-                        padding: "4px 6px",
-                        boxShadow: "0 3px 6px rgba(0,0,0,0.3)",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center"
-                      }}>
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.5">
-                          <line x1="5" y1="19" x2="19" y2="5" />
-                          <polyline points="12 5 19 5 19 12" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right: Modern infrastructure points - Card background and spacing updated */}
-                <div style={{
-                  background: "rgba(122,26,28,0.03)",
-                  border: `1px solid rgba(122,26,28,0.15)`,
-                  borderRadius: 4,
-                  padding: "16px 18px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between"
-                }}>
-                  <h5 style={{
-                    fontFamily: C.sans, fontSize: 10, fontWeight: 800, color: C.red,
-                    textTransform: "uppercase", margin: "0 0 16px 0", lineHeight: 1.35, letterSpacing: "0.03em",
-                    textAlign: "center"
-                  }}>
-                    Hạ tầng giao thông hiện đại – Nền tảng cho phát triển đất nước
-                  </h5>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, justifyContent: "space-around" }}>
-                    {[
-                      {
-                        text: "Thúc đẩy tăng trưởng kinh tế – xã hội", icon: (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <line x1="18" y1="20" x2="18" y2="10" />
-                            <line x1="12" y1="20" x2="12" y2="4" />
-                            <line x1="6" y1="20" x2="6" y2="14" />
-                          </svg>
-                        )
-                      },
-                      {
-                        text: "Tăng cường liên kết vùng miền", icon: (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                          </svg>
-                        )
-                      },
-                      {
-                        text: "Bảo đảm quốc phòng, an ninh quốc gia", icon: (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                          </svg>
-                        )
-                      },
-                      {
-                        text: "Nâng cao năng lực cạnh tranh quốc gia", icon: (
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                            <circle cx="12" cy="12" r="10" />
-                            <line x1="2" y1="12" x2="22" y2="12" />
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10" />
-                          </svg>
-                        )
-                      }
-                    ].map((item, idx) => (
-                      <div key={idx} style={{ display: "flex", gap: 12, alignItems: "center" }}>
-                        <div style={{
-                          width: 28, height: 28, borderRadius: "50%",
-                          background: C.red, display: "flex", alignItems: "center", justifyContent: "center",
-                          color: "#fff", flexShrink: 0,
-                          boxShadow: "0 2px 5px rgba(122,26,28,0.15)"
-                        }}>
-                          {item.icon}
-                        </div>
-                        <span style={{ fontFamily: C.sans, fontSize: 11, color: C.dark, opacity: 0.95, fontWeight: 700, lineHeight: 1.25 }}>
-                          {item.text}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Page Footer — Brown themed */}
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingTop: 8,
-                borderTop: `1.5px solid ${C.brown}`,
-                marginTop: 32,
-                fontFamily: C.sans,
-                fontSize: 11,
-                fontWeight: 800,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: C.brown,
-              }}
-            >
-              <span>SỐ 05 – THÁNG 5/2024</span>
-              <span>Trang 27</span>
-            </div>
-          </div>
-        </article>
-      </Reveal>
     </>
   );
 }

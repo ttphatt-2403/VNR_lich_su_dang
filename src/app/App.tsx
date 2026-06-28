@@ -39,19 +39,31 @@ export default function App() {
 
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest('a[href^="#phan-"]');
+      const target = (e.target as HTMLElement).closest('a[href^="#"]');
       if (target) {
-        e.preventDefault();
         const href = target.getAttribute("href");
-        if (href) {
-          const id = href.substring(1);
-          const el = document.getElementById(id);
-          if (el) {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-            el.classList.remove("section-pulse");
-            void el.offsetWidth; // DOM reflow
-            el.classList.add("section-pulse");
-          }
+        if (!href) return;
+
+        if (href === "#") {
+          e.preventDefault();
+          setIsGameOpen(false);
+          setIsAIUsageOpen(false);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else if (href.startsWith("#phan-")) {
+          e.preventDefault();
+          setIsGameOpen(false);
+          setIsAIUsageOpen(false);
+
+          setTimeout(() => {
+            const id = href.substring(1);
+            const el = document.getElementById(id);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth", block: "start" });
+              el.classList.remove("section-pulse");
+              void el.offsetWidth; // DOM reflow
+              el.classList.add("section-pulse");
+            }
+          }, 80);
         }
       }
     };

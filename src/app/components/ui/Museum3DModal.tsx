@@ -68,8 +68,8 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
 
     // Setup scene, camera, renderer
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#c8a040"); // Warm golden-brown background
-    scene.fog = new THREE.FogExp2("#c8a040", 0.012);
+    scene.background = new THREE.Color("#6b7280"); // Slate gray background
+    scene.fog = new THREE.FogExp2("#6b7280", 0.012);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -640,7 +640,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
                   // Apply golden color to everything except near-black objects
                   // (pitch-black items like cables/metal details stay dark)
                   if (hsl.l > 0.05) {
-                    mat.color.set("#c8a040"); // Warm golden yellow for walls + ceiling
+                    mat.color.set("#6b7280"); // Slate gray for walls + ceiling
                     mat.roughness = 0.75;
                     mat.metalness = 0.05;
                   } else {
@@ -804,7 +804,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
         position: "fixed",
         inset: 0,
         zIndex: 9999,
-        background: "#c9b99a", // Beige to match 3D scene background
+        background: "#6b7280", // Slate gray to match 3D scene background
         display: "flex",
         flexDirection: "column",
         color: "#2b1e15",
@@ -822,7 +822,7 @@ export function Museum3DModal({ isOpen, onClose }: Museum3DModalProps) {
           left: 0,
           right: 0,
           padding: "16px 24px",
-          background: "linear-gradient(to bottom, rgba(180,150,110,0.92) 0%, rgba(180,150,110,0) 100%)",
+          background: "linear-gradient(to bottom, rgba(107,114,128,0.92) 0%, rgba(107,114,128,0) 100%)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

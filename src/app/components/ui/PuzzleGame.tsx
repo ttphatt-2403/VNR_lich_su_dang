@@ -24,6 +24,49 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
   const [keywordError, setKeywordError] = useState("");
   const [isKeywordWon, setIsKeywordWon] = useState(false);
 
+  // States cho Timer đếm ngược
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  // Khởi tạo timer khi mở câu hỏi mới
+  useEffect(() => {
+    if (selectedPiece === null) {
+      setTimeLeft(0);
+      return;
+    }
+    
+    const questionId = shuffledQuestionIds[selectedPiece - 1];
+    const q = GAME_QUESTIONS.find((q) => q.id === questionId);
+    if (!q) return;
+
+    // Các câu đuổi hình bắt chữ (q.type === "image") có 20s, câu hỏi trắc nghiệm/tự luận khác có 15s
+    const initialTime = q.type === "image" ? 20 : 15;
+    setTimeLeft(initialTime);
+    setHasFailedCurrent(false);
+    setErrorMsg("");
+  }, [selectedPiece, shuffledQuestionIds]);
+
+  // Countdown logic
+  useEffect(() => {
+    if (selectedPiece === null || timeLeft <= 0 || hasFailedCurrent) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setErrorMsg("Hết thời gian! Mảnh ghép này đã bị khóa vĩnh viễn.");
+          setHasFailedCurrent(true);
+          if (selectedPiece !== null && !lostPieces.includes(selectedPiece)) {
+            setLostPieces((prevLost) => [...prevLost, selectedPiece]);
+          }
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [selectedPiece, timeLeft, hasFailedCurrent, lostPieces]);
+
   useEffect(() => {
     const ids = GAME_QUESTIONS.map((q) => q.id);
     for (let i = ids.length - 1; i > 0; i--) {
@@ -389,14 +432,102 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
         </div>
       )}
 
+      {/* Rules Section (Thể lệ tính điểm) */}
+      <div
+        style={{
+          marginTop: 32,
+          background: "#fdfbf7",
+          border: `2px solid ${C.brown}`,
+          padding: "28px 36px",
+          borderRadius: 8,
+          width: "90vw",
+          maxWidth: 800,
+          boxShadow: "0 6px 20px rgba(0,0,0,0.15)",
+          color: C.dark,
+        }}
+      >
+        <h3
+          style={{
+            fontFamily: C.serif,
+            color: C.red,
+            fontSize: 22,
+            marginBottom: 20,
+            textTransform: "uppercase",
+            fontWeight: 800,
+            letterSpacing: "0.05em",
+            textAlign: "center",
+            borderBottom: `1px solid rgba(122,26,28,0.15)`,
+            paddingBottom: 10,
+          }}
+        >
+          Thể Lệ Tính Điểm
+        </h3>
+        
+        <div style={{ fontFamily: C.body, fontSize: 16, lineHeight: 1.7, textAlign: "left" }}>
+          <ol style={{ paddingLeft: 20, margin: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+            <li>
+              Mỗi câu trả lời đúng: <strong style={{ color: C.red }}>5 điểm/câu</strong>.
+              <br />
+              <span style={{ fontStyle: "italic", opacity: 0.85 }}>Ví dụ: Trả lời đúng 10/20 câu sẽ được 50 điểm.</span>
+              <br />
+              <strong style={{ color: C.red }}>Lưu ý:</strong> nếu trả lời sai câu đó là sẽ bị khoá, và mất 5đ.
+            </li>
+            
+            <li>
+              Đoán đúng cụm từ khoá của ảnh nền phía sau: <strong style={{ color: C.red }}>Cộng 30 điểm</strong>.
+            </li>
+            
+            <li>
+              Điểm tốc độ dành cho 3 nhóm hoàn thành nhanh nhất:
+              <ul style={{ listStyleType: "none", paddingLeft: 16, marginTop: 6, display: "flex", flexDirection: "column", gap: 4 }}>
+                <li style={{ display: "flex", alignItems: "center" }}>
+                  <span style={{ color: C.red, marginRight: 8 }}>•</span>
+                  Nhanh nhất: <strong style={{ color: C.red, marginLeft: 4 }}>Cộng 20 điểm</strong>.
+                </li>
+                <li style={{ display: "flex", alignItems: "center" }}>
+                  <span style={{ color: C.red, marginRight: 8 }}>•</span>
+                  Nhanh thứ hai: <strong style={{ color: C.red, marginLeft: 4 }}>Cộng 15 điểm</strong>.
+                </li>
+                <li style={{ display: "flex", alignItems: "center" }}>
+                  <span style={{ color: C.red, marginRight: 8 }}>•</span>
+                  Nhanh thứ ba: <strong style={{ color: C.red, marginLeft: 4 }}>Cộng 10 điểm</strong>.
+                </li>
+                <li style={{ display: "flex", alignItems: "center", opacity: 0.85 }}>
+                  <span style={{ color: C.red, marginRight: 8 }}>•</span>
+                  Các nhóm còn lại không được cộng điểm tốc độ.
+                </li>
+              </ul>
+            </li>
+            
+            <li>
+              Điểm cuối cùng mỗi nhóm = <strong style={{ color: C.red }}>Điểm trả lời đúng + Điểm đoán hình + Điểm tốc độ</strong>.
+            </li>
+          </ol>
+          
+          <div 
+            style={{ 
+              marginTop: 20, 
+              paddingTop: 12, 
+              borderTop: "1px dashed rgba(0,0,0,0.1)", 
+              fontWeight: 700, 
+              fontStyle: "italic", 
+              color: C.dark,
+              textAlign: "center" 
+            }}
+          >
+            → Nhóm có tổng điểm cao nhất sau khi kết thúc trò chơi sẽ giành chiến thắng.
+          </div>
+        </div>
+      </div>
+
       {/* Question Modal for Selected Piece */}
       {selectedPiece !== null && (
         <div
           style={{
-            position: "absolute",
+            position: "fixed",
             inset: 0,
             background: "rgba(0,0,0,0.8)",
-            zIndex: 200,
+            zIndex: 999,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -418,6 +549,28 @@ export function PuzzleGame({ onClose }: PuzzleGameProps) {
             <h3 style={{ fontFamily: C.serif, fontSize: 24, color: C.red, marginBottom: 16 }}>
               Câu hỏi mảnh ghép số {selectedPiece}
             </h3>
+            
+            {timeLeft > 0 && !hasFailedCurrent && (
+              <div 
+                style={{ 
+                  display: "inline-flex", 
+                  alignItems: "center", 
+                  gap: 6, 
+                  background: timeLeft <= 5 ? "rgba(220,53,69,0.15)" : "rgba(100,70,34,0.1)", 
+                  color: timeLeft <= 5 ? "#dc3545" : C.brown, 
+                  padding: "6px 14px", 
+                  borderRadius: 20, 
+                  fontFamily: C.sans, 
+                  fontSize: 15, 
+                  fontWeight: 700, 
+                  marginBottom: 20,
+                  transition: "all 0.3s ease",
+                  border: `1.5px solid ${timeLeft <= 5 ? "#dc3545" : "rgba(100,70,34,0.3)"}`
+                }}
+              >
+                ⏱️ Thời gian còn lại: {timeLeft} giây
+              </div>
+            )}
             
             {(() => {
               if (shuffledQuestionIds.length === 0) return <p>Nội dung câu hỏi đang được khởi tạo...</p>;

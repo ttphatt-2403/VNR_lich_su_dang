@@ -90,22 +90,11 @@ export const P3_APPLICATIONS = [
     connection: "Kế thừa bài học độc lập, tự chủ trong giai đoạn 1954–1965.",
     source: "Bộ Ngoại giao (2024, 2025); Bộ Quốc phòng (2019)"
   },
-  {
-    domain: "2. Đột phá hạ tầng giao thông trên trục Bắc – Nam",
-    headline: "Đột phá hạ tầng giao thông Bắc–Nam",
-    points: [
-      "Tư duy coi giao thông là hệ thống “mạch máu” kết nối quốc gia tiếp tục được thể hiện qua việc đầu tư tuyến đường bộ cao tốc Bắc – Nam phía Đông và đường sắt tốc độ cao trên trục Bắc – Nam. Tuyến cao tốc Bắc – Nam phía Đông được xác định là trục giao thông huyết mạch, có nhiệm vụ kết nối các trung tâm kinh tế, chính trị, khu công nghiệp, cảng biển, cảng hàng không và trung tâm logistics, từ đó tạo động lực phát triển kinh tế – xã hội và góp phần bảo đảm quốc phòng, an ninh quốc gia (Báo Điện tử Chính phủ, 2021).",
-      "Đối với dự án đường sắt tốc độ cao Bắc – Nam, Nghị quyết số 172/2024/QH15 xác định tuyến đường có chiều dài khoảng 1.541 km, kết nối Hà Nội với Thành phố Hồ Chí Minh. Dự án không chỉ phục vụ nhu cầu vận tải và phát triển hành lang kinh tế Bắc – Nam mà còn được thiết kế theo hướng lưỡng dụng, có khả năng phục vụ quốc phòng, an ninh và vận chuyển hàng hóa khi cần thiết (Báo Điện tử Chính phủ, 2024).",
-      "Như vậy, mặc dù mục đích và hoàn cảnh lịch sử hiện nay khác với thời kỳ kháng chiến, việc phát triển các trục giao thông Bắc – Nam vẫn kế thừa tư duy chiến lược về tăng cường kết nối lãnh thổ, điều phối nguồn lực và củng cố năng lực quốc gia. Nếu các tuyến đường Trường Sơn và đường Hồ Chí Minh trên biển từng phục vụ trực tiếp nhiệm vụ chi viện chiến trường, thì các tuyến giao thông Bắc – Nam hiện nay vừa tạo động lực phát triển kinh tế, vừa góp phần nâng cao khả năng cơ động, ứng phó và bảo vệ Tổ quốc trong tình hình mới."
-    ],
-    connection: "Kế thừa tư duy chiến lược về kết nối lãnh thổ và điều phối nguồn lực thời chiến.",
-    source: "Báo Điện tử Chính phủ (2021, 2024)"
-  },
+
 ];
 
 export const P3_REFERENCES = [
-  "Báo Điện tử Chính phủ. (2021). Chính phủ kiến nghị QH quyết định chủ trương đầu tư cao tốc Bắc–Nam phía Đông giai đoạn 2021–2025.",
-  "Báo Điện tử Chính phủ. (2024). Đầu tư hơn 1,713 triệu tỷ đồng cho Dự án đường sắt tốc độ cao Bắc–Nam (NQ 172/2024/QH15).",
+
   "Bộ Ngoại giao. (2024). Từ lịch sử ngàn năm dựng nước đến triết lý “ngoại giao cây tre”.",
   "Bộ Ngoại giao. (2025). Việt Nam và Anh nâng cấp quan hệ lên Đối tác chiến lược toàn diện.",
   "Bộ Quốc phòng. (2019). Không thể xuyên tạc chính sách quốc phòng của Việt Nam.",
