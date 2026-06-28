@@ -1275,11 +1275,20 @@ export function Section2() {
                     <h3 style={{ fontFamily: C.serif, fontSize: 19.5, fontWeight: 800, color: C.red, margin: "0 0 10px 0" }}>
                       1. Trường phái "Ngoại giao cây tre"
                     </h3>
-                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 12px 0", textAlign: "justify" }}>
-                      Bài học về độc lập, tự chủ và linh hoạt trong quan hệ quốc tế tiếp tục được thể hiện qua trường phái "Ngoại giao cây tre Việt Nam". Trong bối cảnh cạnh tranh chiến lược giữa các nước lớn ngày càng phức tạp, Việt Nam kiên định đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; đồng thời thực hiện đa phương hóa, đa dạng hóa quan hệ quốc tế. Ngoại giao Việt Nam được xác định là kiên định về nguyên tắc và mục tiêu nhưng linh hoạt, chủ động về phương pháp, qua đó bảo vệ lợi ích quốc gia – dân tộc và duy trì môi trường hòa bình phục vụ phát triển đất nước (Bộ Ngoại giao, 2024).
+                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 10px 0", textAlign: "justify" }}>
+                      Bài học về độc lập, tự chủ và linh hoạt trong quan hệ quốc tế tiếp tục được thể hiện qua trường phái <strong>"Ngoại giao cây tre Việt Nam"</strong>.
+                    </p>
+                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 10px 0", textAlign: "justify" }}>
+                      Trong bối cảnh cạnh tranh chiến lược giữa các nước lớn ngày càng phức tạp, Việt Nam kiên định đường lối đối ngoại độc lập, tự chủ, hòa bình, hợp tác và phát triển; đồng thời thực hiện đa phương hóa, đa dạng hóa quan hệ quốc tế.
+                    </p>
+                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 16px 0", textAlign: "justify" }}>
+                      Ngoại giao Việt Nam được xác định là kiên định về nguyên tắc và mục tiêu nhưng linh hoạt, chủ động về phương pháp, qua đó bảo vệ lợi ích quốc gia – dân tộc và duy trì môi trường hòa bình phục vụ phát triển đất nước (Bộ Ngoại giao, 2024).
+                    </p>
+                    <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: "0 0 10px 0", textAlign: "justify" }}>
+                      Tính đến năm 2026, Việt Nam đã thiết lập quan hệ <strong>Đối tác chiến lược toàn diện</strong> với cả năm nước Ủy viên Thường trực Hội đồng Bảo an Liên Hợp Quốc, gồm Trung Quốc, Nga, Mỹ, Pháp và Anh.
                     </p>
                     <p style={{ fontFamily: C.body, fontSize: 18, lineHeight: 1.6, color: C.dark, opacity: 0.95, margin: 0, textAlign: "justify" }}>
-                      Tính đến năm 2026, Việt Nam đã thiết lập quan hệ Đối tác chiến lược toàn diện với cả năm nước Ủy viên Thường trực Hội đồng Bảo an Liên Hợp Quốc, gồm Trung Quốc, Nga, Mỹ, Pháp và Anh. Trong đó, quan hệ Việt Nam – Anh được nâng cấp lên Đối tác chiến lược toàn diện vào tháng 10 năm 2025 (Bộ Ngoại giao, 2025). Điều này phản ánh khả năng mở rộng và cân bằng quan hệ với các nước lớn trên cơ sở tôn trọng độc lập, chủ quyền và lợi ích quốc gia.
+                      Trong đó, quan hệ Việt Nam – Anh được nâng cấp lên <strong>Đối tác chiến lược toàn diện</strong> vào tháng 10 năm 2025 (Bộ Ngoại giao, 2025). Điều này phản ánh khả năng mở rộng và cân bằng quan hệ với các nước lớn trên cơ sở tôn trọng độc lập, chủ quyền và lợi ích quốc gia.
                     </p>
                   </Reveal>
                 </div>
