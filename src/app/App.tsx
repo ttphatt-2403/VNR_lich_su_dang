@@ -9,6 +9,8 @@ import { Section2 } from "@/app/components/sections/Section2";
 import { Section4 } from "@/app/components/sections/Section4";
 import { Museum3DModal } from "@/app/components/ui/Museum3DModal";
 import { PuzzleGame } from "@/app/components/ui/PuzzleGame";
+import { AIUsagePage } from "@/app/components/ui/AIUsagePage";
+
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -19,6 +21,8 @@ export default function App() {
   const [issue] = useState({ num: "05", date: "Tháng 5/2024" });
   const [isMuseumOpen, setIsMuseumOpen] = useState(false);
   const [isGameOpen, setIsGameOpen] = useState(false);
+  const [isAIUsageOpen, setIsAIUsageOpen] = useState(false);
+
 
   useEffect(() => {
     const h = () => {
@@ -478,11 +482,20 @@ export default function App() {
 
       <Navbar scrolled={scrolled} mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} issue={issue}
         onOpenMuseum={() => setIsMuseumOpen(true)}
-        onOpenGame={() => setIsGameOpen(true)}
+        onOpenGame={() => {
+          setIsGameOpen(true);
+          setIsAIUsageOpen(false);
+        }}
+        onOpenAIUsage={() => {
+          setIsAIUsageOpen(true);
+          setIsGameOpen(false);
+        }}
       />
 
       {isGameOpen ? (
         <PuzzleGame onClose={() => setIsGameOpen(false)} />
+      ) : isAIUsageOpen ? (
+        <AIUsagePage onClose={() => setIsAIUsageOpen(false)} />
       ) : (
         <>
           {/* Glowing scroll progress indicator */}
@@ -530,7 +543,10 @@ export default function App() {
         <Section4/>
       </main>
 
-      <Footer issue={issue}/>
+      <Footer issue={issue} onOpenAIUsage={() => {
+        setIsAIUsageOpen(true);
+        setIsGameOpen(false);
+      }}/>
 
       {showTop && (
         <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

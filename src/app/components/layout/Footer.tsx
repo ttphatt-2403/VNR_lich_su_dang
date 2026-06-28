@@ -3,9 +3,10 @@ import { CHAPTERS } from "@/data/content";
 
 interface FooterProps {
   issue: { num: string; date: string };
+  onOpenAIUsage: () => void;
 }
 
-export function Footer({ issue }: FooterProps) {
+export function Footer({ issue, onOpenAIUsage }: FooterProps) {
   return (
     <footer style={{ borderTop: `4px solid ${C.red}`, background: C.dark }}>
       {/* Big ending title */}
@@ -37,7 +38,7 @@ export function Footer({ issue }: FooterProps) {
             Tư liệu Lịch sử Đảng
           </span>
         </div>
-        <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", gap: 20, flexWrap: "wrap", alignItems: "center" }}>
           {CHAPTERS.map(ch => (
             <a key={ch.id} href={`#${ch.id}`} style={{ fontFamily: C.body, fontSize: 12, color: "rgba(201,164,92,0.4)", textDecoration: "none", transition: C.tr }}
               onMouseEnter={e => (e.currentTarget as HTMLAnchorElement).style.color = C.accent}
@@ -45,6 +46,26 @@ export function Footer({ issue }: FooterProps) {
               <span style={{ fontFamily: C.serif, fontWeight: 700, marginRight: 5 }}>{ch.roman}.</span>{ch.label}
             </a>
           ))}
+          <button 
+            onClick={onOpenAIUsage} 
+            style={{ 
+              background: "none", 
+              border: "none", 
+              fontFamily: C.body, 
+              fontSize: 12, 
+              color: "rgba(201,164,92,0.4)", 
+              cursor: "pointer", 
+              textDecoration: "none", 
+              transition: C.tr,
+              padding: 0,
+              display: "flex",
+              alignItems: "center"
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = C.accent}
+            onMouseLeave={e => e.currentTarget.style.color = "rgba(201,164,92,0.4)"}
+          >
+            <span style={{ marginRight: 5 }}>★</span>Báo cáo AI
+          </button>
         </div>
         <span style={{ fontFamily: C.sans, fontSize: 11, color: "rgba(201,164,92,0.4)", letterSpacing: "0.1em" }}>
           Đảng Cộng sản Việt Nam

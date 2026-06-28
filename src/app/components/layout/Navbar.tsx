@@ -9,9 +9,10 @@ interface NavbarProps {
   issue: { num: string; date: string };
   onOpenMuseum: () => void;
   onOpenGame: () => void;
+  onOpenAIUsage: () => void;
 }
 
-export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseum, onOpenGame }: NavbarProps) {
+export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseum, onOpenGame, onOpenAIUsage }: NavbarProps) {
   return (
     <>
       <header style={{
@@ -121,6 +122,47 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseu
               </svg>
               Bảo Tàng 3D
             </button>
+
+            <button
+              onClick={onOpenAIUsage}
+              style={{
+                background: C.bg2,
+                color: C.dark,
+                border: `1.5px solid ${C.accent}`,
+                fontFamily: C.sans,
+                fontSize: 11,
+                fontWeight: 800,
+                padding: "6px 14px",
+                borderRadius: 4,
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+                marginLeft: 16,
+                boxShadow: "0 4px 10px rgba(212,163,69,0.15)",
+                transition: C.tr,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#ebdcb9";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = C.bg2;
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <line x1="10" y1="9" x2="8" y2="9" />
+              </svg>
+              Báo Cáo AI
+            </button>
+
           </div>
 
           <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}
@@ -198,6 +240,39 @@ export function Navbar({ scrolled, mobileOpen, setMobileOpen, issue, onOpenMuseu
             </svg>
             Tham Quan Bảo Tàng 3D
           </button>
+
+          <button
+            onClick={() => {
+              setMobileOpen(false);
+              onOpenAIUsage();
+            }}
+            style={{
+              background: C.bg2,
+              color: C.dark,
+              border: `1.5px solid ${C.accent}`,
+              fontFamily: C.sans,
+              fontSize: 15,
+              fontWeight: 800,
+              padding: "10px 24px",
+              borderRadius: 4,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              marginTop: 12,
+              boxShadow: "0 6px 16px rgba(212,163,69,0.2)",
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="16" y1="13" x2="8" y2="13" />
+              <line x1="16" y1="17" x2="8" y2="17" />
+              <line x1="10" y1="9" x2="8" y2="9" />
+            </svg>
+            Báo Cáo Sử Dụng AI
+          </button>
+
         </div>
       )}
     </>
