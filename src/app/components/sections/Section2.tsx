@@ -534,7 +534,7 @@ export function Section2() {
                     Nghị quyết 15 (1-1959):
                   </h4>
                   <p style={{ fontFamily: C.body, fontSize: 19.5, lineHeight: 1.6, color: C.dark, margin: 0 }}>
-                    Ra đời trong Hội nghị TW lần thứ 15 khoá II: Đánh dấu bước ngoặt lớn, Đảng xác định con đường cách mạng miền Nam là sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để giành chính quyền.
+                    Ra đời trong <strong>Hội nghị TW</strong> lần thứ 15 khoá II: Đánh dấu bước ngoặt lớn, Đảng xác định con đường cách mạng miền Nam là sử dụng bạo lực cách mạng, kết hợp đấu tranh chính trị với đấu tranh quân sự để giành chính quyền.
                   </p>
                   <div style={{ border: "1px solid rgba(0,0,0,0.06)", padding: 4, background: "#fff", boxShadow: "0 4px 10px rgba(0,0,0,0.05)", marginTop: 12 }}>
                     <img
