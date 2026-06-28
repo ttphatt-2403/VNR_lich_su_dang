@@ -1561,6 +1561,7 @@ export function Section2() {
                     fontFamily: C.sans,
                     fontSize: 10.5,
                     fontWeight: 700,
+                    color: "#fff",
                     letterSpacing: "0.05em",
                     lineHeight: 1.4,
                     margin: 0,
